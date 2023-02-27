@@ -1,0 +1,36 @@
+.card {
+    padding: 15px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .2);
+    margin: 15px;
+}
+
+.card-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    font-variant: small-caps;
+}
+
+.card-title-left {
+    width: calc(100% - 80px);
+    float: left;
+}
+
+.card-date {
+    font-size: 0.9em;
+    width: 80px;
+    float: right;
+    vertical-align: top;
+    text-align: right;
+}
+
+.card-list {
+    margin: 0;
+    padding: 0;
+}
+
+.card-clickable:hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .7);
+    cursor: pointer;
+}

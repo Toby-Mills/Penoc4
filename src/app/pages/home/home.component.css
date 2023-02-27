@@ -1,0 +1,29 @@
+img#map {
+    height: 100px;
+    border: 1px solid #666;
+    vertical-align: top;
+    margin-right: 8px;
+}
+
+img.social {
+    height: 2em;
+    margin-right: 5px;
+    float: left;
+}
+
+#whats-app-link:hover {
+    cursor: pointer;
+}
+
+button#entryNinja {
+    background-color:rgb(97,99,101);
+    color: white;
+    border:none;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 4px;
+}
+
+button#entryNinja:hover {
+    cursor: pointer;
+}

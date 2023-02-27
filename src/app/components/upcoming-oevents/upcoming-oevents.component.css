@@ -1,0 +1,10 @@
+hr {
+    border-color:lightgray;
+    border-bottom: 0px;
+    border-style:solid;
+    margin-top: 10px;
+}
+
+div.oevent {
+    margin-top:10px;
+}

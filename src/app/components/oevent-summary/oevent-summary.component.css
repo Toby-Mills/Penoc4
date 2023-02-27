@@ -1,0 +1,38 @@
+div#event {
+    width: 500px;
+}
+
+table.results {
+    background-color: white;
+}
+
+table.results th {
+    text-align: left;
+    margin: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid rgb(97,99,101);
+    border-top: 1px solid rgb(97,99,101);
+}
+
+table.results td {
+    padding: 2px 8px;
+    margin: 0px;
+    ;
+}
+
+div#name {
+    float:left;
+}
+
+div#date {
+    float:right;
+}
+
+div#venue {
+    clear:both;
+}
+
+span.venue {
+    font-size: 0.8em;
+}

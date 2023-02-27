@@ -1,0 +1,14 @@
+<div *ngIf="this.display" id="modal-background" (click)="this.display=false;">
+    <div id="dialog" class="card" style="text-align:left;">
+        <img id="logo" src="assets/WhatsApp.svg"><span class="card-title">Join the WhatsApp Group</span>
+        <br>
+        <p>To receive event details and updates directly on your phone, join our WhatsApp group.</p>
+        <ol>
+            <li>Open WhatsApp on your phone</li>
+            <li>Tap the <b>New Chat</b> icon</li>
+            <li>Tap the <b>QR code </b>icon next to 'New contact'</li>
+            <li>Scan the QR code below</li>
+        </ol>
+        <div style="text-align:center"><img id="qr-code" src="assets/whatsappQRcode.png"></div>
+    </div>
+</div>

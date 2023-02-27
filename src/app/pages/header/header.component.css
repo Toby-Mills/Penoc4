@@ -1,0 +1,69 @@
+#header {
+    font-family: 'Roboto Condensed';
+    font-size: 3rem;
+    background-color: rgb(97,99,101);
+    color:#ff6720;
+}
+
+#header #content {
+    box-sizing: border-box;
+    width: 1200px;
+    margin: auto;
+    padding: 10px 20px 10px 20px;
+}
+
+#colour-accent {
+    background-color: #ff6720;
+    height: 12px;
+}
+
+#content img {
+    vertical-align: bottom;
+}
+
+span#abbreviation {
+    font-weight: 700;
+    margin: 4px 20px 4px 20px;
+}
+
+#full-name {
+    margin: 4px;
+    font-weight: 400;
+}
+
+#menu {
+    background-color:rgb(200, 200, 200);
+
+}
+
+#menu div {
+    box-sizing: border-box;
+    width: 1200px;
+    margin: auto;
+    padding: 10px 20px 10px 20px;
+}
+
+#menu nav ul {
+    font-size: 1.1rem;
+    list-style: none;
+    margin: 0px;
+}
+
+li {
+    display: inline;
+    padding-right: 21px;
+    margin-right: 20px;
+}
+
+li a {
+    text-decoration: none;
+    color: rgb(21, 20, 20);
+    padding: 5px 14px;
+    margin: 4px;
+    border-radius: 6px;
+}
+
+li a.router-link-active {
+       background-color: #ff6720;
+    color: white; 
+}

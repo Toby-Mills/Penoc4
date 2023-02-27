@@ -1,0 +1,31 @@
+#modal-background {
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    position:fixed;
+    height: 100vh;
+    width: 100vw;
+}
+
+#dialog {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 400px;
+    height: 550px;
+    text-align: center;
+}
+
+#logo {
+    height: 50px;
+    vertical-align: top;
+    margin-right: 40px;
+}
+
+#qr-code {
+    height: 250px;
+    margin: 20px;
+}

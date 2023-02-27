@@ -1,0 +1,21 @@
+<div id="event" *ngIf="this.oeventSummary.oEvent" class="card">
+    <div id="name"><span class="card-title">{{this.oeventSummary.oEvent.name}}</span></div>
+    <div id="date"><span class="card-title"></span>{{this.oeventSummary.oEvent.date | date}}</div>
+    <div id="venue"><span class="venue">{{this.oeventSummary.oEvent.venue}}</span></div>
+    <table class="results">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Winner</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let courseResults of this.oeventSummary.courseResults">
+                <td>{{courseResults.course.name}}</td>
+                <td>{{courseResults.results[0].competitor}}</td>
+                <td>{{courseResults.results[0].time | time}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

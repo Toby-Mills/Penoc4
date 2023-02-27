@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color:#EEEEEE;
+    margin:0px;
+    overflow-x: hidden;
+    font-family: "Segoe UI","Open Sans","Helvetica Neue",Helvetica,'Roboto Condensed',Arial,sans-serif;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    font-size: 17px;
+}
+
+h1 {
+    font-size: 1.3em;
+}
+
+h2 {
+    font-size: 1.1em;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+.clear-fix{
+    clear: both;
+}
+
+@media screen and (max-width: 1200px) {
+    body{font-size: 12pt;}
+}
+
+@media screen and (max-width: 1000px) {
+    body{font-size: 11pt;}
+}
+
+@media screen and (max-width: 600px) {
+    body{font-size: 10pt;}
+}
