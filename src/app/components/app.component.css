@@ -1,5 +1,6 @@
 #background {
-    background: url('../../assets/trees-background.jfif');
+    background: url('../../assets/background.jpg');
+    background-size: cover;
     background-attachment: fixed;
 }
 
