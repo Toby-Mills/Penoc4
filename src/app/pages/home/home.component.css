@@ -11,6 +11,10 @@ img.social {
     float: left;
 }
 
+#whats-app-icon:hover {
+    cursor: pointer;
+}
+
 #whats-app-link:hover {
     cursor: pointer;
 }
