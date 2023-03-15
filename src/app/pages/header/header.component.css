@@ -1,15 +1,24 @@
 #header {
-    font-family: 'Roboto Condensed';
-    font-size: 3rem;
     background-color: rgb(97,99,101);
-    color:#ff6720;
 }
 
 #header #content {
     box-sizing: border-box;
-    width: 1200px;
+    overflow-y: auto;
+    width: 1280px;
     margin: auto;
     padding: 10px 20px 10px 20px;
+}
+
+#content-left {
+    float:left;
+    font-family: 'Roboto Condensed';
+    font-size: 3rem;
+    color:#ff6720;
+}
+
+#content-right {
+    float:right;
 }
 
 #colour-accent {

@@ -18,6 +18,7 @@ import { TimePipe } from './pipes/time.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { SortEventDatePipe } from './pipes/sort-event-date.pipe';
 import { ScrollIntoViewDirective } from './directives/is-visible.directive';
+import { NextEventComponent } from './components/next-event/next-event.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { ScrollIntoViewDirective } from './directives/is-visible.directive';
     SortEventDatePipe,
     ScrollIntoViewDirective,
     UpcomingOeventsComponent,
+    NextEventComponent,
   ],
   imports: [
     BrowserModule,
