@@ -22,8 +22,12 @@ a {
     color: blue;
 }
 
-.clear-fix{
+.clear-fix {
     clear: both;
+}
+
+.clickable:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {
