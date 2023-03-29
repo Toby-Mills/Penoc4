@@ -17,7 +17,7 @@ private inView: boolean = false;
  private isInView():boolean{
   const element = this.element.nativeElement;
     const rect = element.getBoundingClientRect();
-    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+    if (rect.top <= window.innerHeight && rect.bottom >=0 ) {
       return true;
     }else{
       return false;
