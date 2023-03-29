@@ -19,6 +19,7 @@ import { DatePipe } from './pipes/date.pipe';
 import { SortEventDatePipe } from './pipes/sort-event-date.pipe';
 import { ScrollIntoViewDirective } from './directives/is-visible.directive';
 import { NextEventComponent } from './components/next-event/next-event.component';
+import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
 @NgModule({
   declarations: [
     AppComponent,

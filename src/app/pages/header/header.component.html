@@ -7,7 +7,7 @@
         <span id="full-name">Peninsula Orienteering Club</span>
     </div>
     <div id="content-right">
-        <app-next-event></app-next-event>
+        <app-next-event (eventClick)="this.nextEventClicked($event)"></app-next-event>
     </div>
     </div>
 </div>

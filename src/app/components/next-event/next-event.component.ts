@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OEvent } from 'src/app/models/oevent.model';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
@@ -8,6 +8,7 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
   styleUrls: ['./next-event.component.css']
 })
 export class NextEventComponent implements OnInit {
+  @Output() eventClick = new EventEmitter<number>();
   public nextEvent: OEvent = new OEvent();
   constructor(private api: PenocApiService) { }
 
@@ -20,6 +21,10 @@ export class NextEventComponent implements OnInit {
       }
 
     })
+  }
+
+  public nextEventClicked() {
+    this.eventClick.emit(this.nextEvent.id);
   }
 
 }
