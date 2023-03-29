@@ -5,16 +5,24 @@
 #header #content {
     box-sizing: border-box;
     overflow-y: auto;
-    width: 1280px;
+    width: 1200px;
     margin: auto;
     padding: 10px 20px 10px 20px;
 }
 
 #content-left {
     float:left;
+}
+
+#content-center {
+    float:left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
     font-family: 'Roboto Condensed';
     font-size: 3rem;
-    color:#ff6720;
+    color:#ff6720; 
 }
 
 #content-right {
@@ -27,6 +35,7 @@
 }
 
 #content img {
+    height: 90px;
     vertical-align: bottom;
 }
 
