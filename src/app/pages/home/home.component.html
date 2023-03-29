@@ -29,12 +29,12 @@
     <div style="width: 450px;float:left;">
         <div class="card">
             <span class="card-title">Event Entries</span><br>
-            <span>The club uses 'Entry Ninja' for managing event entries. Click here to see which events are open for entry</span>
+            <span>The club uses 'Entry Ninja' for managing event entries. Click here to see which events are open for entry</span><br>
             <a target="_blank" href="https://www.entryninja.com/events/organiser/15652-peninsula-orienteering-club"><button id="entryNinja">Entry Ninja</button></a>
         </div>
         <div class="card" style="min-height:500px;">
             <span class="card-title">Upcoming Events</span><br>
-            <app-upcoming-oevents></app-upcoming-oevents>
+            <app-upcoming-oevents (oeventClicked)="onUpcomingEventClicked($event)"></app-upcoming-oevents>
         </div>
     </div>
     <app-whats-app></app-whats-app>
