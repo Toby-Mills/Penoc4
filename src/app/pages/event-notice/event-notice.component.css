@@ -1,0 +1,21 @@
+h1 {
+    color: #ff6720;
+    font-variant: small-caps;
+}
+
+h2 {
+    margin-bottom: 4px;
+    color: rgb(200, 200, 200);
+    font-variant: small-caps;
+}
+
+hr {
+    border-color: rgb(200, 200, 200);
+    border-bottom: 0px;
+    border-style: solid;
+    margin-top: 1px;
+}
+
+b, strong {
+    color: rgb(97,99,101);
+}
