@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { catchError, first, map, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
 import { OEventSummary } from '../models/oevent-summary';
@@ -32,7 +32,9 @@ export class PenocApiService {
   }
 
   public getOEvent(idOEvent: number): Observable<OEvent> {
-    return this.get<OEvent>('/oevents/' + idOEvent, {});
+    return this.get<OEvent>('/oevents/' + idOEvent, {}).pipe(
+      map(oevents => oevents[0]),first()//return the first item from the array
+    );
   }
 
   getOEvents(name?: string, venue?: string, dateFrom?: Date, dateTo?: Date): Observable<OEvent[]> {
