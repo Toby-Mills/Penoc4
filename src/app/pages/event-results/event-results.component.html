@@ -1,0 +1,2 @@
+<div *ngIf="this.oEventSummary && this.oEventSummary.oEvent">{{this.oEventSummary.oEvent.name}}</div>
+<app-course-results *ngFor="let courseResults of this.oEventSummary.courseResults" [courseResults]="courseResults"></app-course-results>

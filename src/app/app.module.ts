@@ -21,6 +21,7 @@ import { ScrollIntoViewDirective } from './directives/is-visible.directive';
 import { NextEventComponent } from './components/next-event/next-event.component';
 import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { EventResultsComponent } from './pages/event-results/event-results.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     NextEventComponent,
     EventNoticeComponent,
     SafeHtmlPipe,
+    EventResultsComponent,
   ],
   imports: [
     BrowserModule,

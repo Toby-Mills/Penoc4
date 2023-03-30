@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
+import { EventResultsComponent } from './pages/event-results/event-results.component';
 
 const routes: Routes = [
   {path:'', redirectTo: '/home', pathMatch: 'full'},
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path:'results', component: ResultsComponent },
   {path:'contact-us', component: ContactUsComponent },
   {path:'event-notice', component: EventNoticeComponent },
+  {path:'event-results', component: EventResultsComponent },
 ];
 
 
