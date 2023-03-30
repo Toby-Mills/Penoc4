@@ -1,6 +1,6 @@
 import { sanitizeIdentifier } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { OEventSummary } from 'src/app/models/oevent-summary';
+import { OEventResults } from 'src/app/models/oevent-results';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-  public oEventSummaries: Array<OEventSummary> = [];
+  public oEventResults: Array<OEventResults> = [];
   private startOfDateRange: Date = new Date();
 
   constructor(private api: PenocApiService) { }
@@ -19,15 +19,15 @@ export class ResultsComponent implements OnInit {
   }
 
   private addMoreEvents(targetEventCount: number) {
-    const oldCount = this.oEventSummaries.length
-    if (this.oEventSummaries.length < targetEventCount) {
+    const oldCount = this.oEventResults.length
+    if (this.oEventResults.length < targetEventCount) {
       let toDate = this.startOfDateRange;
       toDate = new Date(toDate.setDate(toDate.getDate() - 1));
       let fromDate = new Date(toDate);
       fromDate = new Date(fromDate.setMonth(fromDate.getMonth() - 6));
       this.api.getOEventResultSummaries(undefined, undefined, fromDate, toDate, 1).subscribe((data) => {
-        this.oEventSummaries = this.oEventSummaries.concat(data);
-        let newCount = this.oEventSummaries.length;
+        this.oEventResults = this.oEventResults.concat(data);
+        let newCount = this.oEventResults.length;
         this.startOfDateRange = fromDate;
         if(newCount > oldCount){
           this.addMoreEvents(targetEventCount); 
@@ -37,6 +37,6 @@ export class ResultsComponent implements OnInit {
   }
 
   public onVisible(event:any){
-    this.addMoreEvents(this.oEventSummaries.length + 10);
+    this.addMoreEvents(this.oEventResults.length + 10);
   }
 }

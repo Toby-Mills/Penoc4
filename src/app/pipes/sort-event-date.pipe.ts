@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OEventSummary } from '../models/oevent-summary';
+import { OEventResults } from '../models/oevent-results';
 
 @Pipe({
   name: 'sortEventDate'
 })
 export class SortEventDatePipe implements PipeTransform {
 
-  transform(value: Array<OEventSummary>): Array<OEventSummary> {
+  transform(value: Array<OEventResults>): Array<OEventResults> {
     if (value && value.length > 0) {
       return value.sort(function (a, b) {
         if (a.oEvent && b.oEvent) {

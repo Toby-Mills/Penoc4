@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OEventSummary } from 'src/app/models/oevent-summary';
+import { OEventResults } from 'src/app/models/oevent-results';
 
 @Component({
   selector: 'app-oevent-summary',
@@ -7,7 +7,7 @@ import { OEventSummary } from 'src/app/models/oevent-summary';
   styleUrls: ['./oevent-summary.component.css']
 })
 export class OEventSummaryComponent implements OnInit {
-@Input() public oeventSummary:OEventSummary = new OEventSummary;
+@Input() public oEventResults:OEventResults = new OEventResults;
 
   constructor() { }
 
