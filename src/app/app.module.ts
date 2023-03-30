@@ -22,6 +22,7 @@ import { NextEventComponent } from './components/next-event/next-event.component
 import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { EventResultsComponent } from './pages/event-results/event-results.component';
+import { OeventResultsComponent } from './components/oevent-results/oevent-results.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { EventResultsComponent } from './pages/event-results/event-results.compo
     EventNoticeComponent,
     SafeHtmlPipe,
     EventResultsComponent,
+    OeventResultsComponent,
   ],
   imports: [
     BrowserModule,
