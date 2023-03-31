@@ -1,2 +1,20 @@
-<div *ngIf="this.oEventResults.oEvent && this.oEventResults.oEvent.id">{{this.oEventResults.oEvent.name}}</div>
-<app-course-results *ngFor="let courseResults of this.oEventResults.courseResults" [courseResults]="courseResults"></app-course-results>
+<div *ngIf="this.oEventResults.oEvent; else noEvent" class="card">
+    <ng-template #event [ngTemplateOutlet]="event" let-theEvent="theEvent"
+        [ngTemplateOutletContext]="{theEvent: this.oEventResults.oEvent}">
+        <h1 *ngIf="theEvent.id">Results: {{theEvent.name}}
+            ({{theEvent.date | date}})</h1>
+        <div *ngIf="theEvent.planner && theEvent.planner > ''">
+            <hr>
+            <span *ngIf="theEvent.planner && theEvent.planner > ''"><b>Planner:
+                </b>{{theEvent.planner}}</span><br>
+            <span *ngIf="theEvent.controller && theEvent.controller > ''"><b>Controller:
+                </b>{{theEvent.controller}}</span><br>
+        </div>
+        <app-course-results *ngFor="let courseResults of this.oEventResults.courseResults"
+            [courseResults]="courseResults"></app-course-results>
+    </ng-template>
+</div>
+
+<ng-template #noEvent>
+    <div class="card">specified event not found</div>
+</ng-template>
