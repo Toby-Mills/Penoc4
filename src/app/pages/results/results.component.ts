@@ -1,5 +1,6 @@
 import { sanitizeIdentifier } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
@@ -12,7 +13,7 @@ export class ResultsComponent implements OnInit {
   public oEventResults: Array<OEventResults> = [];
   private startOfDateRange: Date = new Date();
 
-  constructor(private api: PenocApiService) { }
+  constructor(private api: PenocApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.addMoreEvents(10)
@@ -38,5 +39,9 @@ export class ResultsComponent implements OnInit {
 
   public onVisible(event:any){
     this.addMoreEvents(this.oEventResults.length + 10);
+  }
+
+  public onEventClicked(event:any){
+    this.router.navigate(['event-results',event])
   }
 }

@@ -12,9 +12,8 @@ const routes: Routes = [
   {path:'results', component: ResultsComponent },
   {path:'contact-us', component: ContactUsComponent },
   {path:'event-notice', component: EventNoticeComponent },
-  {path:'event-results', component: EventResultsComponent },
+  {path:'event-results/:oEventId', component: EventResultsComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

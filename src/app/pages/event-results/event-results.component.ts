@@ -15,7 +15,7 @@ export class EventResultsComponent implements OnInit {
   constructor(private api: PenocApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadEvent(Number(this.route.snapshot.paramMap.get('id')));
+    this.loadEvent(Number(this.route.snapshot.paramMap.get('oEventId')));
   }
 
   public loadEvent(oeventId: number) {
