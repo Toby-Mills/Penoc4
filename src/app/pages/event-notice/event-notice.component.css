@@ -16,6 +16,6 @@ hr {
     margin-top: 1px;
 }
 
-b, strong {
+::ng-deep b {
     color: rgb(97,99,101);
 }
