@@ -14,4 +14,11 @@ export class CourseResultsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public hasDisqualifiedCompetitors():boolean{
+    if(this.courseResults){
+          return this.courseResults.results.some(d => d.disqualified);
+    }
+    return false;
+
+  }
 }

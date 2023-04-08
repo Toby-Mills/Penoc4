@@ -25,6 +25,7 @@
             "styles": [
               "src/styles/styles.css",
               "src/styles/cards.css",
+              "src/styles/tables.css"
             ],
             "scripts": []
           },

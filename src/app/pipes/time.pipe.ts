@@ -11,6 +11,9 @@ export class TimePipe implements PipeTransform {
     } else {
       let fullDate: Date = new Date(value);
       let timeString = fullDate.getHours().toString() + ':' + fullDate.getMinutes().toString().padStart(2, '0') + ':' + fullDate.getSeconds().toString().padStart(2, '0');
+      if (timeString == '0:00:00') {
+        return '';
+      }
       return timeString;
     }
   }

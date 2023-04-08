@@ -1,20 +1,38 @@
-<div *ngIf="this.oEventResults.oEvent; else noEvent" class="card">
+<div id="oevent-results" *ngIf="this.oEventResults.oEvent; else noEvent" class="card">
     <ng-template #event [ngTemplateOutlet]="event" let-theEvent="theEvent"
         [ngTemplateOutletContext]="{theEvent: this.oEventResults.oEvent}">
         <h1 *ngIf="theEvent.id">Results: {{theEvent.name}}
             ({{theEvent.date | date}})</h1>
-        <div *ngIf="theEvent.planner && theEvent.planner > ''">
+        <div *ngIf="theEvent.planner && theEvent.planner > ''" style="overflow: auto;">
             <hr>
-            <span *ngIf="theEvent.planner && theEvent.planner > ''"><b>Planner:
-                </b>{{theEvent.planner}}</span><br>
-            <span *ngIf="theEvent.controller && theEvent.controller > ''"><b>Controller:
-                </b>{{theEvent.controller}}</span><br>
+            <div style="float:left;"><span><b>Venue: </b>{{theEvent.venue}}</span></div>
+            <div style="float:right;"><span *ngIf="theEvent.planner && theEvent.planner > ''"><b>Planner:
+                    </b>{{theEvent.planner}}<br></span>
+                <span *ngIf="theEvent.controller && theEvent.controller > ''"><b>Controller:
+                    </b>{{theEvent.controller}}<br></span>
+            </div>
         </div>
-        <app-course-results *ngFor="let courseResults of this.oEventResults.courseResults"
-            [courseResults]="courseResults"></app-course-results>
+        <div class="clear-fix;" *ngIf="theEvent.plannerReport !=''">
+            <hr>
+            <div [innerHTML]="theEvent.plannerReport"></div>
+            <br>
+        </div>
+        <div class="clear-fix;">
+            <ul id="course-tabs">
+                <li *ngFor="let courseResults of this.oEventResults.courseResults" class="clickable"
+                    [class.active]="this.selectedCourse==courseResults.course.id">
+                    <a (click)="onCourseTabClick(courseResults.course.id)">{{courseResults.course.name}}</a>
+                </li>
+            </ul>
+            <div *ngFor="let courseResults of this.oEventResults.courseResults" class="clear-fix course-results"
+                [class.active]="this.selectedCourse==courseResults.course.id">
+                <br>
+                <app-course-results [courseResults]="courseResults"></app-course-results>
+            </div>
+        </div>
     </ng-template>
 </div>
 
 <ng-template #noEvent>
-    <div class="card">specified event not found</div>
+    <div class="card">loading event results...</div>
 </ng-template>

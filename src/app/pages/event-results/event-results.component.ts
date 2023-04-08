@@ -19,7 +19,7 @@ export class EventResultsComponent implements OnInit {
   }
 
   public loadEvent(oeventId: number) {
-    this.api.getOEventResultSummary(oeventId).subscribe(result => {this.oEventSummary = result;console.log(this.oEventSummary);})
+    this.api.getOEventResultSummary(oeventId).subscribe(result => {this.oEventSummary = result;})
   }
 
 }

@@ -1,0 +1,45 @@
+#oevent-results {
+    overflow-y: auto;
+}
+
+#course-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: relative;
+    border-bottom: 1px solid rgb(230,230,230);
+    height: 45px;
+}
+
+#course-tabs li {
+    float: left;
+    margin: 0;
+    margin-left: 10px;
+}
+
+#course-tabs li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid transparent;
+    border-top-width: 3px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+}
+
+#course-tabs li.active a {
+    border-color: #ccc;
+    border-top-color: #ff6720;
+    border-bottom: 1px solid white;
+    color: inherit;
+}
+
+div.course-results {
+    display: none;
+}
+
+div.course-results.active {
+    display: block;
+}
