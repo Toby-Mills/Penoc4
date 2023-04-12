@@ -10,7 +10,9 @@ body {
 }
 
 h1 {
+    color: #ff6720;
     font-size: 1.3em;
+    font-variant: small-caps;
 }
 
 h2 {
