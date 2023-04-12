@@ -10,8 +10,7 @@ import { OEvent } from 'src/app/models/oevent.model';
 export class HeaderComponent implements OnInit {
   @Output() eventClick = new EventEmitter<number>();
   public nextEventClicked(oeventId:number) {
-    this.eventClick.emit(oeventId);
-    this.router.navigate([`event-notice`,{id:oeventId}]);
+    this.router.navigate([`event-notice`,oeventId]);
   }
   constructor(private router:Router) { }
 
