@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
 
 @Component({
@@ -9,7 +10,7 @@ import { OEventResults } from 'src/app/models/oevent-results';
 export class OeventResultsComponent implements OnInit {
   @Input() public oEventResults: OEventResults = new OEventResults;
   public selectedCourse: number = 0;
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.oEventResults.oEvent);
@@ -29,5 +30,9 @@ export class OeventResultsComponent implements OnInit {
 
   public onCourseTabClick(courseId: number) {
     this.selectedCourse = courseId;
+  }
+
+  public onCloseClick(){
+    this.router.navigate(['results']);
   }
 }
