@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'home', component: HomeComponent },
   {path:'results', component: ResultsComponent },
   {path:'contact-us', component: ContactUsComponent },
-  {path:'event-notice', component: EventNoticeComponent },
+  {path:'event-notice/:oEventId', component: EventNoticeComponent },
   {path:'event-results/:oEventId', component: EventResultsComponent },
 ];
 

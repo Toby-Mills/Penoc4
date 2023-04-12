@@ -24,6 +24,6 @@ public display:boolean = false;
   }
 
   public onUpcomingEventClicked(oeventId: number){
-    this.router.navigate(['event-notice',{id:oeventId}]);
+    this.router.navigate(['event-notice', oeventId]);
   }
 }
