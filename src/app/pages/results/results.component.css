@@ -1,5 +1,8 @@
-#loading{
-    width: 500px;
+#content {
+    width:100%;
+}
+
+#loading {
     height: 100px;
     text-align: middle;
 }

@@ -7,7 +7,16 @@
 #content {
     width: 1200px;
     margin: auto;
+    overflow-y: auto;
     background-color: rgba(200, 200, 200, .8);
     padding: 10px;
     min-height: 100vh;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 1200px) {
+    #content {
+        width: 100%;
+        padding: 0;
+    }
 }

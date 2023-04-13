@@ -33,13 +33,9 @@ a {
 }
 
 @media screen and (max-width: 1200px) {
-    body{font-size: 12pt;}
+    body{font-size: 16px;}
 }
 
 @media screen and (max-width: 1000px) {
-    body{font-size: 11pt;}
-}
-
-@media screen and (max-width: 600px) {
-    body{font-size: 10pt;}
+    body{font-size: 14px;}
 }

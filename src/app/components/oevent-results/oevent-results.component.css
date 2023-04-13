@@ -2,6 +2,32 @@
     overflow-y: auto;
 }
 
+#event-header {
+    float:left;
+    max-width:calc(100% - 25px);
+}
+
+div#close {
+    float:right;
+}
+
+div#venue {
+    float:left;
+}
+
+div#planner {
+    float: right;
+}
+@media screen and (max-width: 600px) {
+    div#venue {
+        float:none;
+    }
+
+    div#planner {
+        float: none;
+    }
+}
+
 #course-tabs {
     list-style: none;
     margin: 0;
@@ -44,7 +70,7 @@ div.course-results.active {
     display: block;
 }
 
-#close {
+#close-button {
     color:#888;
     background-color: #ccc;
     border: none;

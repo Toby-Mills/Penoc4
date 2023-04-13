@@ -1,5 +1,5 @@
 #header {
-    background-color: rgb(97,99,101);
+    background-color: rgb(97, 99, 101);
 }
 
 #header #content {
@@ -10,23 +10,53 @@
     padding: 10px 20px 10px 20px;
 }
 
+@media screen and (max-width: 1200px) {
+    #header #content {
+        width: 100%;
+    }
+}
+
 #content-left {
-    float:left;
+    float: left;
 }
 
 #content-center {
-    float:left;
+    float: left;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 50px;
+    padding-left: 1em;
     font-family: 'Roboto Condensed';
-    font-size: 3rem;
-    color:#ff6720; 
+    font-size: 3em;
+    color: #ff6720;
+}
+
+@media screen and (max-width: 800px) {
+    #content-center {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #content-center {
+        font-size: 1.8em;
+    }
 }
 
 #content-right {
-    float:right;
+    float: right;
+}
+
+@media screen and (max-width: 800px) {
+    #content-right {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #content-left {
+        display: none;
+    }
 }
 
 #colour-accent {
@@ -35,13 +65,8 @@
 }
 
 #content img {
-    height: 90px;
+    height: 5em;
     vertical-align: bottom;
-}
-
-span#abbreviation {
-    font-weight: 700;
-    margin: 4px 20px 4px 20px;
 }
 
 #full-name {
@@ -50,7 +75,7 @@ span#abbreviation {
 }
 
 #menu {
-    background-color:rgb(200, 200, 200);
+    background-color: rgb(200, 200, 200);
 
 }
 
@@ -61,27 +86,37 @@ span#abbreviation {
     padding: 10px 20px 10px 20px;
 }
 
-#menu nav ul {
-    font-size: 1.1rem;
-    list-style: none;
-    margin: 0px;
+@media screen and (max-width: 800px) {
+    #menu div {
+        width: 100%;
+    }
 }
 
+#menu nav ul {
+    font-size: 1.1em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+@media screen and (max-width: 800px) {
+    #menu nav ul {
+        font-size: 1em;
+    }
+}
 li {
     display: inline;
-    padding-right: 21px;
-    margin-right: 20px;
+    padding-right: 1em;
 }
 
 li a {
     text-decoration: none;
     color: rgb(21, 20, 20);
-    padding: 5px 14px;
-    margin: 4px;
+    padding: 0.2em 1em;
+    margin: 0.2em;
     border-radius: 6px;
 }
 
 li a.router-link-active {
-       background-color: #ff6720;
-    color: white; 
+    background-color: #ff6720;
+    color: white;
 }

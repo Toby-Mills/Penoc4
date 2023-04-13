@@ -1,9 +1,9 @@
 .card {
-    padding: 15px;
+    padding: 0.8em;
     background-color: #FFFFFF;
     border-radius: 5px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, .5);
-    margin: 15px;
+    margin: 1em;
 }
 
 .card-no-margin {
@@ -37,4 +37,14 @@
 .card-clickable:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, .7);
     cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .card {
+        padding: 0.5em;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, .5);
+        margin: 0.5em;
+    }
 }

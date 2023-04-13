@@ -1,13 +1,13 @@
 <div id="oevent-results" *ngIf="this.oEventResults.oEvent; else noEvent" class="card">
     <ng-template #event [ngTemplateOutlet]="event" let-theEvent="theEvent"
         [ngTemplateOutletContext]="{theEvent: this.oEventResults.oEvent}">
-        <div style="float:left">        <h1 *ngIf="theEvent.id">Results: {{theEvent.name}}
-            ({{theEvent.date | date}})</h1></div><div style="float:right"><input id="close" class="clickable" type="button" value="X" (click)="onCloseClick()" title="close"></div>
-        
+        <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()" title="close"></div>
+        <div id="event-header"><h1 *ngIf="theEvent.id">Results: {{theEvent.name}}
+            ({{theEvent.date | date}})</h1></div>        
         <div *ngIf="theEvent.planner && theEvent.planner > ''" class="clear-fix" style="overflow: auto;">
             <hr>
-            <div style="float:left;"><span><b>Venue: </b>{{theEvent.venue}}</span></div>
-            <div style="float:right;"><span *ngIf="theEvent.planner && theEvent.planner > ''"><b>Planner:
+            <div id="venue"><span><b>Venue: </b>{{theEvent.venue}}</span></div>
+            <div id="planner"><span *ngIf="theEvent.planner && theEvent.planner > ''"><b>Planner:
                     </b>{{theEvent.planner}}<br></span>
                 <span *ngIf="theEvent.controller && theEvent.controller > ''"><b>Controller:
                     </b>{{theEvent.controller}}<br></span>

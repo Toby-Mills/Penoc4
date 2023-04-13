@@ -1,8 +1,10 @@
-<div id="content">
-    <div class="card" style="width: 600px;float:left;">
+<div id="column-1">
+    <div class="card">
         <span class="card-title">About the club</span><br>
         <p style="float:left;"><img id="table_mountain" src="assets/table_mountain.png" /></p>
-        <p>We are a small orienteering club based in Cape Town, South Africa, and hold events regularly throughout the year.   Visitors are always welcome and all our events cater for both experienced and novice orienteers.</p>
+        <p>We are a small orienteering club based in Cape Town, South Africa, and hold events regularly throughout the
+            year.
+            Visitors are always welcome and all our events cater for both experienced and novice orienteers.</p>
         <p style="clear:left;"><span class="card-title">What is Orienteering?</span><br>
             An exciting outdoor adventure sport which involves walking or running whilst navigating
             around a course using
@@ -13,25 +15,32 @@
             own pace.</p>
         <span class="card-title">Stay in Touch</span><br>
         <p><a target="_blank"
-            href="https://penoc.us18.list-manage.com/subscribe?u=930cfaff6a9f183c90d5a414b&id=ac40b7f57f"><img src="assets/email.svg" class="social"></a> Our email list will keep you informed of event details and
-        results as they become available. Subscribe to the <a target="_blank"
-            href="https://penoc.us18.list-manage.com/subscribe?u=930cfaff6a9f183c90d5a414b&id=ac40b7f57f">Mailing
-            List</a></p>
-        <p><a id="whats-app-icon" (click)="this.showWhatsApp(true)"><img src="assets/WhatsApp.svg" class="social"></a>To receive event details and updates directly on your phone,
+                href="https://penoc.us18.list-manage.com/subscribe?u=930cfaff6a9f183c90d5a414b&id=ac40b7f57f"><img
+                    src="assets/email.svg" class="social"></a> Our email list will keep you informed of event details
+            and
+            results as they become available. Subscribe to the <a target="_blank"
+                href="https://penoc.us18.list-manage.com/subscribe?u=930cfaff6a9f183c90d5a414b&id=ac40b7f57f">Mailing
+                List</a></p>
+        <p><a id="whats-app-icon" (click)="this.showWhatsApp(true)"><img src="assets/WhatsApp.svg" class="social"></a>To
+            receive event details and updates directly on your phone,
             join our <a id="whats-app-link" (click)="this.showWhatsApp(true)">WhatsApp group</a></p>
-        <p><a target="_blank" href="https://www.facebook.com/PeninsulaOrienteeringClub/"><img src="assets/facebook.svg" class="social"></a>Join us to discuss results and other topics on <a
-                target="_blank" href="https://www.facebook.com/PeninsulaOrienteeringClub/">Facebook</a></p>
+        <p><a target="_blank" href="https://www.facebook.com/PeninsulaOrienteeringClub/"><img src="assets/facebook.svg"
+                    class="social"></a>Join us to discuss results and other topics on <a target="_blank"
+                href="https://www.facebook.com/PeninsulaOrienteeringClub/">Facebook</a></p>
     </div>
-    <div style="width: 450px;float:left;">
-        <div class="card">
-            <span class="card-title">Event Entries</span><br>
-            <span>The club uses <a target="_blank" href="https://www.entryninja.com/events/organiser/15652-peninsula-orienteering-club">EntryNinja</a> for managing event entries. Click here to see which events are open for entry.</span><br>
-            <a target="_blank" href="https://www.entryninja.com/events/organiser/15652-peninsula-orienteering-club"><button id="entryNinja">EntryNinja</button></a>
-        </div>
-        <div class="card" style="min-height:500px;">
-            <span class="card-title">Upcoming Events</span><br>
-            <app-upcoming-oevents (oeventClicked)="onUpcomingEventClicked($event)"></app-upcoming-oevents>
-        </div>
-    </div>
-    <app-whats-app></app-whats-app>
 </div>
+<div id="column-2">
+    <div class="card">
+        <span class="card-title">Event Entries</span><br>
+        <span>The club uses <a target="_blank"
+                href="https://www.entryninja.com/events/organiser/15652-peninsula-orienteering-club">EntryNinja</a> for
+            managing event entries. Click here to see which events are open for entry.</span><br>
+        <a target="_blank" href="https://www.entryninja.com/events/organiser/15652-peninsula-orienteering-club"><button
+                id="entryNinja">EntryNinja</button></a>
+    </div>
+    <div class="card" style="min-height:500px;">
+        <span class="card-title">Upcoming Events</span><br>
+        <app-upcoming-oevents (oeventClicked)="onUpcomingEventClicked($event)"></app-upcoming-oevents>
+    </div>
+</div>
+<app-whats-app></app-whats-app>
