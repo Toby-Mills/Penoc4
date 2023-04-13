@@ -26,4 +26,8 @@ public display:boolean = false;
   public onUpcomingEventClicked(oeventId: number){
     this.router.navigate(['event-notice', oeventId]);
   }
+
+  public onReadMoreClick(){
+    this.router.navigate(['what-is-orienteering']);
+  }
 }

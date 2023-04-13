@@ -23,6 +23,7 @@ import { EventNoticeComponent } from './pages/event-notice/event-notice.componen
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { EventResultsComponent } from './pages/event-results/event-results.component';
 import { OeventResultsComponent } from './components/oevent-results/oevent-results.component';
+import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { OeventResultsComponent } from './components/oevent-results/oevent-resul
     SafeHtmlPipe,
     EventResultsComponent,
     OeventResultsComponent,
+    WhatIsOrienteeringComponent,
   ],
   imports: [
     BrowserModule,

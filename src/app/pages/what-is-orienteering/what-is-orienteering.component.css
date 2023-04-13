@@ -1,0 +1,17 @@
+div.section {
+    clear: both;
+}
+
+img {
+    margin: 1em;
+    box-shadow: 1em 1em 2em rgb(200,200,200);
+}
+
+div#panoramic {
+    text-align:center;
+    background-image:url('../../../assets/panoramic.png');
+    height:10em;
+    background-position:center;
+    background-repeat:no-repeat;
+    margin: 1em;
+}
