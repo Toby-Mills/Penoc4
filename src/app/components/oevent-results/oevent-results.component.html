@@ -13,12 +13,12 @@
                     </b>{{theEvent.controller}}<br></span>
             </div>
         </div>
-        <div class="clear-fix;" *ngIf="theEvent.plannerReport !=''">
+        <div class="clear-fix" *ngIf="theEvent.plannerReport !=''">
             <hr>
             <div [innerHTML]="theEvent.plannerReport"></div>
             <br>
         </div>
-        <div class="clear-fix;">
+        <div class="clear-fix">
             <ul id="course-tabs">
                 <li *ngFor="let courseResults of this.oEventResults.courseResults" class="clickable"
                     [class.active]="this.selectedCourse==courseResults.course.id">
