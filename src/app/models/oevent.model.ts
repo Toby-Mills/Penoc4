@@ -22,4 +22,7 @@ export class OEvent {
     cost?: string;
     coordinateLatitude?: number;
     coordinateLongitude?: number;
+    noticeURL?: string;
+    resultsURL?: string;
+    photosURL?: string;
 }

@@ -10,9 +10,9 @@ import { Result } from '../models/result';
   providedIn: 'root'
 })
 export class PenocApiService {
-  //baseUrl: string = 'http://localhost/penoc/api';
+  baseUrl: string = 'http://localhost/penoc/api';
   apiKey: string = 'Orienteering';
-  baseUrl: string = 'http://www.penoc.org.za/api';
+  //baseUrl: string = 'http://www.penoc.org.za/api';
 
 
   constructor(private http: HttpClient) { }

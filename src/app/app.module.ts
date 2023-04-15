@@ -21,6 +21,7 @@ import { ScrollIntoViewDirective } from './directives/is-visible.directive';
 import { NextEventComponent } from './components/next-event/next-event.component';
 import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { EventResultsComponent } from './pages/event-results/event-results.component';
 import { OeventResultsComponent } from './components/oevent-results/oevent-results.component';
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
@@ -43,6 +44,7 @@ import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-i
     NextEventComponent,
     EventNoticeComponent,
     SafeHtmlPipe,
+    SafeUrlPipe,
     EventResultsComponent,
     OeventResultsComponent,
     WhatIsOrienteeringComponent,

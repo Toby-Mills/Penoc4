@@ -9,6 +9,12 @@
         [innerHTML]="this.oevent.startTime | safeHtml"></span><br>
     <span *ngIf="this.oevent.closeTime && this.oevent.closeTime > ''"><b>Courses Close: </b> </span><span
         [innerHTML]="this.oevent.closeTime | safeHtml">"</span>
+    <div *ngIf="this.oevent.noticeURL && this.oevent.noticeURL > ''">
+        <h2>Entry</h2>
+        <hr>
+        <span>Enter online at </span>
+        <a target="_blank" [attr.href]="this.oevent.noticeURL | safeUrl"><span [innerHTML]="this.oevent.noticeURL | safeHtml"></span></a>
+    </div>
     <div *ngIf="this.oevent.specialNote && this.oevent.specialNote > ''">
         <h2>Special Notes</h2>
         <hr>
