@@ -5,32 +5,36 @@
             <th>Competitor</th>
             <th>Time</th>
             <th>Points</th>
-            <th>Comments</th>
+            <th *ngIf="!this.narrowScreen">Comments</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let result of this.courseResults.results">
+        <ng-container *ngFor="let result of this.courseResults.results">
             <ng-container *ngIf="result.disqualified == false">
-                <td>{{result.position}}</td>
-                <td>{{result.competitor}}</td>
-                <td>{{result.time | time}}</td>
-                <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
-                <td>{{result.comment}}</td>
+                <tr>
+                    <td>{{result.position}}</td>
+                    <td>{{result.competitor}}<span *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
+                    <td>{{result.time | time}}</td>
+                    <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
+                    <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
+                </tr>
             </ng-container>
-        </tr>
-        <ng-container  *ngIf="this.hasDisqualifiedCompetitors()">
+        </ng-container>
+        <ng-container *ngIf="this.hasDisqualifiedCompetitors()">
             <tr>
                 <td colspan="5">Disqualified:</td>
             </tr>
-            <tr *ngFor="let result of this.courseResults.results">
+            <ng-container *ngFor="let result of this.courseResults.results">
                 <ng-container *ngIf="result.disqualified == true">
+                    <tr>
                     <td></td>
-                    <td>{{result.competitor}}</td>
+                    <td>{{result.competitor}}<span *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
                     <td><ng-container>{{result.time|time}}</ng-container></td>
                     <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
-                    <td>{{result.comment}}</td>
+                    <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
+                </tr>
                 </ng-container>
-            </tr>
+            </ng-container>
         </ng-container>
     </tbody>
 </table>
