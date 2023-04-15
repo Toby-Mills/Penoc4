@@ -1,45 +1,53 @@
 <div *ngIf="this.oevent.id != 0" class="card">
-    <h1>Event: {{this.oevent.name}} ({{this.oevent.date|date}})</h1>
-    <h2>Where & When</h2>
-    <hr>
-    <span *ngIf="this.oevent.venue && this.oevent.venue > ''"><b>Venue:</b> {{this.oevent.venue}}</span><br>
-    <span *ngIf="this.oevent.registrationTime && this.oevent.registrationTime > ''"><b>Registration: </b> </span><span
-        [innerHTML]="this.oevent.registrationTime | safeHtml">"</span><br>
-    <span *ngIf="this.oevent.startTime && this.oevent.startTime > ''"><b>Starts: </b> </span><span
-        [innerHTML]="this.oevent.startTime | safeHtml"></span><br>
-    <span *ngIf="this.oevent.closeTime && this.oevent.closeTime > ''"><b>Courses Close: </b> </span><span
-        [innerHTML]="this.oevent.closeTime | safeHtml">"</span>
-    <div *ngIf="this.oevent.noticeURL && this.oevent.noticeURL > ''">
-        <h2>Entry</h2>
-        <hr>
-        <span>Enter online at </span>
-        <a target="_blank" [attr.href]="this.oevent.noticeURL | safeUrl"><span [innerHTML]="this.oevent.noticeURL | safeHtml"></span></a>
+    <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()"
+            title="close"></div>
+    <div id="event-header">
+        <h1>Event: {{this.oevent.name}} ({{this.oevent.date|date}})</h1>
     </div>
-    <div *ngIf="this.oevent.specialNote && this.oevent.specialNote > ''">
-        <h2>Special Notes</h2>
+    <div class="clear-fix">
+        <h2>Where & When</h2>
         <hr>
-        <div [innerHTML]="this.oevent.specialNote | safeHtml"></div>
-    </div>
-    <div *ngIf="this.oevent.directions && this.oevent.directions > ''">
-        <h2>Directions</h2>
-        <hr>
-        <div [innerHTML]="this.oevent.directions | safeHtml"></div>
-    </div>
-    <div *ngIf="this.oevent.courses && this.oevent.courses > ''">
-        <h2>Courses</h2>
-        <hr>
-        <div [innerHTML]="this.oevent.courses | safeHtml"></div>
-    </div>
-    <div *ngIf="this.oevent.cost && this.oevent.cost > ''">
-        <h2>Cost</h2>
-        <hr>
-        <div [innerHTML]="this.oevent.cost | safeHtml"></div>
-    </div>
-    <div *ngIf="this.oevent.planner && this.oevent.planner > ''">
-        <h2>Planning</h2>
-        <hr>
-        <span *ngIf="this.oevent.planner && this.oevent.planner > ''"><b>Planner: </b>{{this.oevent.planner}}</span><br>
-        <span *ngIf="this.oevent.controller && this.oevent.controller > ''">Controller:
-            {{this.oevent.controller}}</span><br>
+        <span *ngIf="this.oevent.venue && this.oevent.venue > ''"><b>Venue:</b> {{this.oevent.venue}}</span><br>
+        <span *ngIf="this.oevent.registrationTime && this.oevent.registrationTime > ''"><b>Registration: </b>
+        </span><span [innerHTML]="this.oevent.registrationTime | safeHtml">"</span><br>
+        <span *ngIf="this.oevent.startTime && this.oevent.startTime > ''"><b>Starts: </b> </span><span
+            [innerHTML]="this.oevent.startTime | safeHtml"></span><br>
+        <span *ngIf="this.oevent.closeTime && this.oevent.closeTime > ''"><b>Courses Close: </b> </span><span
+            [innerHTML]="this.oevent.closeTime | safeHtml">"</span>
+        <div *ngIf="this.oevent.noticeURL && this.oevent.noticeURL > ''">
+            <h2>Entry</h2>
+            <hr>
+            <span>Enter online at </span>
+            <a target="_blank" [attr.href]="this.oevent.noticeURL | safeUrl"><span
+                    [innerHTML]="this.oevent.noticeURL | safeHtml"></span></a>
+        </div>
+        <div *ngIf="this.oevent.specialNote && this.oevent.specialNote > ''">
+            <h2>Special Notes</h2>
+            <hr>
+            <div [innerHTML]="this.oevent.specialNote | safeHtml"></div>
+        </div>
+        <div *ngIf="this.oevent.directions && this.oevent.directions > ''">
+            <h2>Directions</h2>
+            <hr>
+            <div [innerHTML]="this.oevent.directions | safeHtml"></div>
+        </div>
+        <div *ngIf="this.oevent.courses && this.oevent.courses > ''">
+            <h2>Courses</h2>
+            <hr>
+            <div [innerHTML]="this.oevent.courses | safeHtml"></div>
+        </div>
+        <div *ngIf="this.oevent.cost && this.oevent.cost > ''">
+            <h2>Cost</h2>
+            <hr>
+            <div [innerHTML]="this.oevent.cost | safeHtml"></div>
+        </div>
+        <div *ngIf="this.oevent.planner && this.oevent.planner > ''">
+            <h2>Planning</h2>
+            <hr>
+            <span *ngIf="this.oevent.planner && this.oevent.planner > ''"><b>Planner:
+                </b>{{this.oevent.planner}}</span><br>
+            <span *ngIf="this.oevent.controller && this.oevent.controller > ''">Controller:
+                {{this.oevent.controller}}</span><br>
+        </div>
     </div>
 </div>

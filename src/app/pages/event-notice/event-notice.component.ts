@@ -21,4 +21,8 @@ export class EventNoticeComponent implements OnInit {
   public loadEvent(oeventId: number) {
     this.api.getOEvent(oeventId).subscribe(result => {this.oevent = result;})
   }
+  
+  public onCloseClick(){
+    this.router.navigate(['home']);
+  }
 }
