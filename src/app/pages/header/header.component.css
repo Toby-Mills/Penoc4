@@ -103,6 +103,7 @@
         font-size: 1em;
     }
 }
+
 li {
     display: inline;
     padding-right: 1em;
@@ -118,5 +119,13 @@ li a {
 
 li a.router-link-active {
     background-color: #ff6720;
+    color: white;
+}
+
+li a:hover {
+    color: #ff6720;
+}
+
+li a.router-link-active:hover {
     color: white;
 }

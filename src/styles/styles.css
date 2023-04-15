@@ -32,6 +32,12 @@ a {
     cursor: pointer;
 }
 
+.clickable-link:hover {
+    cursor:pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 1200px) {
     body{font-size: 16px;}
 }

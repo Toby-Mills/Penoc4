@@ -1,5 +1,5 @@
 <div *ngFor="let oevent of this.oevents" class="oevent" (click)="this.onOeventClicked(oevent.id!)">
-    <a class="clickable">{{this.oevent.name}}</a><br>
+    <a class="clickable-link">{{this.oevent.name}}</a><br>
     <span>{{this.oevent.date|date}}</span>
     <hr>
 </div>
