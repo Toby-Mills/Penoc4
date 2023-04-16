@@ -4,15 +4,14 @@ import { catchError, first, map, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
 import { OEventResults } from '../models/oevent-results';
-import { Result } from '../models/result';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PenocApiService {
-  baseUrl: string = 'http://localhost/penoc/api';
   apiKey: string = 'Orienteering';
-  //baseUrl: string = 'http://www.penoc.org.za/api';
+  baseUrl: string = environment.apiUrl;
 
 
   constructor(private http: HttpClient) { }
