@@ -1,4 +1,4 @@
-<div *ngIf="this.nextEvent.id" class="card card-no-margin drop-shadow" (click)="this.nextEventClicked()">
-    <span id="label">Next event:&nbsp;</span><span id="event-date">{{this.nextEvent.date|date}}</span><br>
-    <a class="clickable-link"><span>{{this.nextEvent.name}}</span></a> 
+<div *ngIf="this.dataCache.nextOEvent && this.dataCache.nextOEvent.id" class="card card-no-margin drop-shadow" (click)="this.nextEventClicked()">
+    <span id="label">Next event:&nbsp;</span><span id="event-date">{{this.dataCache.nextOEvent.date|date}}</span><br>
+    <a class="clickable-link"><span>{{this.dataCache.nextOEvent.name}}</span></a> 
 </div>

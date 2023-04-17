@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 import { Title } from '@angular/platform-browser';
+import { DataCacheService } from 'src/app/services/data-cache.service';
 
 @Component({
   selector: 'app-results',
@@ -11,39 +12,20 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-  public oEventResults: Array<OEventResults> = [];
-  private startOfDateRange: Date = new Date();
-
-  constructor(private api: PenocApiService, private router: Router, private titleService: Title) { }
+  constructor(private api: PenocApiService, private router: Router, private titleService: Title, public dataCache: DataCacheService) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('PenOC | Results');
-    this.addMoreEvents(10)
-  }
-
-  private addMoreEvents(targetEventCount: number) {
-    const oldCount = this.oEventResults.length
-    if (this.oEventResults.length < targetEventCount) {
-      let toDate = this.startOfDateRange;
-      toDate = new Date(toDate.setDate(toDate.getDate() - 1));
-      let fromDate = new Date(toDate);
-      fromDate = new Date(fromDate.setMonth(fromDate.getMonth() - 6));
-      this.api.getOEventResultSummaries(undefined, undefined, fromDate, toDate, 1).subscribe((data) => {
-        this.oEventResults = this.oEventResults.concat(data);
-        let newCount = this.oEventResults.length;
-        this.startOfDateRange = fromDate;
-        if(newCount > oldCount){
-          this.addMoreEvents(targetEventCount); 
-        }
-      });
+    if (this.dataCache.oEventResults.length == 0) {
+      this.dataCache.addMoreOEventResults(10)
     }
   }
 
-  public onVisible(event:any){
-    this.addMoreEvents(this.oEventResults.length + 10);
+  public onVisible(event: any) {
+    this.dataCache.addMoreOEventResults(10);
   }
 
-  public onEventClicked(event:any){
-    this.router.navigate(['event-results',event])
+  public onEventClicked(event: any) {
+    this.router.navigate(['event-results', event])
   }
 }

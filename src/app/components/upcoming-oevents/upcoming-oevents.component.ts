@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OEvent } from 'src/app/models/oevent.model';
-import { PenocApiService } from 'src/app/services/penoc-api.service';
+import { DataCacheService } from 'src/app/services/data-cache.service';
 
 @Component({
   selector: 'app-upcoming-oevents',
@@ -11,10 +11,12 @@ export class UpcomingOeventsComponent implements OnInit {
   public oevents: Array<OEvent> = [];
   @Output() public oeventClicked: EventEmitter<number> = new EventEmitter();
 
-  constructor(private api: PenocApiService) { }
+  constructor(public dataCache:DataCacheService) { }
 
   ngOnInit(): void {
-    this.api.getOEvents(undefined, undefined, new Date).subscribe(result => this.oevents = result);
+    if (this.dataCache.upcomingOEvents == undefined){
+      this.dataCache.loadUpcomingOEvents();
+    }
   }
 
   public onOeventClicked(oeventId: number) {

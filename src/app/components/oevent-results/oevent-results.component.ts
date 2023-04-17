@@ -13,13 +13,13 @@ export class OeventResultsComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.oEventResults.oEvent);
     if (this.oEventResults.oEvent != undefined && this.oEventResults.courseResults.length > 0) {
       if (this.selectedCourse = 0) {
 
       }
     }
   }
+  
   ngOnChanges(changes: SimpleChanges) {
     if (changes['oEventResults'] != undefined) {
       if (this.oEventResults.courseResults.length > 0) {
