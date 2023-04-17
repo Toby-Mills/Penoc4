@@ -16,7 +16,7 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('PenOC | Results');
-    if (this.dataCache.oEventResults.length == 0) {
+    if (this.dataCache.oEventResultSummaries.length == 0) {
       this.dataCache.addMoreOEventResults(10)
     }
   }

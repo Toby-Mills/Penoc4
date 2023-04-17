@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
 import { PenocApiService } from './penoc-api.service';
 import { OEventResults } from '../models/oevent-results';
+import { Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,13 @@ export class DataCacheService {
 
   public upcomingOEvents: OEvent[] | undefined;
   public nextOEvent: OEvent | undefined;
-  public oEventResults: OEventResults[] = [];
+  public oEventResultSummaries: OEventResults[] = [];
 
   private oEventResultsFromDate: Date | undefined;
   private oEventResultsToDate: Date | undefined;
   private loadingMoreOEventResults: Boolean = false;
+
+  private oEventResults: OEventResults[] = [];
 
   public loadUpcomingOEvents() {
     this.api.getOEvents(undefined, undefined, new Date).subscribe(result => { this.upcomingOEvents = result });
@@ -30,15 +33,29 @@ export class DataCacheService {
     })
   }
 
+  getOEventResults(oEventId: number):Observable<OEventResults>{
+    //look in the cache and return from there if found
+    let oEventResults = this.oEventResults.filter(oEventResults => oEventResults.oEvent!.id == oEventId)
+    if (oEventResults.length == 1){
+      let theEvent = oEventResults[0]
+      return of(theEvent)
+    } else {
+      //otherwise fetch from the api
+      return this.api.getOEventResultSummary(oEventId).pipe(
+        tap(data => this.oEventResults.push(data))
+      );
+    }
+  }
+
   public addMoreOEventResults(additionalOEvents: number) {
     if (this.loadingMoreOEventResults == false) {
       
       this.loadingMoreOEventResults = true;
 
-      const oldCount = this.oEventResults.length;
+      const oldCount = this.oEventResultSummaries.length;
       const targetCount = oldCount + additionalOEvents;
 
-      if (this.oEventResults.length < targetCount) {
+      if (this.oEventResultSummaries.length < targetCount) {
         //define the date range for the query as the 6 months prior to the current FromDate
         let toDate: Date = this.oEventResultsFromDate || new Date();
         toDate = new Date(toDate.setDate(toDate.getDate() - 1));
@@ -47,11 +64,11 @@ export class DataCacheService {
         fromDate = new Date(fromDate.setMonth(fromDate.getMonth() - 12));
 
         this.api.getOEventResultSummaries(undefined, undefined, fromDate, toDate, 1).subscribe((data) => {
-          this.oEventResults = this.oEventResults.concat(data);
-          let newCount = this.oEventResults.length;
+          this.oEventResultSummaries = this.oEventResultSummaries.concat(data);
+          let newCount = this.oEventResultSummaries.length;
           this.oEventResultsFromDate = fromDate;
           if (newCount > oldCount) {
-            const outstandingEventCount = targetCount - this.oEventResults.length;
+            const outstandingEventCount = targetCount - this.oEventResultSummaries.length;
             this.addMoreOEventResults(outstandingEventCount);
           }
         });

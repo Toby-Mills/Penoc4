@@ -1,5 +1,5 @@
 <div id="content">
-    <app-oevent-summary *ngFor="let oEventResults of this.dataCache.oEventResults | sortEventDate" [oEventResults]="oEventResults"
-        (oEventClicked)="this.onEventClicked($event)"></app-oevent-summary>
+    <app-oevent-summary *ngFor="let oEventResults of this.dataCache.oEventResultSummaries | sortEventDate" [oEventResults]="oEventResults"
+        (oEventClicked)="this.onEventClicked(oEventResults.oEvent!.id)"></app-oevent-summary>
     <div id="loading" class="card" isVisible (visible)="onVisible($event)">loading more results...</div>
 </div>

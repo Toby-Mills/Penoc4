@@ -10,16 +10,10 @@ import { OEventResults } from 'src/app/models/oevent-results';
 export class OeventResultsComponent implements OnInit {
   @Input() public oEventResults: OEventResults = new OEventResults;
   public selectedCourse: number = 0;
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    if (this.oEventResults.oEvent != undefined && this.oEventResults.courseResults.length > 0) {
-      if (this.selectedCourse = 0) {
+  ngOnInit(): void {}
 
-      }
-    }
-  }
-  
   ngOnChanges(changes: SimpleChanges) {
     if (changes['oEventResults'] != undefined) {
       if (this.oEventResults.courseResults.length > 0) {
@@ -32,7 +26,7 @@ export class OeventResultsComponent implements OnInit {
     this.selectedCourse = courseId;
   }
 
-  public onCloseClick(){
+  public onCloseClick() {
     this.router.navigate(['results']);
   }
 }
