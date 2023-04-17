@@ -2,7 +2,8 @@
     width:100%;
 }
 
-#loading {
+#loading-card {
     height: 100px;
+    max-width: 600px;
     text-align: middle;
 }

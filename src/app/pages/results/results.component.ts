@@ -1,7 +1,5 @@
-import { sanitizeIdentifier } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OEventResults } from 'src/app/models/oevent-results';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 import { Title } from '@angular/platform-browser';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -21,7 +19,7 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  public onVisible(event: any) {
+  public onLoadingCardVisible(event: any) {
     this.dataCache.addMoreOEventResultSummaries(10);
   }
 
