@@ -17,12 +17,12 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('PenOC | Results');
     if (this.dataCache.oEventResultSummaries.length == 0) {
-      this.dataCache.addMoreOEventResults(10)
+      this.dataCache.addMoreOEventResultSummaries(10)
     }
   }
 
   public onVisible(event: any) {
-    this.dataCache.addMoreOEventResults(10);
+    this.dataCache.addMoreOEventResultSummaries(10);
   }
 
   public onEventClicked(event: any) {

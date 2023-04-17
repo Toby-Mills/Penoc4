@@ -47,7 +47,7 @@ export class DataCacheService {
     }
   }
 
-  public addMoreOEventResults(additionalOEvents: number) {
+  public addMoreOEventResultSummaries(additionalOEvents: number) {
     if (this.loadingMoreOEventResults == false) {
       
       this.loadingMoreOEventResults = true;
@@ -69,7 +69,7 @@ export class DataCacheService {
           this.oEventResultsFromDate = fromDate;
           if (newCount > oldCount) {
             const outstandingEventCount = targetCount - this.oEventResultSummaries.length;
-            this.addMoreOEventResults(outstandingEventCount);
+            this.addMoreOEventResultSummaries(outstandingEventCount);
           }
         });
       }
