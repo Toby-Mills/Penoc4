@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-results',
@@ -13,9 +14,10 @@ export class ResultsComponent implements OnInit {
   public oEventResults: Array<OEventResults> = [];
   private startOfDateRange: Date = new Date();
 
-  constructor(private api: PenocApiService, private router: Router) { }
+  constructor(private api: PenocApiService, private router: Router, private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('PenOC | Results');
     this.addMoreEvents(10)
   }
 
