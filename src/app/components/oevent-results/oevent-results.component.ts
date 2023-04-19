@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-oevent-results',
@@ -12,7 +13,10 @@ export class OeventResultsComponent implements OnInit {
   @Output() public competitorClicked: EventEmitter<number> = new EventEmitter();
 
   public selectedCourse: number = 0;
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private location:Location,
+    ) { }
 
   ngOnInit(): void {}
 
@@ -29,7 +33,7 @@ export class OeventResultsComponent implements OnInit {
   }
 
   public onCloseClick() {
-    this.router.navigate(['results']);
+    this.location.back();
   }
 
   onCompetitorClick(competitorId:number){
