@@ -1,9 +1,11 @@
-
 <div id="results" class="card">
-<div id="competitor">
-    <h1>Competitor: {{this.competitor.fullName}}</h1>
-    <p><span id="result-count">{{this.results.length}}</span> results<br></p>
-</div>
+    <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()"
+            title="close"></div>
+    <div id="competitor">
+        <h1>Competitor: {{this.competitor.fullName}}</h1>
+        <p><span id="result-count">{{this.results.length}}</span> results<br></p>
+    </div>
+    <div class="clear-fix"></div>
     <table id="individual-results" class="table-striped">
         <thead>
             <tr>

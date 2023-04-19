@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Competitor } from 'src/app/models/competitor';
 import { Result } from 'src/app/models/result';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -16,7 +17,14 @@ export default class IndividualResultsComponent implements OnInit {
   results: Result[] = [];
   public narrowScreen: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private titleService: Title, private api: PenocApiService, private dataCache: DataCacheService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private titleService: Title, 
+    private api: PenocApiService, 
+    private dataCache: DataCacheService,
+    private location: Location,
+    ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('PenOC | Competitor Results');
@@ -30,4 +38,7 @@ export default class IndividualResultsComponent implements OnInit {
     this.router.navigate(['/event-results', eventId]);
   }
 
+  public onCloseClick() {
+    this.location.back();
+  }
 }
