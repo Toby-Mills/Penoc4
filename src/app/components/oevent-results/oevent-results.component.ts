@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
 
@@ -9,6 +9,8 @@ import { OEventResults } from 'src/app/models/oevent-results';
 })
 export class OeventResultsComponent implements OnInit {
   @Input() public oEventResults: OEventResults = new OEventResults;
+  @Output() public competitorClicked: EventEmitter<number> = new EventEmitter();
+
   public selectedCourse: number = 0;
   constructor(private router: Router) { }
 
@@ -28,5 +30,9 @@ export class OeventResultsComponent implements OnInit {
 
   public onCloseClick() {
     this.router.navigate(['results']);
+  }
+
+  onCompetitorClick(competitorId:number){
+    this.competitorClicked.emit(competitorId);
   }
 }

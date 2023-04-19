@@ -21,4 +21,7 @@ export class EventResultsComponent implements OnInit {
     this.dataCache.getOEventResults(Number(this.route.snapshot.paramMap.get('oEventId'))).subscribe(data => this.oEventSummary = data);
   }
 
+  public onCompetitorClicked(competitorId: number){
+    this.router.navigate(['/individual-results',competitorId]);
+  }
 }

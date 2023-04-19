@@ -28,7 +28,7 @@
             <div *ngFor="let courseResults of this.oEventResults.courseResults" class="clear-fix course-results"
                 [class.active]="this.selectedCourse==courseResults.course.id">
                 <br>
-                <app-course-results [courseResults]="courseResults"></app-course-results>
+                <app-course-results [courseResults]="courseResults" (competitorClicked)="this.onCompetitorClick($event)"></app-course-results>
             </div>
         </div>
     </ng-template>

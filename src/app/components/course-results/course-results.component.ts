@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener, Host } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Host, Output, EventEmitter } from '@angular/core';
 import { CourseResults } from 'src/app/models/course-results';
 
 @Component({
@@ -8,6 +8,8 @@ import { CourseResults } from 'src/app/models/course-results';
 })
 export class CourseResultsComponent implements OnInit {
   @Input() courseResults: CourseResults = new CourseResults;
+  @Output() competitorClicked: EventEmitter<number> = new EventEmitter();
+
   public narrowScreen: boolean = false;
 
   constructor() { }
@@ -17,7 +19,7 @@ export class CourseResultsComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any){
+  onResize(event: any) {
     this.checkScreenWidth();
   }
 
@@ -28,7 +30,11 @@ export class CourseResultsComponent implements OnInit {
     return false;
   }
 
-  private checkScreenWidth(){
-    this.narrowScreen = (window.innerWidth < 800 ? true: false);
+  public onCompetitorClick(competitorId: number) {
+    this.competitorClicked.emit(competitorId);
+  }
+
+  private checkScreenWidth() {
+    this.narrowScreen = (window.innerWidth < 800 ? true : false);
   }
 }
