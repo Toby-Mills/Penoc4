@@ -5,6 +5,7 @@ import { ResultsComponent } from './pages/results/results.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
 import { EventResultsComponent } from './pages/event-results/event-results.component';
+import IndividualResultsComponent from './pages/individual-results/individual-results.component';
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'contact-us', component: ContactUsComponent },
   {path:'event-notice/:oEventId', component: EventNoticeComponent },
   {path:'event-results/:oEventId', component: EventResultsComponent },
+  {path:'individual-results/:competitorId', component: IndividualResultsComponent },
 ];
 
 @NgModule({

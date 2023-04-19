@@ -3,6 +3,7 @@ import { OEvent } from '../models/oevent.model';
 import { PenocApiService } from './penoc-api.service';
 import { OEventResults } from '../models/oevent-results';
 import { Observable, of, tap } from 'rxjs';
+import { Competitor } from '../models/competitor';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class DataCacheService {
   private loadingMoreOEventResults: Boolean = false;
 
   private oEventResults: OEventResults[] = [];
+  private competitors: Competitor[] = [];
 
   public loadUpcomingOEvents() {
     this.api.getOEvents(undefined, undefined, new Date).subscribe(result => { this.upcomingOEvents = result });
@@ -76,6 +78,20 @@ export class DataCacheService {
 
       this.loadingMoreOEventResults = false;
 
+    }
+  }
+
+  public getCompetitor(competitorId: number):Observable<Competitor>{
+    //look in the cache and return from there if found
+    let competitors = this.competitors.filter(competitor => competitor.id == competitorId)
+    if (competitors.length == 1){
+      let theCompetitor = competitors[0]
+      return of(theCompetitor)
+    } else {
+      //otherwise fetch from the api
+      return this.api.getCompetitor(competitorId).pipe(
+        tap(data => this.competitors.push(data))
+      );
     }
   }
 }

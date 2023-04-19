@@ -16,7 +16,7 @@ import { OEventSummaryComponent } from './components/oevent-summary/oevent-summa
 import { UpcomingOeventsComponent } from './components/upcoming-oevents/upcoming-oevents.component';
 import { TimePipe } from './pipes/time.pipe';
 import { DatePipe } from './pipes/date.pipe';
-import { SortEventDatePipe } from './pipes/sort-event-date.pipe';
+import { SortOEventResultsByDatePipe } from './pipes/sort-oevent-results-by-date.pipe';
 import { ScrollIntoViewDirective } from './directives/is-visible.directive';
 import { NextEventComponent } from './components/next-event/next-event.component';
 import { EventNoticeComponent } from './pages/event-notice/event-notice.component';
@@ -25,6 +25,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { EventResultsComponent } from './pages/event-results/event-results.component';
 import { OeventResultsComponent } from './components/oevent-results/oevent-results.component';
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
+import IndividualResultsComponent from './pages/individual-results/individual-results.component';
+import { SortResultsByDatePipe } from './pipes/sort-results-by-date.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,7 @@ import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-i
     OEventSummaryComponent,
     TimePipe,
     DatePipe,
-    SortEventDatePipe,
+    SortOEventResultsByDatePipe,
     ScrollIntoViewDirective,
     UpcomingOeventsComponent,
     NextEventComponent,
@@ -48,6 +50,8 @@ import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-i
     EventResultsComponent,
     OeventResultsComponent,
     WhatIsOrienteeringComponent,
+    IndividualResultsComponent,
+    SortResultsByDatePipe,
   ],
   imports: [
     BrowserModule,

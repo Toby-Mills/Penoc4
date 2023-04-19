@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { OEventResults } from '../models/oevent-results';
 
 @Pipe({
-  name: 'sortEventDate'
+  name: 'sortOEventResultsByDate'
 })
-export class SortEventDatePipe implements PipeTransform {
+export class SortOEventResultsByDatePipe implements PipeTransform {
 
   transform(value: Array<OEventResults>): Array<OEventResults> {
     if (value && value.length > 0) {
@@ -19,5 +19,4 @@ export class SortEventDatePipe implements PipeTransform {
     }
     return value.sort();
   }
-
 }

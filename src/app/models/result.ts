@@ -1,5 +1,9 @@
 export class Result {
+    eventId?: number;
+    eventName?: string;
+    eventDate?: Date;
     courseId?: number;
+    courseName?: string;
     competitorId?: number;
     competitor?: string;
     position?: number;

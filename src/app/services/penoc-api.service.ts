@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
 import { OEventResults } from '../models/oevent-results';
 import { environment } from 'src/environments/environment';
+import { Result } from '../models/result';
+import { Competitor } from '../models/competitor';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +62,17 @@ export class PenocApiService {
     if (dateTo != null) { url += '&dateTo=' + dateTo.getFullYear() + '-' + (dateTo.getMonth() + 1) + '-' + dateTo.getDate(); }
     if (maximumResults != null) { url += '&maximumResults=' + maximumResults; }
     return this.get<OEventResults[]>(url, {});
+  }
+
+  public getCompetitor(competitorId: number):Observable<Competitor>{
+    let url = `/competitors/${competitorId}`;
+    return this.get<Array<Competitor>>(url, {}).pipe(
+      map(competitors => competitors[0]),first()//return the first item from the array
+    );    
+  }
+
+  public getCompetitorResults(competitorId: number):Observable<Result[]>{
+    let url = `/competitors/${competitorId}/results`;
+    return this.get<Result[]>(url, {});
   }
 }

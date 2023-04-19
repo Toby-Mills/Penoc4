@@ -1,0 +1,33 @@
+
+<div id="results" class="card">
+<div id="competitor">
+    <h1>Competitor: {{this.competitor.fullName}}</h1>
+</div>
+    <table id="individual-results" class="table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Course</th>
+                <th>Pos.</th>
+                <th>Time</th>
+                <th>Points</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let result of this.results|sortResultsByDate">
+                <tr>
+                    <td nowrap="nowrap">{{result.eventDate | date}}</td>
+                    <td>{{result.eventName}}</td>
+                    <td>{{result.courseName}}</td>
+                    <td *ngIf="result.disqualified == false">{{result.position}}</td>
+                    <td *ngIf="result.disqualified == true">DSQ</td>
+                    <td>{{result.time | time}}</td>
+                    <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
+                    <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
