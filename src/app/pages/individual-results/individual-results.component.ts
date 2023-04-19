@@ -26,4 +26,8 @@ export default class IndividualResultsComponent implements OnInit {
     this.api.getCompetitorResults(competitorId).subscribe(data => this.results = data);
   }
 
+  public onEventClick(eventId: number){
+    this.router.navigate(['/event-results', eventId]);
+  }
+
 }

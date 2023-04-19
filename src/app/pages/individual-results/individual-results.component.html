@@ -20,7 +20,7 @@
             <ng-container *ngFor="let result of this.results|sortResultsByDate">
                 <tr>
                     <td nowrap="nowrap">{{result.eventDate | date}}</td>
-                    <td>{{result.eventName}}</td>
+                    <td><a class="clickable" (click)="this.onEventClick(result.eventId!)">{{result.eventName}}</a></td>
                     <td>{{result.courseName}}</td>
                     <td *ngIf="result.disqualified == false">{{result.position}}</td>
                     <td *ngIf="result.disqualified == true">DSQ</td>
