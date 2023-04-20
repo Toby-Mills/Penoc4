@@ -90,7 +90,9 @@ export class DataCacheService {
     } else {
       //otherwise fetch from the api
       return this.api.getCompetitor(competitorId).pipe(
-        tap(data => this.competitors.push(data))
+        tap(data => {
+          if(data){this.competitors.push(data);console.log(data)}
+        })
       );
     }
   }

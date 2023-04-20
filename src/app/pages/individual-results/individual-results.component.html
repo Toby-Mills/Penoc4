@@ -1,36 +1,46 @@
 <div id="results" class="card">
     <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()"
             title="close"></div>
-    <div id="competitor">
-        <h1>Competitor: {{this.competitor.fullName}}</h1>
-        <p><span id="result-count">{{this.results.length}}</span> results<br></p>
-    </div>
-    <div class="clear-fix"></div>
-    <table id="individual-results" class="table-striped">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Event</th>
-                <th>Course</th>
-                <th>Pos.</th>
-                <th>Time</th>
-                <th>Points</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let result of this.results|sortResultsByDate">
-                <tr>
-                    <td nowrap="nowrap">{{result.eventDate | date}}</td>
-                    <td><a class="clickable" (click)="this.onEventClick(result.eventId!)">{{result.eventName}}</a></td>
-                    <td>{{result.courseName}}</td>
-                    <td *ngIf="result.disqualified == false">{{result.position}}</td>
-                    <td *ngIf="result.disqualified == true">DSQ</td>
-                    <td>{{result.time | time}}</td>
-                    <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
-                    <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
+    <ng-container *ngIf="this.competitor; else notFound">
+        <div id="competitor">
+            <h1>Competitor: {{this.competitor.fullName}}</h1>
+        </div>
+        <div class="clear-fix"></div>
+        <ng-container *ngIf="this.results">
+            <span id="result-count">{{this.results.length}}</span> results<br>
+            <br>
+            <table id="individual-results" class="table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                        <th>Course</th>
+                        <th>Pos.</th>
+                        <th>Time</th>
+                        <th>Points</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let result of this.results|sortResultsByDate">
+                        <tr>
+                            <td nowrap="nowrap">{{result.eventDate | date}}</td>
+                            <td><a class="clickable"
+                                    (click)="this.onEventClick(result.eventId!)">{{result.eventName}}</a>
+                            </td>
+                            <td>{{result.courseName}}</td>
+                            <td *ngIf="result.disqualified == false">{{result.position}}</td>
+                            <td *ngIf="result.disqualified == true">DSQ</td>
+                            <td>{{result.time | time}}</td>
+                            <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
+                            <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </ng-container>
+    </ng-container>
+    <ng-template #notFound>
+        <span>Competitor not found</span>
+    </ng-template>
 </div>

@@ -14,7 +14,7 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
 })
 export default class IndividualResultsComponent implements OnInit {
   competitor: Competitor = new Competitor();
-  results: Result[] = [];
+  results: Result[] | undefined;
   public narrowScreen: boolean = false;
 
   constructor(
@@ -29,7 +29,6 @@ export default class IndividualResultsComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('PenOC | Competitor Results');
     let competitorId = Number(this.route.snapshot.paramMap.get('competitorId'));
-
     this.dataCache.getCompetitor(competitorId).subscribe(data => this.competitor = data);
     this.api.getCompetitorResults(competitorId).subscribe(data => this.results = data);
   }
