@@ -12,6 +12,7 @@ th {
 td {
     padding: 5px;
     border-width: 1px;
+    vertical-align: top;
 }
 
 .table-striped tr:nth-child(even) {
