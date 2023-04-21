@@ -11,3 +11,7 @@ div#close {
     font-size: 1.2em;
     font-weight: 700;
 }
+
+table#individual-results {
+    width: 100%;
+}

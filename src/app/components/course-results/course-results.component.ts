@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, HostListener, Host, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CourseResults } from 'src/app/models/course-results';
+import { ScreenWidthCategories, ScreenWidthService } from 'src/app/services/screen-width.service';
 
 @Component({
   selector: 'app-course-results',
@@ -12,15 +13,12 @@ export class CourseResultsComponent implements OnInit {
 
   public narrowScreen: boolean = false;
 
-  constructor() { }
+  constructor(private screenWidthService: ScreenWidthService) { }
 
   ngOnInit(): void {
-    this.checkScreenWidth();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkScreenWidth();
+    this.narrowScreen = this.screenWidthService.narrowerThan(ScreenWidthCategories.Mobile);
+    this.screenWidthService.narrowerThan$(ScreenWidthCategories.Mobile)
+      .subscribe(data => this.narrowScreen = data);
   }
 
   public hasDisqualifiedCompetitors(): boolean {
@@ -33,8 +31,5 @@ export class CourseResultsComponent implements OnInit {
   public onCompetitorClick(competitorId: number) {
     this.competitorClicked.emit(competitorId);
   }
-
-  private checkScreenWidth() {
-    this.narrowScreen = (window.innerWidth < 800 ? true : false);
-  }
+  
 }

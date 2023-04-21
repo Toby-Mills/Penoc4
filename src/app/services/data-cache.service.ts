@@ -91,7 +91,7 @@ export class DataCacheService {
       //otherwise fetch from the api
       return this.api.getCompetitor(competitorId).pipe(
         tap(data => {
-          if(data){this.competitors.push(data);console.log(data)}
+          if(data){this.competitors.push(data)}
         })
       );
     }

@@ -13,7 +13,9 @@
             <ng-container *ngIf="result.disqualified == false">
                 <tr>
                     <td>{{result.position}}</td>
-                    <td><a class="clickable" (click)="onCompetitorClick(result.competitorId!)">{{result.competitor}}</a><span *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
+                    <td><a class="clickable"
+                            (click)="onCompetitorClick(result.competitorId!)">{{result.competitor}}</a><span
+                            *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
                     <td>{{result.time | time}}</td>
                     <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
                     <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
@@ -27,12 +29,14 @@
             <ng-container *ngFor="let result of this.courseResults.results">
                 <ng-container *ngIf="result.disqualified == true">
                     <tr>
-                    <td></td>
-                    <td>{{result.competitor}}<span *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
-                    <td><ng-container>{{result.time|time}}</ng-container></td>
-                    <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
-                    <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
-                </tr>
+                        <td></td>
+                        <td><a class="clickable"
+                                (click)="onCompetitorClick(result.competitorId!)">{{result.competitor}}</a><span
+                                *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
+                        <td><ng-container>{{result.time|time}}</ng-container></td>
+                        <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
+                        <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
+                    </tr>
                 </ng-container>
             </ng-container>
         </ng-container>
