@@ -12,8 +12,8 @@
             <table id="individual-results" class="table-striped">
                 <thead>
                     <tr>
-                        <th>Date</th>
                         <th>Event</th>
+                        <th *ngIf="!this.narrowerThanMobile">Date</th>
                         <th>Course</th>
                         <th>Pos.</th>
                         <th>Time</th>
@@ -24,14 +24,18 @@
                 <tbody>
                     <ng-container *ngFor="let result of this.results|sortResultsByDate">
                         <tr>
-                            <td nowrap="nowrap">{{result.eventDate | date}}</td>
                             <td><a class="clickable"
                                     (click)="this.onEventClick(result.eventId!)">{{result.eventName}}</a>
-                                <ng-container *ngIf="this.narrowerThanMobile && (result.comment)">
+                                <ng-container *ngIf="this.narrowerThanMobile">
                                     <br>
-                                    <span>({{result.comment}})</span>
+                                    <span>{{result.eventDate | date}}</span>
+                                    <ng-container *ngIf="result.comment">
+                                        <br>
+                                        <span>({{result.comment}})</span>
+                                    </ng-container>
                                 </ng-container>
                             </td>
+                            <td nowrap="nowrap"  *ngIf="!this.narrowerThanMobile">{{result.eventDate | date}}</td>
                             <td>{{result.courseName}}</td>
                             <td *ngIf="result.disqualified == false">{{result.position}}</td>
                             <td *ngIf="result.disqualified == true">DSQ</td>
