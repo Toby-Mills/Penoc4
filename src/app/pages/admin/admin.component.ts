@@ -28,6 +28,10 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  public onSignedIn(){
+    this.authenticated = true;
+  }
+
   public onSignOutClick() {
     this.api.signOut();
     this.router.navigate(['/home']);

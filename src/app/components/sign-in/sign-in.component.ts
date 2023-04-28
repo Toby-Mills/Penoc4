@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
@@ -13,7 +13,11 @@ export class SignInComponent {
   public username: string = '';
   public password: string = '';
 
-  @ViewChild('usernameinput', { static: false })  private usernameElement!: ElementRef<HTMLElement>;
+  @Output()
+  public signedIn:EventEmitter<boolean> = new EventEmitter();
+
+  @ViewChild('usernameinput', { static: false })
+  private usernameElement!: ElementRef<HTMLElement>;
 
   constructor(
     private api: PenocApiService,
@@ -47,7 +51,7 @@ export class SignInComponent {
   private signIn() {
     this.api.signIn(this.username, this.password).subscribe(
       {
-        next: success => this.display = false,
+        next: success => {this.signedIn.emit(true); this.display = false},
         error: error => this.failed = true
       }
     )

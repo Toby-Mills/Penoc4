@@ -1,3 +1,5 @@
-<input type="button" (click)="onSignOutClick()" value="Sign Out"/>
-{{this.authenticated}}
-<app-sign-in></app-sign-in>
+<div *ngIf="this.authenticated" class="card">
+    <input id="sign-out" type="button" class="secondary" (click)="onSignOutClick()" value="Sign Out" />
+    <h1>Admin</h1>
+</div>
+<app-sign-in (signedIn)="onSignedIn()"></app-sign-in>
