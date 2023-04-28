@@ -25,8 +25,11 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { EventResultsComponent } from './pages/event-results/event-results.component';
 import { OeventResultsComponent } from './components/oevent-results/oevent-results.component';
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
-import IndividualResultsComponent from './pages/individual-results/individual-results.component';
+import { IndividualResultsComponent } from './pages/individual-results/individual-results.component';
 import { SortResultsByDatePipe } from './pipes/sort-results-by-date.pipe';
+import { AdminComponent } from './pages/admin/admin.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,11 +55,14 @@ import { SortResultsByDatePipe } from './pipes/sort-results-by-date.pipe';
     WhatIsOrienteeringComponent,
     IndividualResultsComponent,
     SortResultsByDatePipe,
+    AdminComponent,
+    SignInComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [PenocApiService],
   bootstrap: [AppComponent]

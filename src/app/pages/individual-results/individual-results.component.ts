@@ -13,7 +13,7 @@ import { ScreenWidthService, ScreenWidthCategories } from 'src/app/services/scre
   templateUrl: './individual-results.component.html',
   styleUrls: ['./individual-results.component.css']
 })
-export default class IndividualResultsComponent implements OnInit {
+export class IndividualResultsComponent implements OnInit {
   competitor: Competitor = new Competitor();
   results: Result[] | undefined;
   public narrowerThanMobile: boolean = false;

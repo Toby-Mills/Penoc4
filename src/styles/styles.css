@@ -24,6 +24,26 @@ a {
     color: blue;
 }
 
+input[type="button"]{
+    font-size: 1em;
+    padding: 0.2em 1em;
+    border: 1px solid #ff6720;
+    border-radius: 3px;
+    margin:0.4em;
+}
+
+input[type="button"].primary{
+    color: white;
+    background-color: #ff6720;
+}
+input[type="button"].secondary{
+    color: #ff6720;
+    background-color: white;
+}
+input[type="button"].clickable:hover{
+    box-shadow: 0 0 0.5em 0.3em rgba(100,100,100,0.3);
+}
+
 .clear-fix {
     clear: both;
 }
