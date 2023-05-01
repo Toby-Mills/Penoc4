@@ -41,7 +41,7 @@
     </div>
     <div class="card" style="min-height:500px;">
         <span class="card-title">Upcoming Events</span><br>
-        <app-upcoming-oevents (oeventClicked)="onUpcomingEventClicked($event)"></app-upcoming-oevents>
+        <app-oevent-list [oevents]="dataCache.upcomingOEvents" (oeventClicked)="onUpcomingEventClicked($event)"></app-oevent-list>
     </div>
 </div>
 <app-whats-app></app-whats-app>

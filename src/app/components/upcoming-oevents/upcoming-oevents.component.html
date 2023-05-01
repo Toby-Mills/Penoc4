@@ -1,6 +1,0 @@
-<ng-container *ngIf="this.dataCache.upcomingOEvents"><div *ngFor="let oevent of this.dataCache.upcomingOEvents" class="oevent" (click)="this.onOeventClicked(oevent.id!)">
-    <span>{{this.oevent.date|date}}</span><br>
-    <a class="clickable-link">{{this.oevent.name}}</a><span> ({{this.oevent.venue}})</span><br>
-    <hr>
-</div></ng-container>
-

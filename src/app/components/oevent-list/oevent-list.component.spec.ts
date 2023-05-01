@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpcomingOeventsComponent } from './upcoming-oevents.component';
+import { UpcomingOeventsComponent } from './oevent-list.component';
 
 describe('UpcomingOeventsComponent', () => {
   let component: UpcomingOeventsComponent;

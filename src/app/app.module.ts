@@ -13,7 +13,7 @@ import { PenocApiService } from './services/penoc-api.service';
 import { ResultListComponent } from './components/result-list/result-list.component';
 import { CourseResultsComponent } from './components/course-results/course-results.component';
 import { OEventSummaryComponent } from './components/oevent-summary/oevent-summary.component';
-import { UpcomingOeventsComponent } from './components/upcoming-oevents/upcoming-oevents.component';
+import { UpcomingOeventsComponent } from './components/oevent-list/oevent-list.component';
 import { TimePipe } from './pipes/time.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { SortOEventResultsByDatePipe } from './pipes/sort-oevent-results-by-date.pipe';

@@ -3,6 +3,8 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
 import { WhatsAppComponent } from '../../components/whats-app/whats-app.component';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { OEvent } from 'src/app/models/oevent.model';
+import { DataCacheService } from 'src/app/services/data-cache.service';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +12,19 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  public display: boolean = false;
+  private upcomingOEvents: OEvent[] = [];
+  
   @ViewChild(WhatsAppComponent) public whatsApp!: WhatsAppComponent;
-  constructor(private api: PenocApiService, private router: Router, private titleService: Title){}
+  constructor(
+    private api: PenocApiService, 
+    private router: Router, 
+    private titleService: Title,
+    public dataCache: DataCacheService
+    ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('PenOC | Home');
+    this.dataCache.loadUpcomingOEvents()
   }
 
   public showWhatsApp(display: boolean) {
