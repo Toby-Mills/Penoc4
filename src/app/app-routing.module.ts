@@ -10,6 +10,7 @@ import { IndividualResultsComponent } from './pages/individual-results/individua
 import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { AdminGuard } from './guards/admin-guard';
+import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
 
 const routes: Routes = [
   {path:'', redirectTo: '/home', pathMatch: 'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path:'admin',
   canActivate: [AdminGuard],
   children:[
-    {path: 'dashboard', component: AdminDashboardComponent}
+    {path: 'dashboard', component: AdminDashboardComponent},
+    {path: 'event-edit/:oEventId', component: EventEditComponent},
   ]}
 ];
 

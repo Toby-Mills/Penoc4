@@ -33,4 +33,8 @@ export class AdminDashboardComponent implements OnInit {
     this.api.signOut();
     this.router.navigate(['/home']);
   }
+
+  public onUpcomingEventClick(oEventId: number) {
+    this.router.navigate(['/admin/event-edit', oEventId]);
+  }
 }

@@ -3,7 +3,7 @@
     <h1>Admin</h1>
     <div class="column">
         <h1>Upcoming Events</h1>
-        <app-oevent-list [oevents]="this.upcomingOEvents"></app-oevent-list>
+        <app-oevent-list [oevents]="this.upcomingOEvents" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
     </div>
     <div class="column">
         <h1>Recent Events</h1>
