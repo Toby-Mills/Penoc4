@@ -1,4 +1,4 @@
-<div *ngIf="this.display" id="modal-background" (click)="this.onBackgroundClick()">
+<div id="modal-background" (click)="this.onBackgroundClick()">
     <div id="dialog" class="card" style="text-align:left;" (click)="this.onDialogClick($event)">
         <h1>Sign In</h1>
         <div>
@@ -8,7 +8,6 @@
         <span id="password-label">Password:</span>
         <input id="password" type="password" [(ngModel)]="password" (keyup.enter)="onEnterKey($event)" /><br>
         <input id="sign-in" type="button" (click)="this.onSignInClick()" value="Sign In" class="primary clickable" /><input id="cancel" type="button" (click)="this.onCancelClick()" value="Cancel" class="secondary clickable" />
-        </div>
-        
+        </div>   
     </div>
 </div>

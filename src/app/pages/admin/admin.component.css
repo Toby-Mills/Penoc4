@@ -1,3 +1,14 @@
+#content {
+    overflow-y: auto;
+}
+
 #sign-out {
-    float:right;
+    float: right;
+}
+
+.column {
+    float: left;
+    width: calc(50% - 10px);
+    height: 200px;
+    border: 1px solid black;
 }

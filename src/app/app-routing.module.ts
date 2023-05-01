@@ -8,6 +8,8 @@ import { EventResultsComponent } from './pages/event-results/event-results.compo
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
 import { IndividualResultsComponent } from './pages/individual-results/individual-results.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { AdminGuard } from './guards/admin-guard';
 
 const routes: Routes = [
   {path:'', redirectTo: '/home', pathMatch: 'full'},
@@ -18,7 +20,12 @@ const routes: Routes = [
   {path:'event-notice/:oEventId', component: EventNoticeComponent },
   {path:'event-results/:oEventId', component: EventResultsComponent },
   {path:'individual-results/:competitorId', component: IndividualResultsComponent },
-  {path:'admin', component: AdminComponent },
+  {path:'sign-in', component: SignInComponent },
+  {path:'admin',
+  canActivate: [AdminGuard],
+  children:[
+    {path: 'dashboard', component: AdminComponent}
+  ]}
 ];
 
 @NgModule({

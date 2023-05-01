@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignInComponent } from 'src/app/components/sign-in/sign-in.component';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
 })
 export class AdminComponent implements OnInit {
   public authenticated: boolean = false;
-  @ViewChild(SignInComponent) signIn!: SignInComponent;
   public constructor(
     private api: PenocApiService,
     private changeDetector: ChangeDetectorRef,
@@ -19,17 +17,6 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticated = this.api.isAuthenticated();
-  }
-
-  ngAfterViewInit() {
-    if (this.authenticated == false) {
-      this.signIn.showDialog(true);
-      this.changeDetector.detectChanges();
-    }
-  }
-
-  public onSignedIn(){
-    this.authenticated = true;
   }
 
   public onSignOutClick() {

@@ -8,7 +8,6 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
-  public display: boolean = false;
   public failed: boolean = false;
   public username: string = '';
   public password: string = '';
@@ -25,11 +24,6 @@ export class SignInComponent {
   ) { }
 
   ngOnInit(): void {
-  }
-
-  public showDialog(display: boolean) {
-    this.display = display;
-    setTimeout(()=>{this.usernameElement.nativeElement.focus()},1)    
   }
 
   public onBackgroundClick() {
@@ -51,7 +45,7 @@ export class SignInComponent {
   private signIn() {
     this.api.signIn(this.username, this.password).subscribe(
       {
-        next: success => {this.signedIn.emit(true); this.display = false},
+        next: success => {this.router.navigate(['/admin/dashboard'])},
         error: error => this.failed = true
       }
     )

@@ -28,7 +28,7 @@ import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-i
 import { IndividualResultsComponent } from './pages/individual-results/individual-results.component';
 import { SortResultsByDatePipe } from './pipes/sort-results-by-date.pipe';
 import { AdminComponent } from './pages/admin/admin.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
