@@ -7,7 +7,7 @@ import { EventNoticeComponent } from './pages/event-notice/event-notice.componen
 import { EventResultsComponent } from './pages/event-results/event-results.component';
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
 import { IndividualResultsComponent } from './pages/individual-results/individual-results.component';
-import { AdminComponent } from './pages/admin/admin.component';
+import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { AdminGuard } from './guards/admin-guard';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
   {path:'admin',
   canActivate: [AdminGuard],
   children:[
-    {path: 'dashboard', component: AdminComponent}
+    {path: 'dashboard', component: AdminDashboardComponent}
   ]}
 ];
 

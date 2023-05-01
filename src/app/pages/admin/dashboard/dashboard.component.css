@@ -8,7 +8,6 @@
 
 .column {
     float: left;
-    width: calc(50% - 10px);
-    height: 200px;
-    border: 1px solid black;
+    width: calc(50% - 1em);
+    margin: 0.5em;
 }

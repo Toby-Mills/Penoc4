@@ -1,10 +1,12 @@
-<div id="content" *ngIf="this.authenticated" class="card">
+<div id="content" class="card">
     <input id="sign-out" type="button" class="secondary" (click)="onSignOutClick()" value="Sign Out" />
     <h1>Admin</h1>
     <div class="column">
         <h1>Upcoming Events</h1>
+        <app-oevent-list [oevents]="this.upcomingOEvents"></app-oevent-list>
     </div>
     <div class="column">
         <h1>Recent Events</h1>
+        <app-oevent-list [oevents]="this.recentOEvents"></app-oevent-list>
     </div>
 </div>
