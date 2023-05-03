@@ -28,6 +28,10 @@ export class PenocApiService {
     let headers: HttpHeaders = options.headers || new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('API_KEY', this.apiKey);
+    let token = localStorage.getItem('token');
+    if (token) {
+      headers = headers.append('Authorization', `Bearer ${token}`);
+    }
     options.headers = headers;
     return options;
   }
@@ -45,10 +49,10 @@ export class PenocApiService {
     )
   }
 
-  public signOut(){
+  public signOut() {
     localStorage.removeItem('token');
   }
-  
+
   private token(): string | null {
     let token = localStorage.getItem('token');
     return (token)
@@ -56,10 +60,18 @@ export class PenocApiService {
 
   public isAuthenticated(): boolean {
     let token: string | null = this.token();
-    if (token != null) { return true }
+    if (token) {
+      return !this.isTokenExpired(token);
+    }
     else { return false }
   }
 
+  private isTokenExpired(token: string): boolean {
+    const jwtPayload = JSON.parse(window.atob(token.split('.')[1]));
+    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+    return currentTimeInSeconds >= jwtPayload.exp;
+  }
+  
   private get<model>(url: string, options?: any): Observable<model> {
     options = this.addRequestHeaders(options);
     let fullUrl = this.baseUrl + url;
