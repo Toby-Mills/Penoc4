@@ -13,21 +13,24 @@ import { AdminGuard } from './guards/admin-guard';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
 
 const routes: Routes = [
-  {path:'', redirectTo: '/home', pathMatch: 'full'},
-  {path:'home', component: HomeComponent },
-  {path:'what-is-orienteering', component: WhatIsOrienteeringComponent},
-  {path:'results', component: ResultsComponent },
-  {path:'contact-us', component: ContactUsComponent },
-  {path:'event-notice/:oEventId', component: EventNoticeComponent },
-  {path:'event-results/:oEventId', component: EventResultsComponent },
-  {path:'individual-results/:competitorId', component: IndividualResultsComponent },
-  {path:'sign-in', component: SignInComponent },
-  {path:'admin',
-  canActivate: [AdminGuard],
-  children:[
-    {path: 'dashboard', component: AdminDashboardComponent},
-    {path: 'event-edit/:oEventId', component: EventEditComponent},
-  ]}
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'what-is-orienteering', component: WhatIsOrienteeringComponent },
+  { path: 'results', component: ResultsComponent },
+  { path: 'contact-us', component: ContactUsComponent },
+  { path: 'event-notice/:oEventId', component: EventNoticeComponent },
+  { path: 'event-results/:oEventId', component: EventResultsComponent },
+  { path: 'individual-results/:competitorId', component: IndividualResultsComponent },
+  { path: 'sign-in', component: SignInComponent },
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    children: [
+      { path: 'event-edit/:oEventId', component: EventEditComponent },
+      { path: '', component: AdminDashboardComponent  },
+    ]
+  },
+  { path: '**', redirectTo:'home'}
 ];
 
 @NgModule({
