@@ -78,6 +78,12 @@ export class PenocApiService {
     return this.http.get<model>(fullUrl, { headers: options.headers });
   }
 
+  private put<model>(url: string, body: model, options?: any): Observable<model> {
+    options = this.addRequestHeaders(options);
+    let fullUrl = this.baseUrl + url;
+    return this.http.put<model>(fullUrl, body, { headers: options.headers });
+  }
+
   private post<model>(url: string, body: any, options?: any): Observable<model> {
     options = this.addRequestHeaders(options);
     let fullUrl = this.baseUrl + url;
@@ -126,5 +132,10 @@ export class PenocApiService {
   public getCompetitorResults(competitorId: number): Observable<Result[]> {
     let url = `/competitors/${competitorId}/results`;
     return this.get<Result[]>(url, {});
+  }
+
+  public saveOEvent(oEvent: OEvent): Observable<OEvent> {
+    const url = '/oevents'
+    return this.put(url, oEvent, {});
   }
 }
