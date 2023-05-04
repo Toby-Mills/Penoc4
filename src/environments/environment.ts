@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //apiUrl: 'http://localhost/penoc/api',
-  apiUrl: 'http://www.penoc.org.za/api',
+  apiUrl: 'http://localhost/penoc/api',
+  //apiUrl: 'http://www.penoc.org.za/api',
   gaTrackingId: ''
 };
 
