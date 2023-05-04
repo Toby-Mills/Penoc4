@@ -7,6 +7,7 @@ import { OEventResults } from '../models/oevent-results';
 import { environment } from 'src/environments/environment';
 import { Result } from '../models/result';
 import { Competitor } from '../models/competitor';
+import { Venue } from '../models/venue';
 
 export class Credentials {
   username: string = '';
@@ -94,6 +95,11 @@ export class PenocApiService {
     return this.get<OEvent[]>('/oevents/' + idOEvent, {}).pipe(
       map(oevents => oevents[0]), first()//return the first item from the array
     );
+  }
+
+  getVenues ():  Observable<Venue[]> {
+    let url = '/venues';
+    return this.get<Venue[]>(url);
   }
 
   getOEvents(name?: string, venue?: string, dateFrom?: Date, dateTo?: Date): Observable<OEvent[]> {

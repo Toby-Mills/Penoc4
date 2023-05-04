@@ -4,7 +4,7 @@ import { PenocApiService } from './penoc-api.service';
 import { OEventResults } from '../models/oevent-results';
 import { Observable, of, tap } from 'rxjs';
 import { Competitor } from '../models/competitor';
-
+import { Venue } from '../models/venue';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,11 +17,11 @@ export class DataCacheService {
   public oEventResultSummaries: OEventResults[] = [];
 
   private oEventResultsFromDate: Date | undefined;
-  private oEventResultsToDate: Date | undefined;
   private loadingMoreOEventResults: Boolean = false;
 
   private oEventResults: OEventResults[] = [];
   private competitors: Competitor[] = [];
+  private venues: Venue[] = [];
 
   public loadUpcomingOEvents() {
     this.api.getOEvents(undefined, undefined, new Date).subscribe(result => { this.upcomingOEvents = result });
@@ -35,10 +35,10 @@ export class DataCacheService {
     })
   }
 
-  getOEventResults(oEventId: number):Observable<OEventResults>{
+  getOEventResults(oEventId: number): Observable<OEventResults> {
     //look in the cache and return from there if found
     let oEventResults = this.oEventResults.filter(oEventResults => oEventResults.oEvent!.id == oEventId)
-    if (oEventResults.length == 1){
+    if (oEventResults.length == 1) {
       let theEvent = oEventResults[0]
       return of(theEvent)
     } else {
@@ -51,7 +51,7 @@ export class DataCacheService {
 
   public addMoreOEventResultSummaries(additionalOEvents: number) {
     if (this.loadingMoreOEventResults == false) {
-      
+
       this.loadingMoreOEventResults = true;
 
       const oldCount = this.oEventResultSummaries.length;
@@ -81,18 +81,29 @@ export class DataCacheService {
     }
   }
 
-  public getCompetitor(competitorId: number):Observable<Competitor>{
+  public getCompetitor(competitorId: number): Observable<Competitor> {
     //look in the cache and return from there if found
     let competitors = this.competitors.filter(competitor => competitor.id == competitorId)
-    if (competitors.length == 1){
+    if (competitors.length == 1) {
       let theCompetitor = competitors[0]
       return of(theCompetitor)
     } else {
       //otherwise fetch from the api
       return this.api.getCompetitor(competitorId).pipe(
         tap(data => {
-          if(data){this.competitors.push(data)}
+          if (data) { this.competitors.push(data) }
         })
+      );
+    }
+  }
+
+  public getVenues(): Observable<Venue[]> {
+    //look in the cache and return from there if found
+    if (this.venues.length > 0) {return of(this.venues) }
+    else {
+      //otherwise fetch from the api
+      return this.api.getVenues().pipe(
+        tap(data => this.venues = data)
       );
     }
   }
