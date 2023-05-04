@@ -12,11 +12,14 @@ export class SortOEventResultsByDatePipe implements PipeTransform {
         if (a.oEvent && b.oEvent) {
           if (a.oEvent.date > b.oEvent.date) {
             return -1;
-          } else return 0;
+          } else if(a.oEvent.date == b.oEvent.date){
+            return 0
+          } else {
+            return 1;
+          }
         } else return 0;
-
       })
     }
-    return value.sort();
+    return value;
   }
 }
