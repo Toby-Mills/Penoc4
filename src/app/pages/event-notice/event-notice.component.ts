@@ -17,7 +17,6 @@ export class EventNoticeComponent implements OnInit {
   constructor(
     private api: PenocApiService,
     private route: ActivatedRoute,
-    private router: Router,
     private titleService: Title,
     private location: Location,
   ) { }
