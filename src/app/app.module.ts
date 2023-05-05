@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -31,6 +31,7 @@ import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.compo
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
+import { UTCDateSerializer } from './interceptors/utc-date-serializer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,10 @@ import { EventEditComponent } from './pages/admin/event-edit/event-edit.componen
     HttpClientModule,
     FormsModule,
   ],
-  providers: [PenocApiService],
+  providers: [
+    PenocApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: UTCDateSerializer, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
