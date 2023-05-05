@@ -1,6 +1,6 @@
 <div id="event" *ngIf="this.oEventResults.oEvent" class="card card-clickable" (click)="this.onOEventClicked()">
     <div id="name"><span class="card-title">{{this.oEventResults.oEvent.name}}</span></div>
-    <div id="date"><span class="card-title"></span>{{this.oEventResults.oEvent.date | date}}</div>
+    <div id="date"><span class="card-title"></span>{{this.oEventResults.oEvent.date | UTCdate}}</div>
     <div id="venue"><span class="venue">{{this.oEventResults.oEvent.venue}}</span></div>
     <table class="results">
         <thead>

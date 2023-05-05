@@ -2,7 +2,7 @@
     <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()"
             title="close"></div>
     <div id="event-header">
-        <h1>Event: {{this.oevent.name}} ({{this.oevent.date|date}})</h1>
+        <h1>Event: {{this.oevent.name}} ({{this.oevent.date|UTCdate}})</h1>
     </div>
     <div class="clear-fix">
         <h2>Where & When</h2>

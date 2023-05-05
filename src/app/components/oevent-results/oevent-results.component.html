@@ -3,7 +3,7 @@
         [ngTemplateOutletContext]="{theEvent: this.oEventResults.oEvent}">
         <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()" title="close"></div>
         <div id="event-header"><h1 *ngIf="theEvent.id">Results: {{theEvent.name}}
-            ({{theEvent.date | date}})</h1></div>        
+            ({{theEvent.date | UTCdate}})</h1></div>        
         <div *ngIf="theEvent.planner && theEvent.planner > ''" class="clear-fix" style="overflow: auto;">
             <hr>
             <div id="venue"><span><b>Venue: </b>{{theEvent.venue}}</span></div>

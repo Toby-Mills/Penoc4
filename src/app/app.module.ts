@@ -15,7 +15,7 @@ import { CourseResultsComponent } from './components/course-results/course-resul
 import { OEventSummaryComponent } from './components/oevent-summary/oevent-summary.component';
 import { UpcomingOeventsComponent } from './components/oevent-list/oevent-list.component';
 import { TimePipe } from './pipes/time.pipe';
-import { DatePipe } from './pipes/date.pipe';
+import { UTCDatePipe } from './pipes/date.pipe';
 import { SortOEventResultsByDatePipe } from './pipes/sort-oevent-results-by-date.pipe';
 import { ScrollIntoViewDirective } from './directives/is-visible.directive';
 import { NextEventComponent } from './components/next-event/next-event.component';
@@ -44,7 +44,7 @@ import { UTCDateSerializer } from './interceptors/utc-date-serializer';
     CourseResultsComponent,
     OEventSummaryComponent,
     TimePipe,
-    DatePipe,
+    UTCDatePipe,
     SortOEventResultsByDatePipe,
     ScrollIntoViewDirective,
     UpcomingOeventsComponent,

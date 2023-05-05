@@ -28,14 +28,14 @@
                                     (click)="this.onEventClick(result.eventId!)">{{result.eventName}}</a>
                                 <ng-container *ngIf="this.narrowerThanMobile">
                                     <br>
-                                    <span>{{result.eventDate | date}}</span>
+                                    <span>{{result.eventDate | UTCdate}}</span>
                                     <ng-container *ngIf="result.comment">
                                         <br>
                                         <span>({{result.comment}})</span>
                                     </ng-container>
                                 </ng-container>
                             </td>
-                            <td nowrap="nowrap"  *ngIf="!this.narrowerThanMobile">{{result.eventDate | date}}</td>
+                            <td nowrap="nowrap"  *ngIf="!this.narrowerThanMobile">{{result.eventDate | UTCdate}}</td>
                             <td>{{result.courseName}}</td>
                             <td *ngIf="result.disqualified == false">{{result.position}}</td>
                             <td *ngIf="result.disqualified == true">DSQ</td>
