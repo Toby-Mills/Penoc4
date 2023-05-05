@@ -26,6 +26,10 @@ export class SignInComponent {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(){
+    this.usernameElement.nativeElement.focus();
+  }
+
   public onBackgroundClick() {
     this.router.navigate(['/home']);
   }
