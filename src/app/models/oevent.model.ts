@@ -3,7 +3,7 @@ export class OEvent {
     name?: string;
     venueId?: number;
     venue?: string;
-    date: Date = new Date();
+    date?: string;
     courses?: string;
     planner?: string;
     plannerId?: number;
