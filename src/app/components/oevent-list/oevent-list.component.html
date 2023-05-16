@@ -1,6 +1,5 @@
 <ng-container><div *ngFor="let oevent of this.oevents" class="oevent" (click)="this.onOeventClicked(oevent.id!)">
     <span>{{oevent.date|UTCdate}}</span><br>
-    <a class="clickable-link">{{oevent.name}}</a><span> ({{oevent.venue}})</span><br>
+    <a class="clickable-link">{{oevent.name}}</a><span *ngIf="oevent.venue"> ({{oevent.venue}})</span><br>
     <hr>
 </div></ng-container>
-
