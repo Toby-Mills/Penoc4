@@ -18,18 +18,18 @@ export class UTCDateSerializer implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
         return next.handle(req)
-        .pipe(
-            map(event => {
-                if (event instanceof HttpResponse) {
-                    let newBody = this.removeTime(event.clone().body);
-                    let newResponse = event.clone({ body: newBody })
-                    return newResponse;
-                }
-                else {
-                    return event;
-                }
-            })
-        )
+            .pipe(
+                map(event => {
+                    if (event instanceof HttpResponse) {
+                        let newBody = this.removeTime(event.clone().body);
+                        let newResponse = event.clone({ body: newBody })
+                        return newResponse;
+                    }
+                    else {
+                        return event;
+                    }
+                })
+            )
     }
 
     removeTime(body: any): any {
@@ -64,10 +64,11 @@ export class UTCDateSerializer implements HttpInterceptor {
 
     private removeTimeFromDate(date?: Date): String | undefined {
         if (date) {
-            let returnDate: Date = new Date(date.toUTCString());
-            let dateString = returnDate.getUTCFullYear().toString() + '-';
-            dateString += (returnDate.getUTCMonth() + 1).toString().padStart(2, '0') + '-';
-            dateString += returnDate.getUTCDate().toString().padStart(2, '0');
+            date = new Date(date.getTime() - (date.getTimezoneOffset()*60*1000))
+            date = new Date(date.toUTCString());
+            let dateString = date.getUTCFullYear().toString() + '-';
+            dateString += (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-';
+            dateString += date.getUTCDate().toString().padStart(2, '0');
             return dateString;
         }
         else {
