@@ -1,0 +1,10 @@
+.field-label {
+    font-weight: bold;
+}
+input {
+    width: 20em;
+}
+textarea{
+    height:10em;
+    width: 40em;
+}
