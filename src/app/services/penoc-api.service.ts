@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Result } from '../models/result';
 import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
+import { Club } from '../models/club';
 
 export class Credentials {
   username: string = '';
@@ -100,6 +101,11 @@ export class PenocApiService {
   getVenues ():  Observable<Venue[]> {
     let url = '/venues';
     return this.get<Venue[]>(url);
+  }
+  
+  getClubs ():  Observable<Club[]> {
+    let url = '/clubs';
+    return this.get<Club[]>(url);
   }
 
   getOEvents(name?: string, venue?: string, dateFrom?: Date, dateTo?: Date): Observable<OEvent[]> {

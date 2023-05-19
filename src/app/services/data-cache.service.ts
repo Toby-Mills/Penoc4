@@ -5,6 +5,7 @@ import { OEventResults } from '../models/oevent-results';
 import { Observable, of, tap } from 'rxjs';
 import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
+import { Club } from '../models/club';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +23,8 @@ export class DataCacheService {
   private oEventResults: OEventResults[] = [];
   private competitors: Competitor[] = [];
   private venues: Venue[] = [];
+  private clubs: Club[] = [];
+
 
   public loadUpcomingOEvents() {
     this.api.getOEvents(undefined, undefined, new Date).subscribe(result => { this.upcomingOEvents = result });
@@ -104,6 +107,17 @@ export class DataCacheService {
       //otherwise fetch from the api
       return this.api.getVenues().pipe(
         tap(data => this.venues = data)
+      );
+    }
+  }
+
+  public getClubs(): Observable<Club[]> {
+    //look in the cache and return from there if found
+    if (this.clubs.length > 0) {return of(this.clubs) }
+    else {
+      //otherwise fetch from the api
+      return this.api.getClubs().pipe(
+        tap(data => this.clubs = data)
       );
     }
   }
