@@ -1,10 +1,42 @@
 .field-label {
     font-weight: bold;
+    display: inline-block;
+    margin-top: 0.4em;
+    margin-bottom: 0.1em;
+    margin-left: 0.5em;
 }
-input {
+
+input, select {
     width: 20em;
 }
-textarea{
-    height:10em;
-    width: 40em;
+
+textarea {
+    height: 10em;
+    width: 100%;
+}
+
+.html-editor {
+    float: left;
+    width: 48%;
+    margin: 0px;
+}
+
+.preview {
+    float: left;
+    width: 48%;
+    padding-left: 1.5em;
+    margin: 0px;
+    box-sizing: border-box;
+    min-height: 50px;
+}
+
+.html-label, .preview-label {
+    display: inline-block;
+    font-style: italic;
+    padding-left: 1em;
+    padding-bottom: 0.5em;
+}
+
+.preview .card {
+    margin: 0px;
 }

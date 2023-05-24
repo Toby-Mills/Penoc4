@@ -1,49 +1,128 @@
 <form *ngIf="this.oEvent" #oEventForm="ngForm">
-    <input [disabled]="!oEventForm.form.dirty" type="button" class="primary" value="Save" (click)="this.onSaveClick()" /><br>
-    <span for="name" class="field-label">Name: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.name" name="name" /><br>
-    <span for="date" class="field-label">Date: </span><br>
-    <input type="date" [(ngModel)]="this.oEvent.date" name="date" /><br>
-    <span for="venue" class="field-label">Venue:</span><br>
-    <select [(ngModel)]="this.oEvent.venueId" name="venue" >
-        <option *ngFor="let venue of this.venues" value="{{venue.id}}">{{venue.name}}</option>
-    </select><br>
-    <span for="club" class="field-label">Organizing Club:</span><br>
-    <select [(ngModel)]="this.oEvent.organizingClubId" name="club" >
-        <option *ngFor="let club of this.clubs" value="{{club.id}}">{{club.shortName}}</option>
-    </select><br>
-    <span for="planner" class="field-label">Planner: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.plannerId" name="planner" /><br>
-    <span for="controller" class="field-label">Controller: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.controllerId" name="controller" /><br>
-    <span for="courses" class="field-label">Courses:</span><br>
-    <textarea [(ngModel)]="this.oEvent.courses" name="courses"></textarea><br>
-    <span for="planner-report" class="field-label">Planner Report:</span><br>
-    <textarea [(ngModel)]="this.oEvent.plannerReport" name="planner-report"></textarea><br>
-    <span for="controller-report" class="field-label">Controller Report:</span><br>
-    <textarea [(ngModel)]="this.oEvent.controllerReport" name="controller-report"></textarea><br>
-    <span for="special-note" class="field-label">Special Note:</span><br>
-    <textarea [(ngModel)]="this.oEvent.specialNote" name="special-note"></textarea><br>
-    <span for="registration-time" class="field-label">Registration Time: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.registrationTime" name="registration-time" /><br>
-    <span for="start-time" class="field-label">Start Times: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.startTime" name="start-time" /><br>
-    <span for="close-time" class="field-label">Courses Close: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.closeTime"name="close-time" /><br>
-    <span for="directions" class="field-label">Directions:</span><br>
-    <textarea [(ngModel)]="this.oEvent.directions" name="directions"></textarea><br>
-    <span for="max-points" class="field-label">Maximum Points: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.maxPoints"name="max-points" /><br>
-    <span for="cost" class="field-label">Cost:</span><br>
-    <textarea [(ngModel)]="this.oEvent.cost" name="cost"></textarea><br>
-    <span for="results-url" class="field-label">Results URL: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.resultsURL" name="results-url" /><br>
-    <span for="photos-url" class="field-label">Photos URL: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.photosURL" name="photos-url" /><br>
-    <span for="notice-url" class="field-label">Notice URL: </span><br>
-    <input type="text" [(ngModel)]="this.oEvent.noticeURL" name="notice-url" /><br>
+    <input [disabled]="!oEventForm.form.dirty" type="button" class="primary" value="Save" (click)="this.onSaveClick()" />
+    <br>
+    <div style="float:left; width:30%">
+        <span for="name" class="field-label">Name: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.name" name="name" /><br>
+        <span for="date" class="field-label">Date: </span><br>
+        <input type="date" [(ngModel)]="this.oEvent.date" name="date" /><br>
+        <span for="venue" class="field-label">Venue:</span><br>
+        <select [(ngModel)]="this.oEvent.venueId" name="venue">
+            <option *ngFor="let venue of this.venues" value="{{venue.id}}">{{venue.name}}</option>
+        </select><br>
+        <span for="club" class="field-label">Organizing Club:</span><br>
+        <select [(ngModel)]="this.oEvent.organizingClubId" name="club">
+            <option *ngFor="let club of this.clubs" value="{{club.id}}">{{club.shortName}}</option>
+        </select>
+    </div>
+    <div style="float:left; width:30%">
+        <span for="registration-time" class="field-label">Registration Time: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.registrationTime" name="registration-time" /><br>
+        <span for="start-time" class="field-label">Start Times: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.startTime" name="start-time" /><br>
+        <span for="close-time" class="field-label">Courses Close: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.closeTime" name="close-time" /><br>
+    </div>
+    <div style="float:left; width:30%">
+        <span for="results-url" class="field-label">Results URL: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.resultsURL" name="results-url" /><br>
+        <span for="photos-url" class="field-label">Photos URL: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.photosURL" name="photos-url" /><br>
+        <span for="notice-url" class="field-label">Notice URL: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.noticeURL" name="notice-url" /><br>
+    </div>
+    <div style="float:left; width:30%">
+        <span for="planner" class="field-label">Planner: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.plannerId" name="planner" /><br>
+        <span for="controller" class="field-label">Controller: </span><br>
+        <input type="text" [(ngModel)]="this.oEvent.controllerId" name="controller" /><br>
+    </div>
+    <div class="clear-fix"></div>
+    <hr>
+    <span  class="field-label">Directions:</span><br>
+    <div class="html-editor">
+        <span class="html-label">html:</span><br>
+        <textarea [(ngModel)]="this.oEvent.directions" name="directions"></textarea>
+    </div>
+    <div class="preview">
+        <span class="preview-label">preview:</span>
+        <div class="card">
+            <span [innerHTML]="this.oEvent.directions | safeHtml"></span>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
     <span for="latitude" class="field-label">Latitude: </span><br>
     <input type="text" [(ngModel)]="this.oEvent.coordinateLatitude" name="latitude" /><br>
     <span for="longitude" class="field-label">Longitude: </span><br>
     <input type="text" [(ngModel)]="this.oEvent.coordinateLongitude" name="longitude" /><br>
+
+    <hr>
+    <span  class="field-label">Courses:</span><br>
+    <div class="html-editor">
+        <span class="html-label">html:</span>
+        <textarea [(ngModel)]="this.oEvent.courses" name="courses"></textarea><br>
+    </div>
+    <div class="preview">
+        <span class="preview-label">preview:</span>
+        <div class="card">
+            <span [innerHTML]="this.oEvent.courses | safeHtml"></span>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+
+    <hr>
+    <span  class="field-label">Cost:</span><br>
+    <div class="html-editor">
+        <span class="html-label">html:</span><br>
+        <textarea [(ngModel)]="this.oEvent.cost" name="cost"></textarea>
+    </div>
+    <div class="preview">
+        <span class="preview-label">preview:</span>
+        <div class="card">
+            <span [innerHTML]="this.oEvent.cost | safeHtml"></span>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+
+    <hr>
+    <span  class="field-label">Special Note:</span><br>
+    <div class="html-editor">
+        <span class="html-label">html:</span><br>
+        <textarea [(ngModel)]="this.oEvent.specialNote" name="special-note"></textarea>
+    </div>
+    <div class="preview">
+        <span class="preview-label">preview:</span>
+        <div class="card">
+            <span [innerHTML]="this.oEvent.specialNote | safeHtml"></span>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+
+    <hr>
+    <span  class="field-label">Planner's Report:</span><br>
+    <div class="html-editor">
+        <span class="html-label">html:</span><br>
+        <textarea [(ngModel)]="this.oEvent.plannerReport" name="planner-report"></textarea>
+    </div>
+    <div class="preview">
+        <span class="preview-label">preview:</span>
+        <div class="card">
+            <span [innerHTML]="this.oEvent.plannerReport | safeHtml"></span>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+
+    <hr>
+    <span  class="field-label">Controller's Report:</span><br>
+    <div class="html-editor">
+        <span class="html-label">html:</span><br>
+        <textarea [(ngModel)]="this.oEvent.controllerReport" name="controller-report"></textarea>
+    </div>
+    <div class="preview">
+        <span class="preview-label">preview:</span>
+        <div class="card">
+            <span [innerHTML]="this.oEvent.controllerReport | safeHtml"></span>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
 </form>
