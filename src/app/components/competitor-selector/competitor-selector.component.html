@@ -1,11 +1,22 @@
 <div (keydown)="onKeydown($event)">
-    <input id="competitorName" type="text" value="{{this.competitorName}}" *ngIf="searchVisible == false" (focus)="this.displaySearch()"><input id="clear" *ngIf="searchVisible == false" type="button" value="X" (click)="selectCompetitor(undefined)">
-    <div *ngIf="searchVisible" (click)="onMatchClicked($event)" (blur)="onSearchBlur()">        
-        <input id="searchInputBox" #searchInputBox type="text" [(ngModel)]="inputText" (keyup)="onSearchInput()"  style="background-color: red;"> <br>
-        <ul *ngIf="matches.length > 0" class="dropdown-list" >
+    <input id="competitorName" type="text" value="{{this.competitorName}}" *ngIf="searchVisible == false"
+        (focus)="this.displaySearch()">
+    <input id="clear" *ngIf="searchVisible == false" type="button" value="X" (click)="selectCompetitor(undefined)">
+    <div *ngIf="searchVisible">
+        <input id="searchInputBox" #searchInputBox type="text" placeholder="search" [(ngModel)]="inputText"
+            (keyup)="onSearchInput()" (blur)="onSearchBlur()"><br>
+        <ul *ngIf="matches.length > 0" class="dropdown-list" (click)="onMatchClicked($event)">
             <li *ngFor="let competitor of matches | sortCompetitorsIndividualsFirst" id="{{competitor.id}}"
                 [ngClass]="{'selected':competitor.id == selectedMatchId,'highlighted':competitor.id == highlightedMatchId}">
                 <div class="gender-icon" [class]="'gender-' + competitor.genderId"></div>{{competitor.fullName}}
+            </li>
+        </ul>
+        <ul *ngIf="matches.length == 0" class="dropdown-list">
+            <li>
+                no matches found
+            </li>
+            <li *ngIf="searching">
+                searching...
             </li>
         </ul>
     </div>
