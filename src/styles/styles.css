@@ -36,12 +36,22 @@ input[type="button"].primary{
     color: white;
     background-color: #ff6720;
 }
+
+
+
 input[type="button"].secondary{
     color: #ff6720;
     background-color: white;
 }
-input[type="button"].clickable:hover{
+input[type="button"]:hover{
     box-shadow: 0 0 0.5em 0.3em rgba(100,100,100,0.3);
+}
+
+input[type="button"]:disabled{
+    color: rgb(100,100,100);
+    background-color: #8f8f8f;
+    border-color: rgb(80,80,80);
+    box-shadow: none;
 }
 
 input[type="text"], textarea, input[type="date"], input[type="password"], select {

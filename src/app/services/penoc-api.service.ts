@@ -150,4 +150,9 @@ export class PenocApiService {
     const url = '/oevents'
     return this.put(url, oEvent, {});
   }
+
+  public searchCompetitors(competitorName: string):Observable<Competitor[]> {
+    let url = `/competitors?name=${competitorName}`;
+    return this.get<Competitor[]>(url,{});
+  }
 }

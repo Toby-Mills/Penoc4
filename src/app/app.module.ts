@@ -32,6 +32,8 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
 import { UTCDateSerializer } from './interceptors/utc-date-serializer';
+import { CompetitorSelectorComponent } from './components/competitor-selector/competitor-selector.component';
+import { SortCompetitorsIndividualsFirstPipe } from './pipes/sort-competitors-individuals-first.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +62,8 @@ import { UTCDateSerializer } from './interceptors/utc-date-serializer';
     AdminDashboardComponent,
     SignInComponent,
     EventEditComponent,
+    CompetitorSelectorComponent,
+    SortCompetitorsIndividualsFirstPipe,
   ],
   imports: [
     BrowserModule,

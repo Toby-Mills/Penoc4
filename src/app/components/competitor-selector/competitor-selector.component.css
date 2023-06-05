@@ -1,0 +1,55 @@
+#competitorName {
+  width: calc(20em - 50px);
+}
+
+#searchInputBox {
+  width: 20em;
+}
+
+#clear {
+  background-color: red;
+  margin: 0px;
+}
+
+.dropdown-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: inline-block;
+    position: absolute;
+    background-color: #fff;
+    z-index: 9999;
+  }
+  .dropdown-list li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-list li:hover {
+    background-color: #f2f2f2;
+  }
+  .dropdown-list li.selected {
+    background-color: red;
+  }
+
+  .dropdown-list li.highlighted {
+    background-color: blue;
+  }
+
+  .gender-icon {
+    display:inline-block;
+    height: 1em;
+    width: 1em;
+    background-size: contain;
+    margin-right: 0.3em;
+  }
+
+  .gender-icon.gender-1, .gender-icon.gender-2 {
+    background-image: url(../../../assets/individual.png);
+  }
+
+  .gender-icon.gender-3 {
+    background-image: url(../../../assets/group.png);
+  }
