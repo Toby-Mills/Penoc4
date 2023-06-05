@@ -1,3 +1,4 @@
+{{this.oEvent|json}}
 <form *ngIf="this.oEvent" #oEventForm="ngForm">
     <input [disabled]="!oEventForm.form.dirty" type="button" class="primary" value="Save" (click)="this.onSaveClick()" />
     <br>
@@ -33,9 +34,9 @@
     </div>
     <div style="float:left; width:30%">
         <span for="planner" class="field-label">Planner: </span><br>
-        <input type="text" [(ngModel)]="this.oEvent.plannerId" name="planner" /><br>
+        <app-competitor-selector [(competitorId)]="this.oEvent.plannerId" (competitorIdChange)="this.onPlannerIdChange($event)"></app-competitor-selector>
         <span for="controller" class="field-label">Controller: </span><br>
-        <input type="text" [(ngModel)]="this.oEvent.controllerId" name="controller" /><br>
+        <app-competitor-selector [(competitorId)]="this.oEvent.controllerId" (competitorIdChange)="this.onControllerIdChange($event)"></app-competitor-selector>
     </div>
     <div class="clear-fix"></div>
     <hr>

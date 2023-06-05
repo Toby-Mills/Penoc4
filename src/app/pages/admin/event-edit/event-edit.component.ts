@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Club } from 'src/app/models/club';
 import { OEvent } from 'src/app/models/oevent.model';
@@ -13,9 +14,9 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
 })
 export class EventEditComponent implements OnInit {
   public oEvent: OEvent | undefined;
-
   public venues: Venue[] = [];
   public clubs: Club[] = [];
+  @ViewChild('oEventForm') oeventForm: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +35,10 @@ export class EventEditComponent implements OnInit {
     this.loadEvent(Number(this.route.snapshot.paramMap.get('oEventId')));
   }
 
+  ngAfterViewInit() {
+
+  }
+
   private loadEvent(oEventId: number) {
     this.api.getOEvent(oEventId).subscribe(data => {
       this.oEvent = data;
@@ -43,7 +48,21 @@ export class EventEditComponent implements OnInit {
   public onSaveClick() {
     if (this.oEvent) {
       this.api.saveOEvent(this.oEvent).subscribe(data => this.oEvent = data);
+      const form:FormControl = this.oeventForm.control;
+      form.markAsPristine();
+      form.markAsUntouched();
     }
+  }
 
+  public onPlannerIdChange(event:number | undefined){
+    const form:FormControl = this.oeventForm.control;
+    form.markAsTouched();
+    form.markAsDirty();
+  }
+
+  public onControllerIdChange(event:number | undefined){
+    const form:FormControl = this.oeventForm.control;
+    form.markAsTouched();
+    form.markAsDirty();
   }
 }
