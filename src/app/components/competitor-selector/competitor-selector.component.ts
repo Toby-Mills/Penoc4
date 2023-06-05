@@ -10,11 +10,13 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
 })
 export class CompetitorSelectorComponent {
   @Input() competitorId: number | undefined = 0;
+  @Input() individualsOnly: boolean = false;
   @Output() competitorIdChange: EventEmitter<number | undefined> = new EventEmitter();
 
   public competitorName: string = '';
   public searchVisible: boolean = false;
   public inputText: string = "";
+  public searching: boolean = false;
   public matches: Competitor[] = [];
   public selectedMatchId: number | undefined = 0;
   public highlightedMatchId: number | undefined;
@@ -33,10 +35,14 @@ export class CompetitorSelectorComponent {
     this.searchSubject.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap((inputText) => { return this.api.searchCompetitors(inputText) })
+      switchMap((inputText) => {
+        this.searching = true;
+        if(this.individualsOnly) {return this.api.searchIndividuals(inputText)}
+        else {return this.api.searchCompetitors(inputText) }
+      })
     ).subscribe(
       {
-        'next': (value) => { this.matches = value; this.selectedMatchId = 0; },
+        'next': (value) => { this.searching = false; this.matches = value; this.selectedMatchId = 0; },
         'error': (error) => { console.log(error) }
       }
     )

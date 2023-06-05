@@ -34,7 +34,7 @@
     </div>
     <div style="float:left; width:30%">
         <span for="planner" class="field-label">Planner: </span><br>
-        <app-competitor-selector [(competitorId)]="this.oEvent.plannerId" (competitorIdChange)="this.onPlannerIdChange($event)"></app-competitor-selector>
+        <app-competitor-selector [individualsOnly]="true" [(competitorId)]="this.oEvent.plannerId" (competitorIdChange)="this.onPlannerIdChange($event)"></app-competitor-selector>
         <span for="controller" class="field-label">Controller: </span><br>
         <app-competitor-selector [(competitorId)]="this.oEvent.controllerId" (competitorIdChange)="this.onControllerIdChange($event)"></app-competitor-selector>
     </div>
