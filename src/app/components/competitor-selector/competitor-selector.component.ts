@@ -68,7 +68,6 @@ export class CompetitorSelectorComponent {
 
   hideSearch() {
     this.searchVisible = false;
-    console.log('hideSearch');
   }
 
   onSearchInput(): void {
@@ -80,16 +79,13 @@ export class CompetitorSelectorComponent {
   }
 
   onMatchClicked($event: Event): void {
-    console.log('onMatchClicked', $event);
     if ($event.target) {
-      console.log('onMatchClicked', $event.target);
       const target: HTMLElement = $event.target as HTMLElement;
       this.selectCompetitor(Number(target.id));
     }
   }
 
   selectCompetitor(competitorId: number | undefined) {
-    console.log('selectCompetitor', competitorId);
     this.loadCompetitor(competitorId);
     this.hideSearch();
     this.competitorIdChange.next(competitorId);
@@ -107,9 +103,10 @@ export class CompetitorSelectorComponent {
       })
       if (selectedCompetitor) { this.competitorName = selectedCompetitor.fullName; }
       else {
-        this.api.getCompetitor(competitorId).subscribe(
-          { 'next': (data) => { this.matches.push(data); this.loadCompetitor(competitorId); } }
-        )
+        this.api.getCompetitor(competitorId).subscribe({
+          'next': (data) => { this.matches.push(data); this.loadCompetitor(competitorId); },
+          'error': (error) => { console.log('error', error) }
+        })
       }
     } else {
       this.competitorId = undefined;
@@ -120,7 +117,6 @@ export class CompetitorSelectorComponent {
   }
 
   clearCompetitor() {
-    console.log('clearCompetitor');
     this.competitorId = 0;
     this.competitorName = '';
     this.selectedMatchId = 0;
@@ -154,9 +150,8 @@ export class CompetitorSelectorComponent {
   onSearchBlur() {
     //use a Timeout to allow the onMatchClicked event to be handled first if needed
     setTimeout(() => {
-      console.log('onSearchBlur');
       this.hideSearch();
-    },500);
+    }, 500);
 
   }
 
@@ -200,13 +195,11 @@ export class CompetitorSelectorComponent {
   }
 
   tabToControl(next: boolean) {
-    console.log('tabToControl');
     const element = this.elementRef.nativeElement;
     let nextElement = element.nextElementSibling;
     if (!next) {
       nextElement = element.previousElementSibling;
     }
-    console.log('next', nextElement);
     if (nextElement) {
       this.renderer.selectRootElement(nextElement).focus();
     }
