@@ -1,3 +1,9 @@
+div.column {
+    float:left;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
 .field-label {
     font-weight: bold;
     display: inline-block;
