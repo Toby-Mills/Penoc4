@@ -29,8 +29,8 @@ export class EventEditComponent implements OnInit {
       { next: data => this.venues = data }
     )
     this.dataCache.getClubs().subscribe(
-      { next: data => {this.clubs = data;console.log(data)},
-      error: data => console.log(data) }
+      { next: data => {this.clubs = data},
+      error: data => console.log('error: ', data) }
     )
     this.loadEvent(Number(this.route.snapshot.paramMap.get('oEventId')));
   }
