@@ -44,10 +44,14 @@
         <div *ngIf="this.oevent.planner && this.oevent.planner > ''">
             <h2>Planning</h2>
             <hr>
-            <span *ngIf="this.oevent.planner && this.oevent.planner > ''"><b>Planner:
-                </b>{{this.oevent.planner}}</span><br>
-            <span *ngIf="this.oevent.controller && this.oevent.controller > ''">Controller:
-                {{this.oevent.controller}}</span><br>
+            <span *ngIf="this.oevent.planner && this.oevent.planner > ''">
+                <b>Planner:</b>
+                {{this.oevent.planner}}
+            </span><br>
+            <span *ngIf="this.oevent.controller && this.oevent.controller > ''">
+                <b>Controller:</b>
+                {{this.oevent.controller}}
+            </span><br>
         </div>
     </div>
 </div>
