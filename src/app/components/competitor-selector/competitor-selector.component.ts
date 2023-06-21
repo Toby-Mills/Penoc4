@@ -37,13 +37,13 @@ export class CompetitorSelectorComponent {
       distinctUntilChanged(),
       switchMap((inputText) => {
         this.searching = true;
-        if(this.individualsOnly) {return this.api.searchIndividuals(inputText)}
-        else {return this.api.searchCompetitors(inputText) }
+        if (this.individualsOnly) { return this.api.searchIndividuals(inputText) }
+        else { return this.api.searchCompetitors(inputText) }
       })
     ).subscribe(
       {
         'next': (value) => { this.searching = false; this.matches = value; this.selectedMatchId = 0; },
-        'error': (error) => { console.log(error) }
+        'error': (error) => { console.log('error: ', error) }
       }
     )
   }
@@ -68,7 +68,7 @@ export class CompetitorSelectorComponent {
 
   hideSearch() {
     this.searchVisible = false;
-    console.log(this.highlightedMatchId);
+    console.log('hideSearch');
   }
 
   onSearchInput(): void {
@@ -80,13 +80,16 @@ export class CompetitorSelectorComponent {
   }
 
   onMatchClicked($event: Event): void {
+    console.log('onMatchClicked', $event);
     if ($event.target) {
+      console.log('onMatchClicked', $event.target);
       const target: HTMLElement = $event.target as HTMLElement;
       this.selectCompetitor(Number(target.id));
     }
   }
 
   selectCompetitor(competitorId: number | undefined) {
+    console.log('selectCompetitor', competitorId);
     this.loadCompetitor(competitorId);
     this.hideSearch();
     this.competitorIdChange.next(competitorId);
@@ -96,9 +99,9 @@ export class CompetitorSelectorComponent {
 
 
     if (competitorId) {
-          this.competitorId = competitorId;
-    this.selectedMatchId = competitorId;
-    this.highlightedMatchId = competitorId;
+      this.competitorId = competitorId;
+      this.selectedMatchId = competitorId;
+      this.highlightedMatchId = competitorId;
       let selectedCompetitor: Competitor | undefined = this.matches.find((value) => {
         return value.id == competitorId;
       })
@@ -117,6 +120,7 @@ export class CompetitorSelectorComponent {
   }
 
   clearCompetitor() {
+    console.log('clearCompetitor');
     this.competitorId = 0;
     this.competitorName = '';
     this.selectedMatchId = 0;
@@ -150,8 +154,9 @@ export class CompetitorSelectorComponent {
   onSearchBlur() {
     //use a Timeout to allow the onMatchClicked event to be handled first if needed
     setTimeout(() => {
+      console.log('onSearchBlur');
       this.hideSearch();
-    }, 500);
+    },500);
 
   }
 
@@ -195,13 +200,13 @@ export class CompetitorSelectorComponent {
   }
 
   tabToControl(next: boolean) {
-    console.log('here');
+    console.log('tabToControl');
     const element = this.elementRef.nativeElement;
     let nextElement = element.nextElementSibling;
     if (!next) {
       nextElement = element.previousElementSibling;
     }
-    console.log(nextElement);
+    console.log('next', nextElement);
     if (nextElement) {
       this.renderer.selectRootElement(nextElement).focus();
     }

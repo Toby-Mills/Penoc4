@@ -3,7 +3,7 @@
 }
 
 #searchInputBox {
-  width: 20em;
+  width: calc(20em - 50px);
 }
 
 #clear {
