@@ -148,7 +148,11 @@ export class CompetitorSelectorComponent {
   }
 
   onSearchBlur() {
-    this.hideSearch();
+    //use a Timeout to allow the onMatchClicked event to be handled first if needed
+    setTimeout(() => {
+      this.hideSearch();
+    }, 500);
+
   }
 
   highlightNextMatch() {
