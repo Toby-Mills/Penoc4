@@ -19,7 +19,7 @@ export class Credentials {
   providedIn: 'root'
 })
 export class PenocApiService {
-  apiKey: string = 'Orienteering';
+  apiKey: string = environment.apiKey;
   baseUrl: string = environment.apiUrl;
 
 
