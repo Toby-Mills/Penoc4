@@ -1,5 +1,11 @@
-<ng-container><div *ngFor="let oevent of this.oevents" class="oevent" (click)="this.onOeventClicked(oevent.id!)">
+<div *ngFor="let oevent of this.oevents" class="oevent" (click)="this.onOeventClicked(oevent.id!)">
     <span>{{oevent.date|UTCdate}}</span><br>
-    <a class="clickable-link">{{oevent.name}}</a><span *ngIf="oevent.venue"> ({{oevent.venue}})</span><br>
+    <ng-container *ngIf="oevent.venue; else noVenue">
+        <a class="clickable-link">{{oevent.venue}}</a><span> ({{oevent.name}})</span>
+    </ng-container>
+    <ng-template #noVenue>
+        <a class="clickable-link">{{oevent.name}}</a>
+    </ng-template>
+    <br>
     <hr>
-</div></ng-container>
+</div>

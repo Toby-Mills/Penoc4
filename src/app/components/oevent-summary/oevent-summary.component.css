@@ -21,7 +21,7 @@ table.results td {
     ;
 }
 
-div#name {
+div#venue {
     float:left;
 }
 
@@ -29,10 +29,10 @@ div#date {
     float:right;
 }
 
-div#venue {
+div#name {
     clear:both;
 }
 
-span.venue {
+span.name {
     font-size: 0.8em;
 }

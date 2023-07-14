@@ -1,9 +1,18 @@
 <div *ngIf="this.oevent.id != 0" class="card">
-    <div id="close"><input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()"
-            title="close"></div>
-    <div id="event-header">
-        <h1>Event: {{this.oevent.name}} ({{this.oevent.date|UTCdate}})</h1>
+    <div id="close">
+        <input id="close-button" class="clickable" type="button" value="X" (click)="onCloseClick()" title="close">
     </div>
+
+    <div id="event-header">
+        <ng-container *ngIf="this.oevent.venue;else noVenue">
+            <h1>Event: {{this.oevent.venue}} ({{this.oevent.date|UTCdate}})</h1>
+            <b>{{this.oevent.name}}</b><br><br>
+        </ng-container>
+        <ng-template #noVenue>
+            <h1>Event: {{this.oevent.name}} ({{this.oevent.date|UTCdate}})</h1>
+        </ng-template>
+    </div>
+
     <div class="clear-fix">
         <h2>Where & When</h2>
         <hr>
