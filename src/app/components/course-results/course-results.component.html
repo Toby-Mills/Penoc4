@@ -17,7 +17,7 @@
                             (click)="onCompetitorClick(result.competitorId!)">{{result.competitor}}</a><span
                             *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
                     <td>{{result.time | time}}</td>
-                    <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
+                    <td><ng-container>{{result.points}}</ng-container></td>
                     <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
                 </tr>
             </ng-container>
@@ -34,7 +34,7 @@
                                 (click)="onCompetitorClick(result.competitorId!)">{{result.competitor}}</a><span
                                 *ngIf="this.narrowScreen && result.comment! > ''"><br>({{result.comment}})</span></td>
                         <td><ng-container>{{result.time|time}}</ng-container></td>
-                        <td><ng-container *ngIf="result.points > 0">{{result.points}}</ng-container></td>
+                        <td><ng-container>{{result.points}}</ng-container></td>
                         <td *ngIf="!this.narrowScreen">{{result.comment}}</td>
                     </tr>
                 </ng-container>
