@@ -7,6 +7,6 @@
     </div>
     <div class="column">
         <h1>Recent Events</h1>
-        <app-oevent-list [oevents]="this.recentOEvents"></app-oevent-list>
+        <app-oevent-list [oevents]="this.recentOEvents" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
     </div>
 </div>
