@@ -34,6 +34,8 @@ import { EventEditComponent } from './pages/admin/event-edit/event-edit.componen
 import { UTCDateSerializer } from './interceptors/utc-date-serializer';
 import { CompetitorSelectorComponent } from './components/competitor-selector/competitor-selector.component';
 import { SortCompetitorsIndividualsFirstPipe } from './pipes/sort-competitors-individuals-first.pipe';
+import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/event-courses-edit.component';
+import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +66,8 @@ import { SortCompetitorsIndividualsFirstPipe } from './pipes/sort-competitors-in
     EventEditComponent,
     CompetitorSelectorComponent,
     SortCompetitorsIndividualsFirstPipe,
+    EventCoursesEditComponent,
+    CourseResultsEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { Observable, of, tap } from 'rxjs';
 import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
 import { Club } from '../models/club';
+import { Difficulty } from '../models/difficulty';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +25,7 @@ export class DataCacheService {
   private competitors: Competitor[] = [];
   private venues: Venue[] = [];
   private clubs: Club[] = [];
-
+  private difficulties: Difficulty[] = [];
 
   public loadUpcomingOEvents() {
     this.api.getOEvents(undefined, undefined, new Date).subscribe(result => { this.upcomingOEvents = result });
@@ -121,5 +122,17 @@ export class DataCacheService {
       );
     }
   }
+
+  public getDifficulties(): Observable<Difficulty[]>{
+    //look in the cache and return from there if found
+    if (this.difficulties.length > 0) {return of(this.difficulties) }
+    else {
+      //otherwise fetch from the api
+      return this.api.getDifficulties().pipe(
+        tap(data => this.difficulties = data)
+      );
+    }
+  }
+
 }
 

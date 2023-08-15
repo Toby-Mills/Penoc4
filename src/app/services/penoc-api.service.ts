@@ -9,6 +9,8 @@ import { Result } from '../models/result';
 import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
 import { Club } from '../models/club';
+import { Course } from '../models/course';
+import { Difficulty } from '../models/difficulty';
 
 export class Credentials {
   username: string = '';
@@ -73,7 +75,7 @@ export class PenocApiService {
     const currentTimeInSeconds = Math.floor(Date.now() / 1000);
     return currentTimeInSeconds >= jwtPayload.exp;
   }
-  
+
   private get<model>(url: string, options?: any): Observable<model> {
     options = this.addRequestHeaders(options);
     let fullUrl = this.baseUrl + url;
@@ -92,22 +94,35 @@ export class PenocApiService {
     return this.http.post<model>(fullUrl, body, { headers: options.headers });
   }
 
+  private delete<model>(url: string, options?: any): Observable<model> {
+    options = this.addRequestHeaders(options);
+    let fullUrl = this.baseUrl + url;
+    return this.http.delete<model>(fullUrl, { headers: options.headers });
+  }
+
   public getOEvent(idOEvent: number): Observable<OEvent> {
     return this.get<OEvent[]>('/oevents/' + idOEvent, {}).pipe(
       map(oevents => oevents[0]), first()//return the first item from the array
     );
   }
 
-  getVenues ():  Observable<Venue[]> {
+  //------ Lookups ------
+  getVenues(): Observable<Venue[]> {
     let url = '/venues';
     return this.get<Venue[]>(url);
   }
-  
-  getClubs ():  Observable<Club[]> {
+
+  getClubs(): Observable<Club[]> {
     let url = '/clubs';
     return this.get<Club[]>(url);
   }
 
+  getDifficulties(): Observable<Difficulty[]> {
+    let url = '/technicalDifficulties';
+    return this.get<Difficulty[]>(url);
+  }
+  
+  //------- OEvents -------
   getOEvents(name?: string, venue?: string, dateFrom?: Date, dateTo?: Date): Observable<OEvent[]> {
     let url = '/oevents/?'
     if (name != null) { url += '&name=' + name }
@@ -117,6 +132,12 @@ export class PenocApiService {
     return this.get<OEvent[]>(url, {});
   }
 
+  public saveOEvent(oEvent: OEvent): Observable<OEvent> {
+    const url = '/oevents'
+    return this.put(url, oEvent, {});
+  }
+
+//------- Results -------
   getOEventResultSummary(oeventId: Number, maximumResults?: Number): Observable<OEventResults> {
     let url = '/resultSummaries/' + oeventId;
     if (maximumResults != null) { url += '?maximumResults=' + maximumResults; }
@@ -124,6 +145,7 @@ export class PenocApiService {
     let theEvent = firstItem(this.get<[OEventResults]>(url));
     return theEvent;
   }
+
   getOEventResultSummaries(name?: String, venue?: String, dateFrom?: Date, dateTo?: Date, maximumResults?: Number): Observable<OEventResults[]> {
     let url = '/resultSummaries/?';
     if (name != null) { url += '&name=' + name; }
@@ -134,6 +156,12 @@ export class PenocApiService {
     return this.get<OEventResults[]>(url, {});
   }
 
+  public getCompetitorResults(competitorId: number): Observable<Result[]> {
+    let url = `/competitors/${competitorId}/results`;
+    return this.get<Result[]>(url, {});
+  }
+
+  //------- Competitors -------
   public getCompetitor(competitorId: number): Observable<Competitor> {
     let url = `/competitors/${competitorId}`;
     return this.get<Array<Competitor>>(url, {}).pipe(
@@ -141,24 +169,34 @@ export class PenocApiService {
     );
   }
 
-  public getCompetitorResults(competitorId: number): Observable<Result[]> {
-    let url = `/competitors/${competitorId}/results`;
-    return this.get<Result[]>(url, {});
-  }
-
-  public saveOEvent(oEvent: OEvent): Observable<OEvent> {
-    const url = '/oevents'
-    return this.put(url, oEvent, {});
-  }
-
-  public searchCompetitors(competitorName: string):Observable<Competitor[]> {
+  public searchCompetitors(competitorName: string): Observable<Competitor[]> {
     let url = `/competitors?name=${competitorName}`;
-    return this.get<Competitor[]>(url,{});
+    return this.get<Competitor[]>(url, {});
   }
 
-  public searchIndividuals(competitorName: string):Observable<Competitor[]> {
-    console.log('here');
+  public searchIndividuals(competitorName: string): Observable<Competitor[]> {
     let url = `/competitors/individuals?name=${competitorName}`;
-    return this.get<Competitor[]>(url,{});
+    return this.get<Competitor[]>(url, {});
+  }
+
+  //------- Courses -------
+  getOEventCourses(oEventId: Number): Observable<Course[]> {
+    let url = `/oevents/${oEventId}/courses`;
+    return this.get(url, {});
+  }
+
+  public saveCourse(course:Course):Observable<Course>{
+    const url = `/courses`;
+    return this.put<Course>(url, course, {});
+  }
+
+  public deleteCourse(courseId: number):Observable<any>{
+    let url = `/courses/${courseId}`;
+    return this.delete(url, {});
+  }
+
+  public addCourse(course: Course):Observable<Course>{
+    let url = `/courses/`;
+    return this.post(url, course, {});
   }
 }

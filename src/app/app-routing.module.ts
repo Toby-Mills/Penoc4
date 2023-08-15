@@ -11,6 +11,8 @@ import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.compo
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { AdminGuard } from './guards/admin-guard';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
+import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/event-courses-edit.component';
+import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,6 +29,9 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     children: [
       { path: 'event-edit/:oEventId', component: EventEditComponent },
+      { path: 'event-courses-edit/:oEventId', component: EventCoursesEditComponent  },
+      { path: 'course-results-edit/:courseId', component: CourseResultsEditComponent  },
+      
       { path: '', component: AdminDashboardComponent  },
     ]
   },

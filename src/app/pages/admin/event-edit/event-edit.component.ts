@@ -19,6 +19,7 @@ export class EventEditComponent implements OnInit {
   @ViewChild('oEventForm') oeventForm: any;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private api: PenocApiService,
     private dataCache: DataCacheService,
@@ -64,5 +65,9 @@ export class EventEditComponent implements OnInit {
     const form:FormControl = this.oeventForm.control;
     form.markAsTouched();
     form.markAsDirty();
+  }
+
+  public onCoursesClick(){
+    this.router.navigate(['admin/event-courses-edit', this.oEvent!.id!])
   }
 }
