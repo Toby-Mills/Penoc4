@@ -70,7 +70,7 @@ export class EventCoursesEditComponent {
   }
 
   onNameClick(courseId:number){
-    this.router.navigate(['course-results-edit', courseId]);
+    this.router.navigate(['admin/course-results-edit', courseId]);
   }
 }
 

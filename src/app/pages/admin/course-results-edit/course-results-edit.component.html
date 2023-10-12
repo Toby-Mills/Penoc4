@@ -1,1 +1,33 @@
-<p>course-results-edit works!</p>
+<input type="button" class="primary clickable" value="Save"
+        (click)="this.onSaveClick()" />
+<table>
+    <thead>
+      <tr>
+        <th>Pos.</th>
+        <th>Competitor</th>
+        <th>Club</th>
+        <th>Time</th>
+        <th>Points</th>
+        <th>DSQ</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of results; let i = index;">
+        <td><span>{{i+1}}</span></td>
+        <td><app-competitor-selector [(competitorId)]="results[i].competitorId"></app-competitor-selector></td>
+        <td><select [(ngModel)]="results[i].clubId">
+          <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
+        </select></td>
+        <td><input [ngModel]="results[i].time|time" (blur)="updateResultTime(results[i].competitorId!, $event)"/></td>
+        <td><input [(ngModel)]="results[i].points" /></td>
+        <td><input type="checkbox" [(ngModel)]="results[i].disqualified" />
+          <td><input [(ngModel)]="results[i].comment"></td>
+      </tr>
+      <tr *ngIf="!editResult">
+        <td><input type="image" src="../../../../assets/icon-small-add.png" alt="new" (click)="onNewClick()"></td>
+    </tr>
+    </tbody>
+  </table>
+  
+{{this.results|json}}
