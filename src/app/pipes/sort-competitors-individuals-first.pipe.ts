@@ -7,7 +7,6 @@ import { Competitor } from '../models/competitor';
 export class SortCompetitorsIndividualsFirstPipe implements PipeTransform {
 
   transform(value: Array<Competitor>): Array<Competitor> {
-console.log(value);
     if (value.length > 0) {
       let returnValue: number = 0;
 

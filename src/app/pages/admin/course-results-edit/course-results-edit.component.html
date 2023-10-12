@@ -25,7 +25,7 @@
           <td><input [(ngModel)]="results[i].comment"></td>
       </tr>
       <tr *ngIf="!editResult">
-        <td><input type="image" src="../../../../assets/icon-small-add.png" alt="new" (click)="onNewClick()"></td>
+        <td colspan="7"><input type="image" src="../../../../assets/icon-add.png" title="add result" (click)="onNewClick()"></td>
     </tr>
     </tbody>
   </table>
