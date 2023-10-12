@@ -1,48 +1,64 @@
-{{this.editCourse|json}}
-<table id="courses">
-    <thead>
-        <tr>
-            <th>Edit</th>
-            <th>Order</th>
-            <th>Name</th>
-            <th>Length</th>
-            <th>Climb</th>
-            <th>Controls</th>
-            <th>Difficulty</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let course of courses" class="clickable">
-            <ng-container *ngIf="!(editCourse?.id === course.id); else editingCourse">
-                <td><input *ngIf="!editCourse" type="image" class="icon-small" src="../../../../assets/icon-edit.png" title="edit course" (click)="onEditClick(course.id)"><img ></td>
-                <td>{{course.listOrder}}</td>
-                <td><a class="clickable" (click)="onNameClick(course.id)">{{course.name}}</a></td>
-                <td>{{course.length}}</td>
-                <td>{{course.climb}}</td>
-                <td>{{course.controls}}</td>
-                <td>{{course.difficulty}}</td>
-                <td><input *ngIf="!editCourse" type="image" class="icon-small" src="../../../../assets/icon-delete.png" title="delete course" (click)="onDeleteClick(course.id)"><img ></td>   
-            </ng-container>
-        </tr>
-        <tr *ngIf="editCourse?.id === 0">
-            <ng-container *ngTemplateOutlet="editingCourse"></ng-container>
-        </tr>
-        <tr *ngIf="!editCourse">
-            <td><input type="image" src="../../../../assets/icon-add.png" title="add course" (click)="onNewClick()"></td>
-        </tr>
-    </tbody>
-</table>
+<div class="card">
+    <h1>{{this.oEvent!.name}}</h1>
+    <span>{{oEvent!.venue}}</span><span>{{oEvent!.date}}</span>
+    <h2>Courses</h2>
+    <table id="courses">
+        <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Order</th>
+                <th>Name</th>
+                <th>Length</th>
+                <th>Climb</th>
+                <th>Controls</th>
+                <th>Difficulty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of courses">
+                <ng-container *ngIf="!(editCourse?.id === course.id); else editingCourse">
+                    <td><input *ngIf="!editCourse" type="image" class="icon-small"
+                            src="../../../../assets/icon-edit.png" title="edit course"
+                            (click)="onEditClick(course.id)"><img></td>
+                    <td>{{course.listOrder}}</td>
+                    <td>
+                        <a *ngIf="!editCourse" class="clickable" (click)="onNameClick(course.id)">{{course.name}}</a>
+                        <span *ngIf="editCourse">{{course.name}}</span>
+                    </td>
+                    <td>{{course.length}}</td>
+                    <td>{{course.climb}}</td>
+                    <td>{{course.controls}}</td>
+                    <td>{{course.difficulty}}</td>
+                    <td><input *ngIf="!editCourse" type="image" class="icon-small icon-delete"
+                            src="../../../../assets/icon-delete.png" title="delete course"
+                            (click)="onDeleteClick(course.id)"><img></td>
+                </ng-container>
+            </tr>
+            <tr *ngIf="editCourse?.id === 0">
+                <ng-container *ngTemplateOutlet="editingCourse"></ng-container>
+            </tr>
+            <tr *ngIf="!editCourse">
+                <td><input type="image" src="../../../../assets/icon-add.png" title="add course" (click)="onNewClick()">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<ng-template #editingCourse>
-    <td><input type="image" src="../../../../assets/icon-save.png" class="icon-small" title="save changes" (click)="onSaveClick()">
-        <input type="image" src="../../../../assets/icon-cancel.png" class="icon-small" title="cancel changes" (click)="onCancelClick()"></td>
-    <td><input type="text" [(ngModel)]="editCourse!.listOrder" class="narrow"></td>
-    <td><input type="text" [(ngModel)]="editCourse!.name"></td>
-    <td><input type="text" [(ngModel)]="editCourse!.length" class="narrow"></td>
-    <td><input type="text" [(ngModel)]="editCourse!.climb" class="narrow"></td>
-    <td><input type="text" [(ngModel)]="editCourse!.controls" class="narrow"></td>
-    <td><select [(ngModel)]="editCourse!.difficultyId">
-        <option *ngFor="let difficulty of difficulties" value="{{difficulty.id}}">{{difficulty.name}}</option>
-        </select>
-    </td>    
-</ng-template>
+    <ng-template #editingCourse>
+        <td><input type="image" src="../../../../assets/icon-save.png" class="icon-small" title="save changes"
+                (click)="onSaveClick()">
+            <input type="image" src="../../../../assets/icon-cancel.png" class="icon-small" title="cancel changes"
+                (click)="onCancelClick()">
+        </td>
+        <td><input type="text" [(ngModel)]="editCourse!.listOrder" class="narrow"></td>
+        <td><input type="text" [(ngModel)]="editCourse!.name"></td>
+        <td><input type="text" [(ngModel)]="editCourse!.length" class="narrow"></td>
+        <td><input type="text" [(ngModel)]="editCourse!.climb" class="narrow"></td>
+        <td><input type="text" [(ngModel)]="editCourse!.controls" class="narrow"></td>
+        <td><select [(ngModel)]="editCourse!.difficultyId">
+                <option *ngFor="let difficulty of difficulties" value="{{difficulty.id}}">{{difficulty.name}}</option>
+            </select>
+        </td>
+    </ng-template>
+    {{this.editCourse|json}}
+</div>

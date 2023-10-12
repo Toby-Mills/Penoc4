@@ -1,0 +1,7 @@
+.icon-delete {
+    visibility: hidden;
+}
+
+tr:hover .icon-delete {
+    visibility:visible;
+}
