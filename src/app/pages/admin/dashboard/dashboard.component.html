@@ -4,6 +4,7 @@
     <div class="column">
         <h1>Upcoming Events</h1>
         <app-oevent-list [oevents]="this.upcomingOEvents" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
+        <input type="image" src="../../../../assets/icon-small-add.png" alt="new" (click)="this.onNewEventClick()">
     </div>
     <div class="column">
         <h1>Recent Events</h1>

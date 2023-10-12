@@ -37,4 +37,8 @@ export class AdminDashboardComponent implements OnInit {
   public onUpcomingEventClick(oEventId: number) {
     this.router.navigate(['/admin/event-edit', oEventId]);
   }
+
+  public onNewEventClick(){
+    this.router.navigate(['/admin/event-edit'])
+  }
 }

@@ -28,6 +28,7 @@ const routes: Routes = [
     path: 'admin',
     canActivate: [AdminGuard],
     children: [
+      { path: 'event-edit', component: EventEditComponent },
       { path: 'event-edit/:oEventId', component: EventEditComponent },
       { path: 'event-courses-edit/:oEventId', component: EventCoursesEditComponent  },
       { path: 'course-results-edit/:courseId', component: CourseResultsEditComponent  },

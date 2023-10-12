@@ -121,7 +121,7 @@ export class PenocApiService {
     let url = '/technicalDifficulties';
     return this.get<Difficulty[]>(url);
   }
-  
+
   //------- OEvents -------
   getOEvents(name?: string, venue?: string, dateFrom?: Date, dateTo?: Date): Observable<OEvent[]> {
     let url = '/oevents/?'
@@ -132,12 +132,17 @@ export class PenocApiService {
     return this.get<OEvent[]>(url, {});
   }
 
+  public addOEvent(oEvent:OEvent): Observable<OEvent> {
+    const url = '/oevents';
+    return this.post(url, oEvent, {});
+  }
+  
   public saveOEvent(oEvent: OEvent): Observable<OEvent> {
     const url = '/oevents'
     return this.put(url, oEvent, {});
   }
 
-//------- Results -------
+  //------- Results -------
   getOEventResultSummary(oeventId: Number, maximumResults?: Number): Observable<OEventResults> {
     let url = '/resultSummaries/' + oeventId;
     if (maximumResults != null) { url += '?maximumResults=' + maximumResults; }
@@ -180,23 +185,34 @@ export class PenocApiService {
   }
 
   //------- Courses -------
-  getOEventCourses(oEventId: Number): Observable<Course[]> {
+  getOEventCourses(oEventId: number): Observable<Course[]> {
     let url = `/oevents/${oEventId}/courses`;
     return this.get(url, {});
   }
 
-  public saveCourse(course:Course):Observable<Course>{
+  public saveCourse(course: Course): Observable<Course> {
     const url = `/courses`;
     return this.put<Course>(url, course, {});
   }
 
-  public deleteCourse(courseId: number):Observable<any>{
+  public deleteCourse(courseId: number): Observable<any> {
     let url = `/courses/${courseId}`;
     return this.delete(url, {});
   }
 
-  public addCourse(course: Course):Observable<Course>{
+  public addCourse(course: Course): Observable<Course> {
     let url = `/courses/`;
     return this.post(url, course, {});
+  }
+
+  //------- Results -------
+  getCourseResults(courseId: number): Observable<Result[]> {
+    let url = `/courses/${courseId}/results`;
+    return this.get(url, {});
+  }
+
+  public saveCourseResults(courseId: number, results: Result[]): Observable<Result[]> {
+    let url = `/courses/${courseId}/results`;
+    return this.put(url, results, {})
   }
 }

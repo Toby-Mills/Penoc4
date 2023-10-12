@@ -30,8 +30,10 @@ export class EventEditComponent implements OnInit {
       { next: data => this.venues = data }
     )
     this.dataCache.getClubs().subscribe(
-      { next: data => {this.clubs = data},
-      error: data => console.log('error: ', data) }
+      {
+        next: data => { this.clubs = data },
+        error: data => console.log('error: ', data)
+      }
     )
     this.loadEvent(Number(this.route.snapshot.paramMap.get('oEventId')));
   }
@@ -41,33 +43,46 @@ export class EventEditComponent implements OnInit {
   }
 
   private loadEvent(oEventId: number) {
-    this.api.getOEvent(oEventId).subscribe(data => {
-      this.oEvent = data;
-    });
+    if (oEventId > 0) {
+      this.api.getOEvent(oEventId).subscribe(data => {
+        this.oEvent = data;
+      })
+    } else {
+      this.oEvent = new OEvent();
+    }
   }
 
   public onSaveClick() {
     if (this.oEvent) {
-      this.api.saveOEvent(this.oEvent).subscribe(data => this.oEvent = data);
-      const form:FormControl = this.oeventForm.control;
+      if (this.oEvent.id! > 0) {
+        this.api.saveOEvent(this.oEvent).subscribe(data => {
+          this.oEvent = data;
+        })
+
+      } else {
+        this.api.addOEvent(this.oEvent).subscribe(data => {
+          this.router.navigate(['admin/event-edit', data.id], {replaceUrl: true});
+        })
+      }
+      const form: FormControl = this.oeventForm.control;
       form.markAsPristine();
       form.markAsUntouched();
     }
   }
 
-  public onPlannerIdChange(event:number | undefined){
-    const form:FormControl = this.oeventForm.control;
+  public onPlannerIdChange(event: number | undefined) {
+    const form: FormControl = this.oeventForm.control;
     form.markAsTouched();
     form.markAsDirty();
   }
 
-  public onControllerIdChange(event:number | undefined){
-    const form:FormControl = this.oeventForm.control;
+  public onControllerIdChange(event: number | undefined) {
+    const form: FormControl = this.oeventForm.control;
     form.markAsTouched();
     form.markAsDirty();
   }
 
-  public onCoursesClick(){
+  public onCoursesClick() {
     this.router.navigate(['admin/event-courses-edit', this.oEvent!.id!])
   }
 }
