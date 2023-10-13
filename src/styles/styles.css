@@ -55,15 +55,21 @@ input[type="button"]:disabled{
 
 input[type="text"], textarea, input[type="date"], input[type="password"], select {
     font-size: 1em;
+    width: 12em;
     box-sizing: border-box;
     height:1.9em;
     border: 1px solid rgb(100,100,100);
     border-radius: 0.4em;
     padding: 0.3em;
+    background-color: #ff672030;
 }
 
-input[type="text"].narrow {
-    width: 80px;
+input.narrow, select.narrow {
+    width: 6em;
+}
+
+input.wide, select.wide {
+    width: 20em;
 }
 
 .clear-fix {
