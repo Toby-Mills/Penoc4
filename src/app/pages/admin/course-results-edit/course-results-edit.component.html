@@ -1,6 +1,6 @@
-<input type="button" class="primary clickable" value="Save"
-        (click)="this.onSaveClick()" />
-<table>
+<div class="card">
+  <input type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
+  <table>
     <thead>
       <tr>
         <th>Pos.</th>
@@ -16,15 +16,17 @@
       <tr *ngFor="let result of results; let i = index;">
         <td><span>{{i+1}}</span></td>
         <td><app-competitor-selector [(competitorId)]="results[i].competitorId"></app-competitor-selector></td>
-        <td><select [(ngModel)]="results[i].clubId">
-          <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
-        </select></td>
-        <td><input [ngModel]="results[i].time|time" (blur)="updateResultTime(results[i].competitorId!, $event)"/></td>
-        <td><input [(ngModel)]="results[i].points" /></td>
-        <td><input type="checkbox" [(ngModel)]="results[i].disqualified" />
-          <td><input [(ngModel)]="results[i].comment"></td>
+        <td><select class="narrow" [(ngModel)]="results[i].clubId">
+            <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
+          </select></td>
+        <td><input type="text" class="narrow" [ngModel]="results[i].time|time" (blur)="updateResultTime(results[i].competitorId!, $event)" /></td>
+        <td><input type="text" class="narrow" [(ngModel)]="results[i].points" /></td>
+        <td><input type="checkbox" class="narrow" [(ngModel)]="results[i].disqualified" />
+        <td><input type="text" [(ngModel)]="results[i].comment"></td>
       </tr>
     </tbody>
   </table>
-  <input *ngIf="!editResult" type="image" src="../../../../assets/icon-add.png" title="add result" (click)="onNewClick()">  
+  <input *ngIf="!editResult" type="image" src="../../../../assets/icon-add.png" title="add result"
+    (click)="onNewClick()">
+</div>
 {{this.results|json}}
