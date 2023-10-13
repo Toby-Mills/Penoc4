@@ -24,10 +24,7 @@
         <td><input type="checkbox" [(ngModel)]="results[i].disqualified" />
           <td><input [(ngModel)]="results[i].comment"></td>
       </tr>
-      <tr *ngIf="!editResult">
-        <td colspan="7"><input type="image" src="../../../../assets/icon-add.png" title="add result" (click)="onNewClick()"></td>
-    </tr>
     </tbody>
   </table>
-  
+  <input *ngIf="!editResult" type="image" src="../../../../assets/icon-add.png" title="add result" (click)="onNewClick()">  
 {{this.results|json}}

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { ActivatedRoute,  } from '@angular/router';
 import { Club } from 'src/app/models/club';
 import { Result } from 'src/app/models/result';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -20,7 +20,9 @@ export class CourseResultsEditComponent {
     public route: ActivatedRoute,
     public api: PenocApiService,
     public dataCache: DataCacheService,
-    private router: Router
+    private renderer: Renderer2,
+    private elementRef: ElementRef
+
   ) { }
 
   ngOnInit() {
@@ -51,6 +53,20 @@ export class CourseResultsEditComponent {
     let newResult = new Result();
     newResult.time = new Date('1970-01-01T00:00:00Z');
     this.results.push(newResult);
+    setTimeout(() => this.focusOnLastCompetitor());
+  }
+
+  focusOnLastCompetitor() {
+    setTimeout(() => {
+      const rows = this.elementRef.nativeElement.querySelectorAll('tr');
+      const lastRow = rows[rows.length - 1];
+      if (lastRow) {
+        const input = lastRow.querySelector('input');
+        if (input) {
+          this.renderer.selectRootElement(input).focus();
+        }
+      }
+    })
   }
 
   private parseTimeString(input: string): Date | undefined {
