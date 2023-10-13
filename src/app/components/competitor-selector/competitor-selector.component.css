@@ -1,56 +1,63 @@
+#container {
+  display: inline-block;
+  width: 20em;
+}
+
 #competitorName {
-  width: calc(20em - 50px);
+  width: calc(19em - 15px);
 }
 
 #searchInputBox {
-  width: calc(20em - 50px);
+  width: calc(20em);
 }
 
 #clear {
   color: rgb(35, 35, 35);
-  background-color: rgba(0,0,0,0);
-  border-color: rgba(57, 57, 57,0);
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(57, 57, 57, 0);
   padding: 5px 7px 5px 7px;
   margin: 0px;
 }
 
 .dropdown-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    border: 1px solid #ccc;
-    border-top: none;
-    display: inline-block;
-    position: absolute;
-    background-color: #fff;
-    min-width: 20em   ;
-    z-index: 9999;
-  }
-  .dropdown-list li {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .dropdown-list li:hover {
-    background-color: #f2f2f2;
-  }
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: inline-block;
+  position: absolute;
+  background-color: #fff;
+  min-width: 20em;
+  z-index: 9999;
+}
 
-  .dropdown-list li.highlighted {
-    background-color: #fdb08c;;
-  }
+.dropdown-list li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
 
-  .gender-icon {
-    display:inline-block;
-    height: 1em;
-    width: 1em;
-    background-size: contain;
-    margin-right: 0.3em;
-  }
+.dropdown-list li:hover {
+  background-color: #f2f2f2;
+}
 
-  .gender-icon.gender-1, .gender-icon.gender-2 {
-    background-image: url(../../../assets/individual.png);
-  }
+.dropdown-list li.highlighted {
+  background-color: #fdb08c;
+  ;
+}
 
-  .gender-icon.gender-3 {
-    background-image: url(../../../assets/group.png);
-  }
+.gender-icon {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  background-size: contain;
+  margin-right: 0.3em;
+}
+
+.gender-icon.gender-1, .gender-icon.gender-2 {
+  background-image: url(../../../assets/individual.png);
+}
+
+.gender-icon.gender-3 {
+  background-image: url(../../../assets/group.png);
+}
