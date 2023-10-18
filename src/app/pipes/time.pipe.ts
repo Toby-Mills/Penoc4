@@ -9,12 +9,16 @@ export class TimePipe implements PipeTransform {
     if (value == undefined) {
       return '';
     } else {
-      let fullDate: Date = new Date(value);
-      let timeString = fullDate.getHours().toString() + ':' + fullDate.getMinutes().toString().padStart(2, '0') + ':' + fullDate.getSeconds().toString().padStart(2, '0');
-      if (timeString == '0:00:00') {
-        return '';
+      if (value instanceof Date) {
+        let fullDate: Date = new Date(value);
+        let timeString = fullDate.getUTCHours().toString() + ':' + fullDate.getUTCMinutes().toString().padStart(2, '0') + ':' + fullDate.getUTCSeconds().toString().padStart(2, '0');
+        if (timeString == '0:00:00') {
+          return '';
+        }
+        return timeString;
+      } else { 
+        throw new Error('Not a Date!!!') 
       }
-      return timeString;
     }
   }
 

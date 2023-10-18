@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
 import { PenocApiService } from './penoc-api.service';
 import { OEventResults } from '../models/oevent-results';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of, tap, map } from 'rxjs';
 import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
 import { Club } from '../models/club';
@@ -47,7 +47,18 @@ export class DataCacheService {
       return of(theEvent)
     } else {
       //otherwise fetch from the api
-      return this.api.getOEventResultSummary(oEventId).pipe(
+      return this.api.getOEventResultSummary(oEventId)
+      .pipe(
+        map((data) => {
+          for(let courseResults of data.courseResults){
+            for(let result of courseResults.results){
+              result.time = new Date(result.time + 'Z');
+            }
+          }
+          return data;
+        })
+      )
+      .pipe(
         tap(data => this.oEventResults.push(data))
       );
     }

@@ -11,6 +11,7 @@ import { Venue } from '../models/venue';
 import { Club } from '../models/club';
 import { Course } from '../models/course';
 import { Difficulty } from '../models/difficulty';
+import { CourseResults } from '../models/course-results';
 
 export class Credentials {
   username: string = '';
@@ -85,13 +86,15 @@ export class PenocApiService {
   private put<model>(url: string, body: model, options?: any): Observable<model> {
     options = this.addRequestHeaders(options);
     let fullUrl = this.baseUrl + url;
-    return this.http.put<model>(fullUrl, body, { headers: options.headers });
+    let bodyString = this.toJsonString(body);
+    return this.http.put<model>(fullUrl, bodyString, { headers: options.headers });
   }
 
   private post<model>(url: string, body: any, options?: any): Observable<model> {
     options = this.addRequestHeaders(options);
     let fullUrl = this.baseUrl + url;
-    return this.http.post<model>(fullUrl, body, { headers: options.headers });
+    let bodyString = this.toJsonString(body);
+    return this.http.post<model>(fullUrl, bodyString, { headers: options.headers });
   }
 
   private delete<model>(url: string, options?: any): Observable<model> {
@@ -132,11 +135,11 @@ export class PenocApiService {
     return this.get<OEvent[]>(url, {});
   }
 
-  public addOEvent(oEvent:OEvent): Observable<OEvent> {
+  public addOEvent(oEvent: OEvent): Observable<OEvent> {
     const url = '/oevents';
     return this.post(url, oEvent, {});
   }
-  
+
   public saveOEvent(oEvent: OEvent): Observable<OEvent> {
     const url = '/oevents'
     return this.put(url, oEvent, {});
@@ -158,7 +161,16 @@ export class PenocApiService {
     if (dateFrom != null) { url += '&dateFrom=' + dateFrom.getFullYear() + '-' + (dateFrom.getMonth() + 1) + '-' + dateFrom.getDate(); }
     if (dateTo != null) { url += '&dateTo=' + dateTo.getFullYear() + '-' + (dateTo.getMonth() + 1) + '-' + dateTo.getDate(); }
     if (maximumResults != null) { url += '&maximumResults=' + maximumResults; }
-    return this.get<OEventResults[]>(url, {});
+    return this.get<OEventResults[]>(url, {}).pipe(map((data) => {
+      for (let event of data){
+        for (let course of event.courseResults){
+          for (let result of course.results){
+            result.time = new Date(result.time + 'Z');
+          }
+        }
+      }
+      return data;
+    }));
   }
 
   public getCompetitorResults(competitorId: number): Observable<Result[]> {
@@ -187,7 +199,7 @@ export class PenocApiService {
   //------- Courses -------
   getOEventCourses(oEventId: number): Observable<Course[]> {
     let url = `/oevents/${oEventId}/courses`;
-    return this.get(url, {});
+    return this.get<Course[]>(url, {});
   }
 
   public saveCourse(course: Course): Observable<Course> {
@@ -208,11 +220,28 @@ export class PenocApiService {
   //------- Results -------
   getCourseResults(courseId: number): Observable<Result[]> {
     let url = `/courses/${courseId}/results`;
-    return this.get(url, {});
+    return this.get<Result[]>(url, {}).pipe(
+      map(data => {
+        for (let result of data){
+          result.time = new Date(result.time + 'Z');
+        }
+        return data;
+      })
+    );
   }
 
   public saveCourseResults(courseId: number, results: Result[]): Observable<Result[]> {
     let url = `/courses/${courseId}/results`;
     return this.put(url, results, {})
+  }
+
+  private toJsonString(jsonObject: any): string {
+    let jsonString = JSON.stringify(jsonObject, (key, value) => {
+      if (value instanceof Date) {
+        return value.toISOString();
+      }
+      return value;
+    })
+    return jsonString;
   }
 }
