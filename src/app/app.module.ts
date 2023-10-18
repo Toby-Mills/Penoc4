@@ -37,6 +37,7 @@ import { SortCompetitorsIndividualsFirstPipe } from './pipes/sort-competitors-in
 import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/event-courses-edit.component';
 import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
 import { InputTimeComponent } from './components/input-time/input-time.component';
+import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { InputTimeComponent } from './components/input-time/input-time.component
     EventCoursesEditComponent,
     CourseResultsEditComponent,
     InputTimeComponent,
+    SortOeventsByDatePipe,
   ],
   imports: [
     BrowserModule,
