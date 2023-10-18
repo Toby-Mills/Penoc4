@@ -43,7 +43,7 @@
             <app-competitor-selector [individualsOnly]="true" [(competitorId)]="this.oEvent.plannerId"
                 (competitorIdChange)="this.onPlannerIdChange($event)"></app-competitor-selector><br>
             <span for="controller" class="field-label">Controller: </span><br>
-            <app-competitor-selector [(competitorId)]="this.oEvent.controllerId"
+            <app-competitor-selector [individualsOnly]="true" [(competitorId)]="this.oEvent.controllerId"
                 (competitorIdChange)="this.onControllerIdChange($event)"></app-competitor-selector><br>
         </div>
         <div class="clear-fix"></div>
