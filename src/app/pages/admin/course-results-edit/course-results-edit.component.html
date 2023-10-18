@@ -14,12 +14,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let result of results; let i = index;">
-        <td><span>{{i+1}}</span></td>
+        <td><span>{{result.position}}</span></td>
         <td><app-competitor-selector [(competitorId)]="results[i].competitorId"></app-competitor-selector></td>
         <td><select class="narrow" [(ngModel)]="results[i].clubId">
             <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
           </select></td>
-        <td><input type="text" class="narrow" [ngModel]="results[i].time|time" (blur)="updateResultTime(results[i].competitorId!, $event)" /></td>
+        <td><app-input-time [time]="results[i].time" (timeChange)="onTimeChange(i, $event)"></app-input-time></td>
         <td><input type="text" class="narrow" [(ngModel)]="results[i].points" /></td>
         <td><input type="checkbox" class="narrow" [(ngModel)]="results[i].disqualified" />
         <td><input type="text" [(ngModel)]="results[i].comment"></td>
@@ -29,4 +29,3 @@
   <input *ngIf="!editResult" type="image" src="../../../../assets/icon-add.png" title="add result"
     (click)="onNewClick()">
 </div>
-{{this.results|json}}

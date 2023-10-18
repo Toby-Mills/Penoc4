@@ -1,5 +1,5 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { ActivatedRoute,  } from '@angular/router';
+import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
+import { ActivatedRoute, } from '@angular/router';
 import { Club } from 'src/app/models/club';
 import { Result } from 'src/app/models/result';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -21,36 +21,25 @@ export class CourseResultsEditComponent {
     public api: PenocApiService,
     public dataCache: DataCacheService,
     private renderer: Renderer2,
-    private elementRef: ElementRef
-
+    private elementRef: ElementRef,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.loadCourseResults(Number(this.route.snapshot.paramMap.get('courseId')));
-    this.dataCache.getClubs().subscribe(data => this.clubs = data);
+    this.dataCache.getClubs().subscribe(data => { data.sort((a, b) => a.shortName!.localeCompare(b.shortName!)); this.clubs = data });
   }
 
   private loadCourseResults(courseId: number) {
     this.courseId = courseId;
-    this.api.getCourseResults(courseId).subscribe(data => { this.results = data });
-  }
-
-  public updateResultTime(competitorId: number, $event: any) {
-    const element = $event.currentTarget as HTMLInputElement;
-    const timeString = element.value;
-    const time: Date | undefined = this.parseTimeString(timeString);
-    if (time) {
-      let resultIndex = this.results.findIndex((item) => item.competitorId == competitorId)
-      if (resultIndex > -1) {
-        let result = this.results[resultIndex];
-        result.time = time;
-        this.results[resultIndex] = result;
-      }
-    }
+    this.api.getCourseResults(courseId).subscribe(data => {
+      this.results = data
+    });
   }
 
   public onNewClick() {
     let newResult = new Result();
+    newResult.position = this.results.length + 1;
     newResult.time = new Date('1970-01-01T00:00:00Z');
     this.results.push(newResult);
     setTimeout(() => this.focusOnLastCompetitor());
@@ -69,21 +58,15 @@ export class CourseResultsEditComponent {
     })
   }
 
-  private parseTimeString(input: string): Date | undefined {
-
-    const noColons: string = input.replace(/:/g, '');
-    if (/^[0-9]{1,6}$/.test(noColons)) {
-      const paddedString = noColons.padStart(6, '0');
-      const formattedString = paddedString.replace(/(\d{2})(?=\d)/g, '$1:');
-      const newDate = new Date(`1970-01-01T${formattedString}`)
-      return newDate;
-    } else {
-      return undefined;
-    }
-  }
-
   public onSaveClick() {
     this.api.saveCourseResults(this.courseId, this.results).subscribe(data => console.log(data));
+  }
+
+  public onTimeChange(index: number, event: any) {
+    let result = this.results[index];
+    result.time = event;
+    this.results[index] = result;
+
   }
 
 }

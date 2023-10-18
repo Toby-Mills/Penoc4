@@ -36,6 +36,7 @@ import { CompetitorSelectorComponent } from './components/competitor-selector/co
 import { SortCompetitorsIndividualsFirstPipe } from './pipes/sort-competitors-individuals-first.pipe';
 import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/event-courses-edit.component';
 import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
+import { InputTimeComponent } from './components/input-time/input-time.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +69,7 @@ import { CourseResultsEditComponent } from './pages/admin/course-results-edit/co
     SortCompetitorsIndividualsFirstPipe,
     EventCoursesEditComponent,
     CourseResultsEditComponent,
+    InputTimeComponent,
   ],
   imports: [
     BrowserModule,
