@@ -64,6 +64,11 @@ input[type="text"], textarea, input[type="date"], input[type="password"], select
     background-color: #ff672030;
 }
 
+input[type="checkbox"] {
+    height: 2em;
+    background-color: #ff672030 !important;
+}
+
 input.narrow, select.narrow {
     width: 6em;
 }
