@@ -42,7 +42,14 @@ export class CompetitorSelectorComponent {
       })
     ).subscribe(
       {
-        'next': (value) => { this.searching = false; this.matches = value; this.selectedMatchId = 0; },
+        'next': (value) => {
+           this.searching = false; 
+           this.matches = value;
+           if(this.matches.findIndex((value)=>value.id==this.highlightedMatchId) == -1){
+            this.highlightedMatchId = undefined;
+           }
+           this.selectedMatchId = 0; 
+          },
         'error': (error) => { console.log('error: ', error) }
       }
     )
@@ -131,10 +138,14 @@ export class CompetitorSelectorComponent {
         this.tabToControl(true);
         break;
       case 'Tab':
-        //$event.preventDefault();
-        this.selectHighlightedMatch();
-        this.hideSearch();
-        this.tabToControl(false);
+        if (!$event.shiftKey) {
+          if (this.searchVisible) {
+            $event.preventDefault();
+            this.selectHighlightedMatch();
+            this.hideSearch();
+            this.tabToControl(false);
+          }
+        }
         break;
       case 'ArrowDown':
         this.highlightNextMatch();
@@ -144,6 +155,8 @@ export class CompetitorSelectorComponent {
         break;
       case 'Enter':
         this.selectHighlightedMatch()
+        this.hideSearch();
+        this.tabToControl(false);
     };
   }
 
@@ -189,6 +202,11 @@ export class CompetitorSelectorComponent {
   }
 
   selectHighlightedMatch() {
+    if (!this.highlightedMatchId) {
+      if (this.matches.length > 0) {
+        this.highlightNextMatch();
+      }
+    }
     if (this.highlightedMatchId) {
       this.selectCompetitor(this.highlightedMatchId);
     }
@@ -197,6 +215,7 @@ export class CompetitorSelectorComponent {
   tabToControl(next: boolean) {
     const element = this.elementRef.nativeElement;
     let nextElement = element.nextElementSibling;
+
     if (!next) {
       nextElement = element.previousElementSibling;
     }
