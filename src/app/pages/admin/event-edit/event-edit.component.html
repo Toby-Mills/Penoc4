@@ -3,9 +3,10 @@
         <div style="float:left;">        <h1>Event Details</h1>
         <h2>{{this.oEvent.name}} - {{this.oEvent.date|date}}</h2></div>
         <div  style="float:right;">
-            <input [disabled]="!oEventForm.form.dirty" type="button" class="primary clickable" value="Save Changes" (click)="this.onSaveClick()" />
+            <input [disabled]="!oEventForm.form.dirty" type="button" class="secondary clickable" value="Cancel" (click)="this.onCancelClick()" />
+            <input [disabled]="!oEventForm.form.dirty" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
             <br>
-            <input [disabled]="oEventForm.form.dirty" type="button" (click)="onCoursesClick()" value="Courses & Results">
+            <input [disabled]="oEventForm.form.dirty" type="button" class="clickable" (click)="onCoursesClick()" value="Courses & Results">
         <br></div>
         <div class="clear-fix"></div>
         <div class="column">

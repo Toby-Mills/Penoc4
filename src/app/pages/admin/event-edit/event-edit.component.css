@@ -12,7 +12,7 @@ div.column {
     margin-left: 0.5em;
 }
 
-input, select {
+input[type=text], input[type=date], select {
     width: 20em;
 }
 

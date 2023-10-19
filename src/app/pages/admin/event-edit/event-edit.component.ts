@@ -50,6 +50,7 @@ export class EventEditComponent implements OnInit {
     } else {
       this.oEvent = new OEvent();
     }
+    this.markFormClean();
   }
 
   public onSaveClick() {
@@ -57,36 +58,45 @@ export class EventEditComponent implements OnInit {
       if (this.oEvent.id! > 0) {
         this.api.saveOEvent(this.oEvent).subscribe(data => {
           this.oEvent = data;
+          this.loadEvent(this.oEvent.id!);
         })
-
       } else {
         this.api.addOEvent(this.oEvent).subscribe(data => {
           this.router.navigate(['admin/event-edit', data.id], { replaceUrl: true });
         })
       }
-      const form: FormControl = this.oeventForm.control;
-      form.markAsPristine();
-      form.markAsUntouched();
     }
+  }
+
+  public onCancelClick() {
+    this.loadEvent(this.oEvent!.id!);
   }
 
   public onPlannerIdChange(event: number | undefined) {
     if (this.oeventForm) {
-      const form: FormControl = this.oeventForm.control;
-      form.markAsTouched();
-      form.markAsDirty();
+      this.markFormDirty();
     }
   }
 
   public onControllerIdChange(event: number | undefined) {
     if (this.oeventForm) {
-      const form: FormControl = this.oeventForm.control;
-      form.markAsTouched();
-      form.markAsDirty();
+      this.markFormDirty();
     }
   }
 
   public onCoursesClick() {
     this.router.navigate(['admin/event-courses-edit', this.oEvent!.id!])
+  }
+
+  private markFormClean() {
+    const form: FormControl = this.oeventForm.control;
+    form.markAsPristine();
+    form.markAsUntouched();
+  }
+
+  private markFormDirty() {
+    const form: FormControl = this.oeventForm.control;
+    form.markAsTouched();
+    form.markAsDirty();
   }
 }

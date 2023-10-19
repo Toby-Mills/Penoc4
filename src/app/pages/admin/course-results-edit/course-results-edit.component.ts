@@ -34,7 +34,6 @@ export class CourseResultsEditComponent {
   private loadCourseResults(courseId: number) {
     this.courseId = courseId;
     this.api.getCourseResults(courseId).subscribe(data => {
-      console.log(data);
       this.courseResults = data
     });
   }
