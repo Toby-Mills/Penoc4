@@ -79,7 +79,7 @@ export class EventCoursesEditComponent {
     });
   }
 
-  onNameClick(courseId: number) {
+  onResultsClick(courseId: number) {
     this.router.navigate(['admin/course-results-edit', courseId]);
   }
 }

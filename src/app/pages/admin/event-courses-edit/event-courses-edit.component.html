@@ -11,6 +11,7 @@
                 <th>Climb</th>
                 <th>Controls</th>
                 <th>Difficulty</th>
+                <th *ngIf="!editCourse" ></th>
             </tr>
         </thead>
         <tbody>
@@ -20,14 +21,14 @@
                             src="../../../../assets/icon-edit.png" title="edit course"
                             (click)="onEditClick(course.id)"><img></td>
                     <td>{{course.listOrder}}</td>
-                    <td>
-                        <a *ngIf="!editCourse" class="clickable" (click)="onNameClick(course.id)">{{course.name}}</a>
-                        <span *ngIf="editCourse">{{course.name}}</span>
-                    </td>
+                    <td>{{course.name}}</td>
                     <td>{{course.length}}</td>
                     <td>{{course.climb}}</td>
                     <td>{{course.controls}}</td>
                     <td>{{course.difficulty}}</td>
+                    <td>
+                        <a *ngIf="!editCourse" class="clickable" (click)="onResultsClick(course.id)">results</a>
+                    </td>
                     <td><input *ngIf="!editCourse" type="image" class="icon-small icon-delete"
                             src="../../../../assets/icon-delete.png" title="delete course"
                             (click)="onDeleteClick(course.id)"><img></td>
