@@ -24,6 +24,10 @@ a {
     color: blue;
 }
 
+.link-disabled {
+    color:#cecece;
+}
+
 input[type="button"]{
     font-size: 1em;
     padding: 0.2em 1em;

@@ -6,8 +6,8 @@
             <input [disabled]="!oEventForm.form.dirty" type="button" class="secondary clickable" value="Cancel" (click)="this.onCancelClick()" />
             <input [disabled]="!oEventForm.form.dirty" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
             <br>
-            <input [disabled]="oEventForm.form.dirty" type="button" class="clickable" (click)="onCoursesClick()" value="Courses & Results">
-        <br></div>
+            <a [class.link-disabled]="oEventForm.form.dirty" class="clickable" (click)="onCoursesClick()">Courses & Results</a>
+        </div>
         <div class="clear-fix"></div>
         <div class="column">
             <span for="name" class="field-label">Name: </span><br>
