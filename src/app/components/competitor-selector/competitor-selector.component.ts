@@ -43,13 +43,13 @@ export class CompetitorSelectorComponent {
     ).subscribe(
       {
         'next': (value) => {
-           this.searching = false; 
-           this.matches = value;
-           if(this.matches.findIndex((value)=>value.id==this.highlightedMatchId) == -1){
+          this.searching = false;
+          this.matches = value;
+          if (this.matches.findIndex((value) => value.id == this.highlightedMatchId) == -1) {
             this.highlightedMatchId = undefined;
-           }
-           this.selectedMatchId = 0; 
-          },
+          }
+          this.selectedMatchId = 0;
+        },
         'error': (error) => { console.log('error: ', error) }
       }
     )
@@ -169,36 +169,40 @@ export class CompetitorSelectorComponent {
   }
 
   highlightNextMatch() {
-    let highlightedMatchIndex: number = this.matches.findIndex((value) => {
-      return value.id == this.highlightedMatchId;
-    })
-    if (highlightedMatchIndex >= 0) {
-      highlightedMatchIndex = highlightedMatchIndex + 1;
-    } else {
-      highlightedMatchIndex = 0;
+    if (this.matches.length > 0) {
+      let highlightedMatchIndex: number = this.matches.findIndex((value) => {
+        return value.id == this.highlightedMatchId;
+      })
+      if (highlightedMatchIndex >= 0) {
+        highlightedMatchIndex = highlightedMatchIndex + 1;
+      } else {
+        highlightedMatchIndex = 0;
+      }
+      if (highlightedMatchIndex >= this.matches.length) {
+        highlightedMatchIndex = 0;
+      }
+      this.highlightedMatchId = this.matches[highlightedMatchIndex].id;
     }
-    if (highlightedMatchIndex >= this.matches.length) {
-      highlightedMatchIndex = 0;
-    }
-    this.highlightedMatchId = this.matches[highlightedMatchIndex].id;
   }
 
   highlightPreviousMatch() {
-    let highlightedMatchIndex: number = this.matches.findIndex((value) => {
-      return value.id == this.highlightedMatchId;
-    })
+    if (this.matches.length > 0) {
+      let highlightedMatchIndex: number = this.matches.findIndex((value) => {
+        return value.id == this.highlightedMatchId;
+      })
 
-    if (highlightedMatchIndex >= 0) {
-      highlightedMatchIndex = highlightedMatchIndex - 1;
-    } else {
-      highlightedMatchIndex = 0;
+      if (highlightedMatchIndex >= 0) {
+        highlightedMatchIndex = highlightedMatchIndex - 1;
+      } else {
+        highlightedMatchIndex = 0;
+      }
+
+      if (highlightedMatchIndex == -1) {
+        highlightedMatchIndex = this.matches.length - 1;
+      }
+
+      this.highlightedMatchId = this.matches[highlightedMatchIndex].id;
     }
-
-    if (highlightedMatchIndex == -1) {
-      highlightedMatchIndex = this.matches.length - 1;
-    }
-
-    this.highlightedMatchId = this.matches[highlightedMatchIndex].id;
   }
 
   selectHighlightedMatch() {

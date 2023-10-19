@@ -61,7 +61,7 @@ export class EventEditComponent implements OnInit {
 
       } else {
         this.api.addOEvent(this.oEvent).subscribe(data => {
-          this.router.navigate(['admin/event-edit', data.id], {replaceUrl: true});
+          this.router.navigate(['admin/event-edit', data.id], { replaceUrl: true });
         })
       }
       const form: FormControl = this.oeventForm.control;
@@ -71,15 +71,19 @@ export class EventEditComponent implements OnInit {
   }
 
   public onPlannerIdChange(event: number | undefined) {
-    const form: FormControl = this.oeventForm.control;
-    form.markAsTouched();
-    form.markAsDirty();
+    if (this.oeventForm) {
+      const form: FormControl = this.oeventForm.control;
+      form.markAsTouched();
+      form.markAsDirty();
+    }
   }
 
   public onControllerIdChange(event: number | undefined) {
-    const form: FormControl = this.oeventForm.control;
-    form.markAsTouched();
-    form.markAsDirty();
+    if (this.oeventForm) {
+      const form: FormControl = this.oeventForm.control;
+      form.markAsTouched();
+      form.markAsDirty();
+    }
   }
 
   public onCoursesClick() {
