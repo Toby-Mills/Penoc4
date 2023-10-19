@@ -47,9 +47,9 @@ input[type="button"]:hover{
 }
 
 input[type="button"]:disabled{
-    color: rgb(100,100,100);
-    background-color: #8f8f8f;
-    border-color: rgb(80,80,80);
+    color: rgb(150,150,150);
+    background-color: #cecece;
+    border-color: rgb(150,150,150);
     box-shadow: none;
 }
 
