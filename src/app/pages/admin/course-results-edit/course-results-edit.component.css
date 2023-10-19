@@ -1,1 +1,7 @@
+div#title {
+    float:left;
+}
 
+div#save {
+    float:right;
+}

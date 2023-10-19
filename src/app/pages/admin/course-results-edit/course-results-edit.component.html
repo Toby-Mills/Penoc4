@@ -1,5 +1,12 @@
-<div class="card">
-  <input type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
+<div *ngIf="courseResults" class="card">
+  <div id="title">
+    <h1>Course Results</h1>
+    <h2>Course: {{this.courseResults.course.name}}</h2>
+  </div>
+  <div id="save">
+    <input type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
+  </div>
+  <div class="clear-fix"></div>
   <table>
     <thead>
       <tr>
@@ -13,16 +20,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let result of results; let i = index;">
+      <tr *ngFor="let result of this.courseResults.results; let i = index;">
         <td><span>{{result.position}}</span></td>
-        <td><app-competitor-selector [(competitorId)]="results[i].competitorId"></app-competitor-selector></td>
-        <td><select class="narrow" [(ngModel)]="results[i].clubId">
+        <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId"></app-competitor-selector>
+        </td>
+        <td><select class="narrow" [(ngModel)]="courseResults.results[i].clubId">
             <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
           </select></td>
-        <td><app-input-time [time]="results[i].time" (timeChange)="onTimeChange(i, $event)"></app-input-time></td>
-        <td><input type="text" class="narrow" [(ngModel)]="results[i].points" /></td>
-        <td><input type="checkbox" class="narrow" [(ngModel)]="results[i].disqualified" />
-        <td><input type="text" [(ngModel)]="results[i].comment"></td>
+        <td><app-input-time [time]="courseResults.results[i].time"
+            (timeChange)="onTimeChange(i, $event)"></app-input-time></td>
+        <td><input type="text" class="narrow" [(ngModel)]="courseResults.results[i].points" /></td>
+        <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
+        <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
       </tr>
     </tbody>
   </table>

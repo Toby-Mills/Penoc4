@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { catchError, first, map, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
@@ -218,9 +218,14 @@ export class PenocApiService {
   }
 
   //------- Results -------
-  getCourseResults(courseId: number): Observable<Result[]> {
-    let url = `/courses/${courseId}/results`;
-    return this.get<Result[]>(url, {}).pipe(
+  getCourseResults(courseId: number): Observable<any> {
+    let urlCourse = `/courses/${courseId}`;
+    let urlResults = `/courses/${courseId}/results`;
+    const courses = this.get<Course[]>(urlCourse,{}).pipe(
+      map(data => data[0])
+    );
+
+    const results = this.get<Result[]>(urlResults, {}).pipe(
       map(data => {
         for (let result of data){
           result.time = new Date(result.time + 'Z');
@@ -228,6 +233,7 @@ export class PenocApiService {
         return data;
       })
     );
+    return forkJoin({course:courses, results:results});
   }
 
   public saveCourseResults(courseId: number, results: Result[]): Observable<Result[]> {

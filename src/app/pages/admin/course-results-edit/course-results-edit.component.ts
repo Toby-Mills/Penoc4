@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, } from '@angular/router';
 import { Club } from 'src/app/models/club';
+import { CourseResults } from 'src/app/models/course-results';
 import { Result } from 'src/app/models/result';
 import { DataCacheService } from 'src/app/services/data-cache.service';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
@@ -12,7 +13,7 @@ import { PenocApiService } from 'src/app/services/penoc-api.service';
 })
 export class CourseResultsEditComponent {
   public courseId: number = 0;
-  public results: Result[] = [];
+  public courseResults: CourseResults | undefined;
   public clubs: Club[] = [];
   public editResult: number | undefined;
 
@@ -33,16 +34,19 @@ export class CourseResultsEditComponent {
   private loadCourseResults(courseId: number) {
     this.courseId = courseId;
     this.api.getCourseResults(courseId).subscribe(data => {
-      this.results = data
+      console.log(data);
+      this.courseResults = data
     });
   }
 
   public onNewClick() {
+    if(this.courseResults){
     let newResult = new Result();
-    newResult.position = this.results.length + 1;
+    newResult.position = this.courseResults.results.length + 1;
     newResult.time = new Date('1970-01-01T00:00:00Z');
-    this.results.push(newResult);
+    this.courseResults.results.push(newResult);
     setTimeout(() => this.focusOnLastCompetitor());
+  }
   }
 
   focusOnLastCompetitor() {
@@ -59,13 +63,13 @@ export class CourseResultsEditComponent {
   }
 
   public onSaveClick() {
-    this.api.saveCourseResults(this.courseId, this.results).subscribe(data => console.log(data));
+    this.api.saveCourseResults(this.courseId, this.courseResults!.results).subscribe(data => console.log(data));
   }
 
   public onTimeChange(index: number, event: any) {
-    let result = this.results[index];
+    let result = this.courseResults!.results[index];
     result.time = event;
-    this.results[index] = result;
+    this.courseResults!.results[index] = result;
 
   }
 
