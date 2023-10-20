@@ -4,12 +4,14 @@
     <h2>Course: {{this.courseResults.course.name}}</h2>
   </div>
   <div id="save">
-    <input type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
+    <span *ngIf="this.saving">saving...</span>
+    <input *ngIf="!this.saving" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
   </div>
   <div class="clear-fix"></div>
   <table>
     <thead>
       <tr>
+        <th></th>
         <th>Pos.</th>
         <th>Competitor</th>
         <th>Club</th>
@@ -19,8 +21,12 @@
         <th>Comments</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let result of this.courseResults.results; let i = index;">
+    <tbody cdkDropList (cdkDropListDropped)="onResultDrop($event)">
+      <tr *ngFor="let result of this.courseResults.results; let i = index;" cdkDrag>
+        <ng-container>
+          <td>
+            <img src="../../../../assets/drag-handle.svg" class="drag-handle" cdkDragHandle />
+        </td>
         <td><span>{{result.position}}</span></td>
         <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId"></app-competitor-selector>
         </td>
@@ -32,7 +38,11 @@
         <td><input type="text" class="narrow" [(ngModel)]="courseResults.results[i].points" /></td>
         <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
         <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
+          <div *cdkDragPreview class="drag-preview">{{courseResults.results[i].competitor}}</div>
+          <tr *cdkDragPlaceholder class="drag-placeholder"><td colspan="10"></td></tr>
+        </ng-container>
       </tr>
+      
     </tbody>
   </table>
   <input *ngIf="!editResult" type="image" src="../../../../assets/icon-add.png" title="add result"

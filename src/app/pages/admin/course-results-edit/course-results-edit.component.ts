@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Club } from 'src/app/models/club';
 import { CourseResults } from 'src/app/models/course-results';
 import { Result } from 'src/app/models/result';
@@ -16,6 +17,7 @@ export class CourseResultsEditComponent {
   public courseResults: CourseResults | undefined;
   public clubs: Club[] = [];
   public editResult: number | undefined;
+  public saving: boolean = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -62,7 +64,9 @@ export class CourseResultsEditComponent {
   }
 
   public onSaveClick() {
-    this.api.saveCourseResults(this.courseId, this.courseResults!.results).subscribe(data => console.log(data));
+    this.saving = true;
+    this.api.saveCourseResults(this.courseId, this.courseResults!.results).subscribe(
+      data => {this.saving = false});
   }
 
   public onTimeChange(index: number, event: any) {
@@ -70,6 +74,15 @@ export class CourseResultsEditComponent {
     result.time = event;
     this.courseResults!.results[index] = result;
 
+  }
+
+  onResultDrop(event: CdkDragDrop<Result[]>){
+    let results = this.courseResults!.results;
+    moveItemInArray(results, event.previousIndex, event.currentIndex);
+    for (let index = 0; index < results.length; index++){
+      results[index].position = index + 1;
+    }
+    this.courseResults!.results = results;
   }
 
 }
