@@ -32,7 +32,6 @@ tr:hover .drag-handle {
 }
 
 .drag-placeholder {
-    border:1pt solid black;
     width:1000px; height: 2em;
     background-color:#eaeaea;
 }

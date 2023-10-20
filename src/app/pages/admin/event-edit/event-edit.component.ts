@@ -16,7 +16,7 @@ export class EventEditComponent implements OnInit {
   public oEvent: OEvent | undefined;
   public venues: Venue[] = [];
   public clubs: Club[] = [];
-  @ViewChild('oEventForm') oeventForm: any;
+  @ViewChild('oEventForm') oEventForm: any;
 
   constructor(
     private router: Router,
@@ -73,13 +73,13 @@ export class EventEditComponent implements OnInit {
   }
 
   public onPlannerIdChange(event: number | undefined) {
-    if (this.oeventForm) {
+    if (this.oEventForm) {
       this.markFormDirty();
     }
   }
 
   public onControllerIdChange(event: number | undefined) {
-    if (this.oeventForm) {
+    if (this.oEventForm) {
       this.markFormDirty();
     }
   }
@@ -89,14 +89,18 @@ export class EventEditComponent implements OnInit {
   }
 
   private markFormClean() {
-    const form: FormControl = this.oeventForm.control;
-    form.markAsPristine();
-    form.markAsUntouched();
+    if (this.oEventForm) {
+      const form: FormControl = this.oEventForm.control;
+      form.markAsPristine();
+      form.markAsUntouched();
+    }
   }
 
   private markFormDirty() {
-    const form: FormControl = this.oeventForm.control;
-    form.markAsTouched();
-    form.markAsDirty();
+    if (this.oEventForm) {
+      const form: FormControl = this.oEventForm.control;
+      form.markAsTouched();
+      form.markAsDirty();
+    }
   }
 }
