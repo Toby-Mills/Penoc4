@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Course } from 'src/app/models/course';
 import { Difficulty } from 'src/app/models/difficulty';
 import { OEvent } from 'src/app/models/oevent.model';
 import { DataCacheService } from 'src/app/services/data-cache.service';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
-
 @Component({
   selector: 'app-event-courses-edit',
   templateUrl: './event-courses-edit.component.html',
@@ -56,6 +56,7 @@ export class EventCoursesEditComponent {
         })
       }
       else {
+        this.editCourse.listOrder = this.courses.length + 1;
         this.api.addCourse(this.editCourse).subscribe(data => {
           this.editCourse = undefined;
           this.loadEventCourses(this.oEvent!.id!);
@@ -81,6 +82,14 @@ export class EventCoursesEditComponent {
 
   onResultsClick(courseId: number) {
     this.router.navigate(['admin/course-results-edit', courseId]);
+  }
+
+  onCourseDrop(event: CdkDragDrop<Course[]>){
+    moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
+    for (let index = 0; index < this.courses.length; index++){
+      this.courses[index].listOrder = index + 1;
+      this.api.saveCourse(this.courses[index]).subscribe();
+    }
   }
 }
 

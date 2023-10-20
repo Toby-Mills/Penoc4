@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './pages/header/header.component';
@@ -78,6 +78,7 @@ import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    DragDropModule,
   ],
   providers: [
     PenocApiService,

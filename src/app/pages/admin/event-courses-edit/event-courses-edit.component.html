@@ -4,22 +4,29 @@
     <table id="courses">
         <thead>
             <tr>
-                <th>Edit</th>
+                <th></th>
+                <th></th>
                 <th>Order</th>
                 <th>Name</th>
                 <th>Length</th>
                 <th>Climb</th>
                 <th>Controls</th>
                 <th>Difficulty</th>
-                <th *ngIf="!editCourse" ></th>
+                <th *ngIf="!editCourse"></th>
             </tr>
         </thead>
-        <tbody>
-            <tr *ngFor="let course of courses">
+        <tbody cdkDropList (cdkDropListDropped)="onCourseDrop($event)">
+            <tr *ngFor="let course of courses" cdkDrag>
                 <ng-container *ngIf="!(editCourse?.id === course.id); else editingCourse">
-                    <td><input *ngIf="!editCourse" type="image" class="icon-small"
+                    <td>
+                        <img src="../../../../assets/drag-handle.svg" class="drag-handle" cdkDragHandle />
+                    </td>
+                    <td>
+
+                        <input *ngIf="!editCourse" type="image" class="icon-small"
                             src="../../../../assets/icon-edit.png" title="edit course"
-                            (click)="onEditClick(course.id)"><img></td>
+                            (click)="onEditClick(course.id)" />
+                    </td>
                     <td>{{course.listOrder}}</td>
                     <td>{{course.name}}</td>
                     <td>{{course.length}}</td>
@@ -31,26 +38,29 @@
                     </td>
                     <td><input *ngIf="!editCourse" type="image" class="icon-small icon-delete"
                             src="../../../../assets/icon-delete.png" title="delete course"
-                            (click)="onDeleteClick(course.id)"><img></td>
+                            (click)="onDeleteClick(course.id)"><img>
+                    </td>
+                    <div *cdkDragPreview class="drag-preview" >course: {{course.name}}</div>
+                    <tr *cdkDragPlaceholder class="drag-placeholder"><td colspan="10"></td></tr>    
                 </ng-container>
             </tr>
             <tr *ngIf="editCourse?.id === 0">
                 <ng-container *ngTemplateOutlet="editingCourse"></ng-container>
             </tr>
             <tr *ngIf="!editCourse">
-                <td><input type="image" src="../../../../assets/icon-add.png" title="add course" (click)="onNewClick()">
+                <td>
                 </td>
             </tr>
         </tbody>
     </table>
-
+    <input *ngIf="!editCourse" type="image" src="../../../../assets/icon-add.png" title="add course" (click)="onNewClick()">
     <ng-template #editingCourse>
-        <td><input type="image" src="../../../../assets/icon-save.png" class="icon-small" title="save changes"
+        <td colspan="2"><input type="image" src="../../../../assets/icon-save.png" class="icon-small" title="save changes"
                 (click)="onSaveClick()">
             <input type="image" src="../../../../assets/icon-cancel.png" class="icon-small" title="cancel changes"
                 (click)="onCancelClick()">
         </td>
-        <td><input type="text" [(ngModel)]="editCourse!.listOrder" class="narrow"></td>
+        <td></td>
         <td><input type="text" [(ngModel)]="editCourse!.name"></td>
         <td><input type="text" [(ngModel)]="editCourse!.length" class="narrow"></td>
         <td><input type="text" [(ngModel)]="editCourse!.climb" class="narrow"></td>

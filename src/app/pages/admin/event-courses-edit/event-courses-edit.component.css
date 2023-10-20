@@ -2,6 +2,37 @@
     visibility: hidden;
 }
 
+td {
+    vertical-align: middle;
+}
+
 tr:hover .icon-delete {
-    visibility:visible;
+    visibility: visible;
+}
+
+.drag-handle {
+    height: 1em;
+    cursor: grab;
+    visibility:hidden;
+}
+
+tr:hover .drag-handle {
+    visibility: visible;
+}
+
+.drag-preview {
+    border:none;
+    min-width: 200px;
+    color: white;
+    background-color: #ff6720;
+    padding: 3px;
+    padding-left: 10px;
+    border-radius: 3px;
+    box-shadow: 5px 5px 2px 2px #80808092;
+}
+
+.drag-placeholder {
+    border:1pt solid black;
+    width:1000px; height: 2em;
+    background-color:#eaeaea;
 }
