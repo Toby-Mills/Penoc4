@@ -38,6 +38,8 @@ import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/even
 import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
 import { InputTimeComponent } from './components/input-time/input-time.component';
 import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
+import { AddCompetitorComponent } from './components/add-competitor/add-competitor.component';
+import { DialogModule } from '@angular/cdk/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +74,7 @@ import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
     CourseResultsEditComponent,
     InputTimeComponent,
     SortOeventsByDatePipe,
+    AddCompetitorComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
     HttpClientModule,
     FormsModule,
     DragDropModule,
+    DialogModule,
   ],
   providers: [
     PenocApiService,

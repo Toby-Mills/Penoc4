@@ -1,7 +1,9 @@
 import { Component, ElementRef, QueryList, Renderer2, ViewChild, ViewChildren, Input, Output, EventEmitter } from '@angular/core';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import {Dialog, DialogRef} from '@angular/cdk/dialog'
 import { Competitor } from 'src/app/models/competitor';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
+import { AddCompetitorComponent } from '../add-competitor/add-competitor.component';
 
 @Component({
   selector: 'app-competitor-selector',
@@ -26,7 +28,12 @@ export class CompetitorSelectorComponent {
   public searchInputBoxes!: QueryList<ElementRef>
   public searchInputBox!: HTMLElement;
 
-  constructor(private api: PenocApiService, private elementRef: ElementRef, private renderer: Renderer2) { }
+  constructor(
+    private api: PenocApiService, 
+    private elementRef: ElementRef, 
+    private renderer: Renderer2,
+    private dialog: Dialog,
+    ) { }
 
   ngOnInit(): void {
     if (this.competitorId) {
@@ -226,5 +233,15 @@ export class CompetitorSelectorComponent {
     if (nextElement) {
       this.renderer.selectRootElement(nextElement).focus();
     }
+  }
+
+  onAddClick(){
+    const dialogRef = this.dialog.open(AddCompetitorComponent, {
+      height: '400px',
+      width: '600px',
+      panelClass: 'my-dialog'
+    })
+
+    dialogRef.closed.subscribe(result => {console.log('closed')});
   }
 }
