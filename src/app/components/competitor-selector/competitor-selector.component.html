@@ -1,25 +1,25 @@
-<div id="container" (keydown)="onKeydown($event)">
+<div id="container">
     <input id="competitorName" type="text" value="{{this.competitorName}}" *ngIf="searchVisible == false"
-        (focus)="this.displaySearch()">
+        (focus)="this.hasFocus = true;this.displaySearch()" (blur)="this.hasFocus = false;">
     <div *ngIf="searchVisible">
         <input id="searchInputBox" #searchInputBox type="text" placeholder="search" [(ngModel)]="inputText"
-            (keyup)="onSearchInput()" (blur)="onSearchBlur()"><br>
-        <ul *ngIf="matches.length > 0" class="dropdown-list">
-            <li *ngFor="let competitor of matches | sortCompetitorsIndividualsFirst" id="{{competitor.id}}"
-                (click)="onMatchClicked($event);$event.stopPropagation();"
-                [ngClass]="{'selected':competitor.id == selectedMatchId,'highlighted':competitor.id == highlightedMatchId}">
-                <div class="gender-icon" [class]="'gender-' + competitor.genderId"></div>{{competitor.fullName}}
-            </li>
-        </ul>
-        <ul *ngIf="matches.length == 0" class="dropdown-list">
-            <li>
-                no matches found
-            </li>
-            <li *ngIf="searching">
-                searching...
-            </li>
+            (keydown)="onSearchInputKeydown($event)" (keyup)="onSearchInput()" (focus)="this.hasFocus = true;"
+            (blur)="this.hasFocus = false;onSearchBlur()"><br>
+        <ul class="dropdown-list">
+            <li *ngIf="searching">searching...</li>
+            <ng-container *ngIf="matches.length > 0">
+                <li *ngFor="let competitor of matches | sortCompetitorsIndividualsFirst" id="{{competitor.id}}"
+                    (click)="onMatchClicked($event);$event.stopPropagation();"
+                    [ngClass]="{'selected':competitor.id == selectedMatchId,'highlighted':competitor.id == highlightedMatchId}">
+                    <div class="gender-icon" [class]="'gender-' + competitor.genderId"></div>{{competitor.fullName}}
+                </li>
+            </ng-container>
+            <li *ngIf="matches.length == 0">no matches found</li>
+            <li (click)="onAddClick()">add new competitor</li>
         </ul>
     </div>
-    <input id="clear" type="button" value="X" (click)="selectCompetitor(undefined)">
-    <input type="button" value="+" (click)="onAddClick()">
+    <input id="clear" type="button" value="X" class="clickable" (click)="selectCompetitor(undefined)"
+        (focus)="this.hasFocus = true;">
+    <input id="new" *ngIf="this.hasFocus" type="image" src="../../../assets/icon-add.png" title="create new competitor"
+        (click)="onAddClick()" (focus)="this.hasFocus = true;" (blur)="this.hasFocus = false;">
 </div>

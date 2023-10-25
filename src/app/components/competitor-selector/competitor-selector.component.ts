@@ -1,6 +1,6 @@
 import { Component, ElementRef, QueryList, Renderer2, ViewChild, ViewChildren, Input, Output, EventEmitter } from '@angular/core';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import {Dialog, DialogRef} from '@angular/cdk/dialog'
+import { Dialog, DialogRef } from '@angular/cdk/dialog'
 import { Competitor } from 'src/app/models/competitor';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 import { AddCompetitorComponent } from '../add-competitor/add-competitor.component';
@@ -22,6 +22,7 @@ export class CompetitorSelectorComponent {
   public matches: Competitor[] = [];
   public selectedMatchId: number | undefined = 0;
   public highlightedMatchId: number | undefined;
+  public hasFocus: boolean = false;
 
   private searchSubject = new Subject<string>();
   @ViewChildren('searchInputBox')
@@ -29,11 +30,11 @@ export class CompetitorSelectorComponent {
   public searchInputBox!: HTMLElement;
 
   constructor(
-    private api: PenocApiService, 
-    private elementRef: ElementRef, 
+    private api: PenocApiService,
+    private elementRef: ElementRef,
     private renderer: Renderer2,
     private dialog: Dialog,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     if (this.competitorId) {
@@ -138,11 +139,11 @@ export class CompetitorSelectorComponent {
     this.hideSearch();
   }
 
-  onKeydown($event: KeyboardEvent) {
+  onSearchInputKeydown($event: KeyboardEvent) {
     switch ($event.code) {
       case 'Escape':
         this.hideSearch();
-        this.tabToControl(true);
+        //this.tabToControl(true);
         break;
       case 'Tab':
         if (!$event.shiftKey) {
@@ -150,7 +151,7 @@ export class CompetitorSelectorComponent {
             $event.preventDefault();
             this.selectHighlightedMatch();
             this.hideSearch();
-            this.tabToControl(false);
+            this.focusOnClear();
           }
         }
         break;
@@ -161,9 +162,10 @@ export class CompetitorSelectorComponent {
         this.highlightPreviousMatch();
         break;
       case 'Enter':
+        $event.preventDefault();
         this.selectHighlightedMatch()
         this.hideSearch();
-        this.tabToControl(false);
+        this.focusOnClear();
     };
   }
 
@@ -235,13 +237,31 @@ export class CompetitorSelectorComponent {
     }
   }
 
-  onAddClick(){
+  onAddClick() {
     const dialogRef = this.dialog.open(AddCompetitorComponent, {
       height: '400px',
-      width: '600px',
-      panelClass: 'my-dialog'
+      width: '600px'    })
+    dialogRef.componentInstance?.newCompetitor.subscribe((competitor) => {
+      this.clearCompetitor();
+      this.selectCompetitor(competitor.id);
+      this.focusOnClear();
+    });
+    dialogRef.componentInstance?.cancel.subscribe(()=>{
+      this.focusOnInput();
     })
+  }
 
-    dialogRef.closed.subscribe(result => {console.log('closed')});
+  focusOnClear(){
+    const elementToFocus = this.elementRef.nativeElement.querySelector('#clear');
+    if (elementToFocus) {
+      this.renderer.selectRootElement(elementToFocus).focus();
+    }
+  }
+
+  focusOnInput(){
+    const elementToFocus = this.elementRef.nativeElement.querySelector('#competitorName');
+    if (elementToFocus) {
+      this.renderer.selectRootElement(elementToFocus).focus();
+    }
   }
 }
