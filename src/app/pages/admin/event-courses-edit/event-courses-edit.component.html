@@ -40,9 +40,11 @@
                             src="../../../../assets/icon-delete.png" title="delete course"
                             (click)="onDeleteClick(course.id)"><img>
                     </td>
-                    <div *cdkDragPreview class="drag-preview" >course: {{course.name}}</div>
-                    <tr *cdkDragPlaceholder class="drag-placeholder"><td colspan="10"></td></tr>    
-                </ng-container>
+                    <div *cdkDragPreview class="drag-preview">course: {{course.name}}</div>
+            <tr *cdkDragPlaceholder class="drag-placeholder">
+                <td colspan="10"></td>
+            </tr>
+            </ng-container>
             </tr>
             <tr *ngIf="editCourse?.id === 0">
                 <ng-container *ngTemplateOutlet="editingCourse"></ng-container>
@@ -53,21 +55,24 @@
             </tr>
         </tbody>
     </table>
-    <input *ngIf="!editCourse" type="image" src="../../../../assets/icon-add.png" title="add course" (click)="onNewClick()">
+    <input id="new" *ngIf="!editCourse" type="image" src="../../../../assets/icon-add.png" title="add course"
+        (click)="onNewClick()">
     <ng-template #editingCourse>
-        <td colspan="2"><input type="image" src="../../../../assets/icon-save.png" class="icon-small" title="save changes"
-                (click)="onSaveClick()">
-            <input type="image" src="../../../../assets/icon-cancel.png" class="icon-small" title="cancel changes"
-                (click)="onCancelClick()">
-        </td>
         <td></td>
-        <td><input type="text" [(ngModel)]="editCourse!.name"></td>
+        <td></td>
+        <td></td>
+        <td><input id="name" type="text" [(ngModel)]="editCourse!.name"></td>
         <td><input type="text" [(ngModel)]="editCourse!.length" class="narrow"></td>
         <td><input type="text" [(ngModel)]="editCourse!.climb" class="narrow"></td>
         <td><input type="text" [(ngModel)]="editCourse!.controls" class="narrow"></td>
         <td><select [(ngModel)]="editCourse!.difficultyId">
                 <option *ngFor="let difficulty of difficulties" value="{{difficulty.id}}">{{difficulty.name}}</option>
             </select>
+        </td>
+        <td colspan="2"><input type="image" src="../../../../assets/icon-save.png" class="icon-small"
+                title="save changes" (click)="onSaveClick()">
+            <input type="image" src="../../../../assets/icon-cancel.png" class="icon-small" title="cancel changes"
+                (click)="onCancelClick()">
         </td>
     </ng-template>
 </div>

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Course } from 'src/app/models/course';
 import { Difficulty } from 'src/app/models/difficulty';
 import { OEvent } from 'src/app/models/oevent.model';
@@ -22,7 +22,9 @@ export class EventCoursesEditComponent {
     public route: ActivatedRoute,
     public api: PenocApiService,
     public dataCache: DataCacheService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -44,6 +46,7 @@ export class EventCoursesEditComponent {
     let course: Course | undefined = this.courses.find(course => course.id === courseId);
     if (course) {
       this.editCourse = { ...course }
+      this.focusOnName()
     }
   }
 
@@ -53,6 +56,7 @@ export class EventCoursesEditComponent {
         this.api.saveCourse(this.editCourse).subscribe(data => {
           this.editCourse = undefined;
           this.loadEventCourses(this.oEvent!.id!);
+          this.focusOnNew();
         })
       }
       else {
@@ -60,6 +64,7 @@ export class EventCoursesEditComponent {
         this.api.addCourse(this.editCourse).subscribe(data => {
           this.editCourse = undefined;
           this.loadEventCourses(this.oEvent!.id!);
+          this.focusOnNew();
         })
       }
     }
@@ -72,6 +77,7 @@ export class EventCoursesEditComponent {
   onNewClick() {
     this.editCourse = new Course();
     this.editCourse.eventId = this.oEvent!.id!;
+    this.focusOnName()
   }
 
   onDeleteClick(courseId: number) {
@@ -84,12 +90,32 @@ export class EventCoursesEditComponent {
     this.router.navigate(['admin/course-results-edit', courseId]);
   }
 
-  onCourseDrop(event: CdkDragDrop<Course[]>){
+  onCourseDrop(event: CdkDragDrop<Course[]>) {
     moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
-    for (let index = 0; index < this.courses.length; index++){
+    for (let index = 0; index < this.courses.length; index++) {
       this.courses[index].listOrder = index + 1;
       this.api.saveCourse(this.courses[index]).subscribe();
     }
+  }
+
+  focusOnName() {
+    setTimeout(() => {
+      const elementToFocus = this.elementRef.nativeElement.querySelector('#name');
+      console.log(elementToFocus);
+      if (elementToFocus) {
+        this.renderer.selectRootElement(elementToFocus).focus();
+      }
+    })
+  }
+
+  focusOnNew() {
+    setTimeout(() => {
+      const elementToFocus = this.elementRef.nativeElement.querySelector('#new');
+      console.log('new', elementToFocus);
+      if (elementToFocus) {
+        this.renderer.selectRootElement(elementToFocus).focus();
+      }
+    })
   }
 }
 
