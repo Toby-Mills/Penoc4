@@ -196,6 +196,13 @@ export class PenocApiService {
     return this.get<Competitor[]>(url, {});
   }
 
+  public addCompetitor(competitor: Competitor): Observable<Competitor> {
+    let url = `/competitors`;
+    return this.post<Array<Competitor>>(url, competitor, {}).pipe(
+      map(competitors => competitors[0], first())
+    );
+  }
+
   //------- Courses -------
   getOEventCourses(oEventId: number): Observable<Course[]> {
     let url = `/oevents/${oEventId}/courses`;
