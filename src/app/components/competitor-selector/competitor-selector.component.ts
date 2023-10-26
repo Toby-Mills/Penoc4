@@ -84,15 +84,6 @@ export class CompetitorSelectorComponent {
     this.searchVisible = false;
   }
 
-  onSearchInput(): void {
-    if (this.inputText.length > 2) {
-      this.searching = true;
-      this.searchSubject.next(this.inputText);
-    } else {
-      this.matches = [];
-    }
-  }
-
   onMatchClicked($event: Event): void {
     if ($event.target) {
       const target: HTMLElement = $event.target as HTMLElement;
@@ -107,8 +98,6 @@ export class CompetitorSelectorComponent {
   }
 
   loadCompetitor(competitorId: number | undefined) {
-
-
     if (competitorId) {
       this.competitorId = competitorId;
       this.selectedMatchId = competitorId;
@@ -168,6 +157,15 @@ export class CompetitorSelectorComponent {
           this.hideSearch();
           this.focusOnClear();
         }
+        break;
+      default:
+        if (this.inputText.length > 2) {
+          this.searching = true;
+          this.searchSubject.next(this.inputText);
+        } else {
+          this.matches = [];
+        }
+
     };
   }
 

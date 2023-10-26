@@ -3,7 +3,7 @@
         (focus)="this.hasFocus = true; this.displaySearch();">
     <div *ngIf="searchVisible">
         <input id="searchInputBox" #searchInputBox type="text" placeholder="search" [(ngModel)]="inputText"
-            (keydown)="onSearchInputKeydown($event)" (keyup)="onSearchInput()"
+            (keydown)="onSearchInputKeydown($event)"
             (blur)="this.hasFocus = false;onSearchBlur()"><br>
         <ul class="dropdown-list">
             <li *ngIf="searching">searching...</li>
