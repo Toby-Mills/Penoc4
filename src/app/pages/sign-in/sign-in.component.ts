@@ -17,6 +17,7 @@ export class SignInComponent {
 
   @ViewChild('usernameinput', { static: false })
   private usernameElement!: ElementRef<HTMLElement>;
+  public signingIn: boolean = false;
 
   constructor(
     private api: PenocApiService,
@@ -47,10 +48,11 @@ export class SignInComponent {
   }
 
   private signIn() {
+    this.signingIn = true;
     this.api.signIn(this.username, this.password).subscribe(
       {
         next: success => {this.router.navigate(['/admin'])},
-        error: error => this.failed = true
+        error: error => {this.failed = true; this.signingIn = false;}
       }
     )
   }
