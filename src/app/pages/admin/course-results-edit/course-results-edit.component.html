@@ -28,7 +28,7 @@
             <img src="../../../../assets/drag-handle.svg" class="drag-handle" cdkDragHandle />
         </td>
         <td><span>{{result.position}}</span></td>
-        <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId"></app-competitor-selector>
+        <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId" (competitorIdChange)="onCompetitorIdChange(i,$event)"></app-competitor-selector>
         </td>
         <td><select class="narrow" [(ngModel)]="courseResults.results[i].clubId">
             <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>

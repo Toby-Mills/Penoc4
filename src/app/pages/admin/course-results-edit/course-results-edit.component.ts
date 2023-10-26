@@ -87,4 +87,14 @@ export class CourseResultsEditComponent {
     this.courseResults!.results = results;
   }
 
+  onCompetitorIdChange(index: number, competitorId: number | undefined) {
+    if (competitorId) {
+      this.api.getCompetitor(competitorId).subscribe((competitor) => {
+        this.courseResults!.results[index].competitor = competitor.fullName;
+      })
+    } else {
+      this.courseResults!.results[index].competitor = '';
+    }
+  }
+
 }
