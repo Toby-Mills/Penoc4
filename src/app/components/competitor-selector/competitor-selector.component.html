@@ -1,9 +1,9 @@
 <div id="container">
     <input id="competitorName" type="text" value="{{this.competitorName}}" *ngIf="searchVisible == false"
-        (focus)="this.hasFocus = true;this.displaySearch()" (blur)="this.hasFocus = false;">
+        (focus)="this.hasFocus = true; this.displaySearch();">
     <div *ngIf="searchVisible">
         <input id="searchInputBox" #searchInputBox type="text" placeholder="search" [(ngModel)]="inputText"
-            (keydown)="onSearchInputKeydown($event)" (keyup)="onSearchInput()" (focus)="this.hasFocus = true;"
+            (keydown)="onSearchInputKeydown($event)" (keyup)="onSearchInput()"
             (blur)="this.hasFocus = false;onSearchBlur()"><br>
         <ul class="dropdown-list">
             <li *ngIf="searching">searching...</li>

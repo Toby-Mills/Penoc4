@@ -44,7 +44,6 @@ export class CompetitorSelectorComponent {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap((inputText) => {
-        this.searching = true;
         if (this.individualsOnly) { return this.api.searchIndividuals(inputText) }
         else { return this.api.searchCompetitors(inputText) }
       })
@@ -87,6 +86,7 @@ export class CompetitorSelectorComponent {
 
   onSearchInput(): void {
     if (this.inputText.length > 2) {
+      this.searching = true;
       this.searchSubject.next(this.inputText);
     } else {
       this.matches = [];
@@ -147,7 +147,7 @@ export class CompetitorSelectorComponent {
         break;
       case 'Tab':
         if (!$event.shiftKey) {
-          if (this.searchVisible) {
+          if (this.searchVisible && !this.searching) {
             $event.preventDefault();
             this.selectHighlightedMatch();
             this.hideSearch();
@@ -162,10 +162,12 @@ export class CompetitorSelectorComponent {
         this.highlightPreviousMatch();
         break;
       case 'Enter':
-        $event.preventDefault();
-        this.selectHighlightedMatch()
-        this.hideSearch();
-        this.focusOnClear();
+        if (!this.searching) {
+          $event.preventDefault();
+          this.selectHighlightedMatch()
+          this.hideSearch();
+          this.focusOnClear();
+        }
     };
   }
 
@@ -240,25 +242,26 @@ export class CompetitorSelectorComponent {
   onAddClick() {
     const dialogRef = this.dialog.open(AddCompetitorComponent, {
       height: '400px',
-      width: '600px'    })
+      width: '600px'
+    })
     dialogRef.componentInstance?.newCompetitor.subscribe((competitor) => {
       this.clearCompetitor();
       this.selectCompetitor(competitor.id);
       this.focusOnClear();
     });
-    dialogRef.componentInstance?.cancel.subscribe(()=>{
+    dialogRef.componentInstance?.cancel.subscribe(() => {
       this.focusOnInput();
     })
   }
 
-  focusOnClear(){
+  focusOnClear() {
     const elementToFocus = this.elementRef.nativeElement.querySelector('#clear');
     if (elementToFocus) {
       this.renderer.selectRootElement(elementToFocus).focus();
     }
   }
 
-  focusOnInput(){
+  focusOnInput() {
     const elementToFocus = this.elementRef.nativeElement.querySelector('#competitorName');
     if (elementToFocus) {
       this.renderer.selectRootElement(elementToFocus).focus();
