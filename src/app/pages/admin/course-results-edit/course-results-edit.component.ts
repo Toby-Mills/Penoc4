@@ -41,32 +41,34 @@ export class CourseResultsEditComponent {
   }
 
   public onNewClick() {
-    if(this.courseResults){
-    let newResult = new Result();
-    newResult.position = this.courseResults.results.length + 1;
-    newResult.time = new Date('1970-01-01T00:00:00Z');
-    this.courseResults.results.push(newResult);
-    setTimeout(() => this.focusOnLastCompetitor());
-  }
+    if (this.courseResults) {
+      let newResult = new Result();
+      newResult.position = this.courseResults.results.length + 1;
+      newResult.time = new Date('1970-01-01T00:00:00Z');
+      this.courseResults.results.push(newResult);
+      this.focusOnLastCompetitor();
+    }
   }
 
   focusOnLastCompetitor() {
-    setTimeout(() => {
-      const rows = this.elementRef.nativeElement.querySelectorAll('tr');
-      const lastRow = rows[rows.length - 1];
-      if (lastRow) {
-        const input = lastRow.querySelector('input');
-        if (input) {
-          this.renderer.selectRootElement(input).focus();
+    setTimeout(
+      () => {
+        const rows = this.elementRef.nativeElement.querySelectorAll('tr');
+        const lastRow = rows[rows.length - 1];
+        if (lastRow) {
+          const input = lastRow.querySelector('input');
+          if (input) {
+            this.renderer.selectRootElement(input).focus();
+          }
         }
       }
-    })
+    )
   }
 
   public onSaveClick() {
     this.saving = true;
     this.api.saveCourseResults(this.courseId, this.courseResults!.results).subscribe(
-      data => {this.saving = false});
+      data => { this.saving = false });
   }
 
   public onTimeChange(index: number, event: any) {
@@ -76,10 +78,10 @@ export class CourseResultsEditComponent {
 
   }
 
-  onResultDrop(event: CdkDragDrop<Result[]>){
+  onResultDrop(event: CdkDragDrop<Result[]>) {
     let results = this.courseResults!.results;
     moveItemInArray(results, event.previousIndex, event.currentIndex);
-    for (let index = 0; index < results.length; index++){
+    for (let index = 0; index < results.length; index++) {
       results[index].position = index + 1;
     }
     this.courseResults!.results = results;
