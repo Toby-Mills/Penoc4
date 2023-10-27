@@ -38,11 +38,11 @@
         <td><input type="text" class="narrow" [(ngModel)]="courseResults.results[i].points" /></td>
         <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
         <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
+        <td><input type="image" class="icon-delete icon-small" src="../../../../assets/icon-delete.png" (click)="onDeleteClick(i)"></td>
           <div *cdkDragPreview class="drag-preview">{{courseResults.results[i].competitor}}</div>
           <tr *cdkDragPlaceholder class="drag-placeholder"><td colspan="10"></td></tr>
         </ng-container>
       </tr>
-      
     </tbody>
   </table>
   <input *ngIf="!editResult" type="image" src="../../../../assets/icon-add.png" title="add result"

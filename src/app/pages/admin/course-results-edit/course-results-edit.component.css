@@ -36,3 +36,11 @@ tr:hover .drag-handle {
     width:1000px; height: 2em;
     background-color:#eaeaea;
 }
+
+.icon-delete {
+    display: none;
+}
+
+tr:hover td .icon-delete {
+    display: inline;
+}

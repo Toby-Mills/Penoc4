@@ -102,7 +102,7 @@ input.wide, select.wide {
 }
 
 .icon-small {
-    height: 2rem;
+    height: 1.8rem;
 }
 
 @media screen and (max-width: 1200px) {

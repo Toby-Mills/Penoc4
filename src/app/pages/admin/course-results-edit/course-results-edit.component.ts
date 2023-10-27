@@ -72,7 +72,7 @@ export class CourseResultsEditComponent {
     this.api.saveCourseResults(this.courseId, this.courseResults!.results).subscribe(
       (data) => { this.saving = false; this.toasterService.showToast('successfully saved', ToastMessageType.Success, 3000) },
       (error) => { this.saving = false; this.toasterService.showToast(error.message, ToastMessageType.Failure, 0) }
-      );
+    );
   }
 
   public onTimeChange(index: number, event: any) {
@@ -99,6 +99,10 @@ export class CourseResultsEditComponent {
     } else {
       this.courseResults!.results[index].competitor = '';
     }
+  }
+
+  onDeleteClick(index: number) {
+    this.courseResults!.results.splice(index, 1);
   }
 
 }
