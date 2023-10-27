@@ -40,6 +40,7 @@ import { InputTimeComponent } from './components/input-time/input-time.component
 import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
 import { AddCompetitorComponent } from './components/add-competitor/add-competitor.component';
 import { DialogModule } from '@angular/cdk/dialog';
+import { ToasterComponent } from './components/toaster/toaster.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +76,7 @@ import { DialogModule } from '@angular/cdk/dialog';
     InputTimeComponent,
     SortOeventsByDatePipe,
     AddCompetitorComponent,
+    ToasterComponent,
   ],
   imports: [
     BrowserModule,
