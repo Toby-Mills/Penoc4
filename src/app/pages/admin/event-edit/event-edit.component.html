@@ -2,11 +2,11 @@
     <div class="card">
         <div style="float:left;">        <h1>Event Details</h1>
         <h2>{{this.oEvent.name}} - {{this.oEvent.date|date}}</h2></div>
-        <div  style="float:right;">
+        <div id="buttons">
             <input [disabled]="!oEventForm.form.dirty" type="button" class="secondary clickable" value="Cancel" (click)="this.onCancelClick()" />
             <input [disabled]="!oEventForm.form.dirty" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
             <br>
-            <a [class.link-disabled]="oEventForm.form.dirty" class="clickable" (click)="onCoursesClick()">Courses & Results</a>
+            <a id="link-results" [class.link-disabled]="oEventForm.form.dirty" class="clickable" (click)="onCoursesClick()">Courses & Results</a>
         </div>
         <div class="clear-fix"></div>
         <div class="column">

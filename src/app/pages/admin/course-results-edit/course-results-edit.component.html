@@ -5,8 +5,9 @@
   </div>
   <div id="save">
     <span *ngIf="this.saving">saving...</span>
+    <input [disabled]="this.saving" type="button" class="secondary clickable" value="Cancel"
+      (click)="this.onCancelClick()" />
     <input *ngIf="!this.saving" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
-    <input [disabled]="this.saving" type="button" class="secondary clickable" value="Cancel" (click)="this.onCancelClick()" />
   </div>
   <div class="clear-fix"></div>
   <table>
@@ -27,22 +28,26 @@
         <ng-container>
           <td>
             <img src="../../../../assets/drag-handle.svg" class="drag-handle" cdkDragHandle />
-        </td>
-        <td><span>{{result.position}}</span></td>
-        <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId" (competitorIdChange)="onCompetitorIdChange(i,$event)"></app-competitor-selector>
-        </td>
-        <td><select class="narrow" [(ngModel)]="courseResults.results[i].clubId">
-            <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
-          </select></td>
-        <td><app-input-time [time]="courseResults.results[i].time"
-            (timeChange)="onTimeChange(i, $event)"></app-input-time></td>
-        <td><input type="text" class="narrow" [(ngModel)]="courseResults.results[i].points" /></td>
-        <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
-        <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
-        <td><input type="image" class="icon-delete icon-small" src="../../../../assets/icon-delete.png" (click)="onDeleteClick(i)"></td>
+          </td>
+          <td><span>{{result.position}}</span></td>
+          <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId"
+              (competitorIdChange)="onCompetitorIdChange(i,$event)"></app-competitor-selector>
+          </td>
+          <td><select class="narrow" [(ngModel)]="courseResults.results[i].clubId">
+              <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
+            </select></td>
+          <td><app-input-time [time]="courseResults.results[i].time"
+              (timeChange)="onTimeChange(i, $event)"></app-input-time></td>
+          <td><input type="text" class="narrow" [(ngModel)]="courseResults.results[i].points" /></td>
+          <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
+          <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
+          <td><input type="image" class="icon-delete icon-small" src="../../../../assets/icon-delete.png"
+              (click)="onDeleteClick(i)"></td>
           <div *cdkDragPreview class="drag-preview">{{courseResults.results[i].competitor}}</div>
-          <tr *cdkDragPlaceholder class="drag-placeholder"><td colspan="10"></td></tr>
-        </ng-container>
+      <tr *cdkDragPlaceholder class="drag-placeholder">
+        <td colspan="10"></td>
+      </tr>
+      </ng-container>
       </tr>
     </tbody>
   </table>

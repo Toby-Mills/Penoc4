@@ -1,5 +1,14 @@
+div#buttons {
+    float: right;
+    text-align: right;
+}
+
+#link-results {
+    padding-right: 10px;
+}
+
 div.column {
-    float:left;
+    float: left;
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
