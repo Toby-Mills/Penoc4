@@ -105,4 +105,7 @@ export class CourseResultsEditComponent {
     this.courseResults!.results.splice(index, 1);
   }
 
+  onCancelClick(){
+    this.loadCourseResults(this.courseId);
+  }
 }

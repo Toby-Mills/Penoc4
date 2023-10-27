@@ -6,6 +6,7 @@
   <div id="save">
     <span *ngIf="this.saving">saving...</span>
     <input *ngIf="!this.saving" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
+    <input [disabled]="this.saving" type="button" class="secondary clickable" value="Cancel" (click)="this.onCancelClick()" />
   </div>
   <div class="clear-fix"></div>
   <table>
