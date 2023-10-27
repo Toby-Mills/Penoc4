@@ -6,6 +6,8 @@ import { CourseResults } from 'src/app/models/course-results';
 import { Result } from 'src/app/models/result';
 import { DataCacheService } from 'src/app/services/data-cache.service';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
+import { ToasterService } from 'src/app/services/toaster.service';
+import { ToastMessageType } from 'src/app/components/toaster/toaster.component';
 
 @Component({
   selector: 'app-course-results-edit',
@@ -25,7 +27,7 @@ export class CourseResultsEditComponent {
     public dataCache: DataCacheService,
     private renderer: Renderer2,
     private elementRef: ElementRef,
-    private changeDetectorRef: ChangeDetectorRef
+    private toasterService: ToasterService,
   ) { }
 
   ngOnInit() {
@@ -68,7 +70,9 @@ export class CourseResultsEditComponent {
   public onSaveClick() {
     this.saving = true;
     this.api.saveCourseResults(this.courseId, this.courseResults!.results).subscribe(
-      data => { this.saving = false });
+      (data) => { this.saving = false; this.toasterService.showToast('successfully saved', ToastMessageType.Success, 3000) },
+      (error) => { this.saving = false; this.toasterService.showToast(error.message, ToastMessageType.Failure, 0) }
+      );
   }
 
   public onTimeChange(index: number, event: any) {
