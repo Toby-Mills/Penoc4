@@ -6,12 +6,13 @@
 }
 
 #competitorName {
-  width: calc(10em);
+  box-sizing: border-box;
   width: 15em;
 }
 
 #searchInputBox {
-  width: calc(15em);
+  box-sizing: border-box;
+  width: calc(15em - 3px);
 }
 
 #clear {

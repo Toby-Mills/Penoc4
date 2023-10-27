@@ -18,8 +18,8 @@
             <li (click)="onAddClick()">add new competitor</li>
         </ul>
     </div>
-    <input id="clear" type="button" value="X" class="clickable" (click)="selectCompetitor(undefined)"
+    <input id="clear" type="button" value="X" class="clickable"  [style.display]="this.hasFocus ? 'inline':'none'" (click)="selectCompetitor(undefined)"
         (focus)="this.hasFocus = true;">
-    <input id="new" *ngIf="this.hasFocus" type="image" src="../../../assets/icon-add.png" title="create new competitor"
+    <input id="new" [style.display]="this.hasFocus ? 'inline':'none'" type="image" src="../../../assets/icon-add.png" title="create new competitor"
         (click)="onAddClick()" (focus)="this.hasFocus = true;" (blur)="this.hasFocus = false;">
 </div>
