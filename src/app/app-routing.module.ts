@@ -13,6 +13,7 @@ import { AdminGuard } from './guards/admin-guard';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
 import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/event-courses-edit.component';
 import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
+import { CompetitorsComponent } from './pages/admin/competitors/competitors.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'event-courses-edit/:oEventId', component: EventCoursesEditComponent  },
       { path: 'course-results-edit/:courseId', component: CourseResultsEditComponent  },
       { path: 'events', component: EventsComponent  },
+      { path: 'competitors', component: CompetitorsComponent  },
     ]
   },
   { path: '**', redirectTo:'home'}

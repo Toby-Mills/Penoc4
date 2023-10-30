@@ -41,6 +41,7 @@ import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
 import { AddCompetitorComponent } from './components/add-competitor/add-competitor.component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { ToasterComponent } from './components/toaster/toaster.component';
+import { CompetitorsComponent } from './pages/admin/competitors/competitors.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +78,7 @@ import { ToasterComponent } from './components/toaster/toaster.component';
     SortOeventsByDatePipe,
     AddCompetitorComponent,
     ToasterComponent,
+    CompetitorsComponent,
   ],
   imports: [
     BrowserModule,
