@@ -51,7 +51,7 @@ export class SignInComponent {
     this.signingIn = true;
     this.api.signIn(this.username, this.password).subscribe(
       {
-        next: success => {this.router.navigate(['/admin'])},
+        next: success => {this.router.navigate(['/admin/events'])},
         error: error => {this.failed = true; this.signingIn = false;}
       }
     )

@@ -1,14 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEvent } from 'src/app/models/oevent.model';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-admin-events',
+  templateUrl: './events.component.html',
+  styleUrls: ['./events.component.css']
 })
-export class AdminDashboardComponent implements OnInit {
+export class EventsComponent implements OnInit {
   public upcomingOEvents: OEvent[] = [];
   public recentOEvents: OEvent[] = [];
 

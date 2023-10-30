@@ -27,7 +27,7 @@ import { OeventResultsComponent } from './components/oevent-results/oevent-resul
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
 import { IndividualResultsComponent } from './pages/individual-results/individual-results.component';
 import { SortResultsByDatePipe } from './pipes/sort-results-by-date.pipe';
-import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { EventsComponent } from './pages/admin/events/events.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
@@ -66,7 +66,7 @@ import { ToasterComponent } from './components/toaster/toaster.component';
     WhatIsOrienteeringComponent,
     IndividualResultsComponent,
     SortResultsByDatePipe,
-    AdminDashboardComponent,
+    EventsComponent,
     SignInComponent,
     EventEditComponent,
     CompetitorSelectorComponent,

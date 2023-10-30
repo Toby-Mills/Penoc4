@@ -7,7 +7,7 @@ import { EventNoticeComponent } from './pages/event-notice/event-notice.componen
 import { EventResultsComponent } from './pages/event-results/event-results.component';
 import { WhatIsOrienteeringComponent } from './pages/what-is-orienteering/what-is-orienteering.component';
 import { IndividualResultsComponent } from './pages/individual-results/individual-results.component';
-import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { EventsComponent } from './pages/admin/events/events.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { AdminGuard } from './guards/admin-guard';
 import { EventEditComponent } from './pages/admin/event-edit/event-edit.component';
@@ -28,12 +28,12 @@ const routes: Routes = [
     path: 'admin',
     canActivate: [AdminGuard],
     children: [
+      { path: '', redirectTo: '/admin/events', pathMatch: 'full' },
       { path: 'event-edit', component: EventEditComponent },
       { path: 'event-edit/:oEventId', component: EventEditComponent },
       { path: 'event-courses-edit/:oEventId', component: EventCoursesEditComponent  },
       { path: 'course-results-edit/:courseId', component: CourseResultsEditComponent  },
-      
-      { path: '', component: AdminDashboardComponent  },
+      { path: 'events', component: EventsComponent  },
     ]
   },
   { path: '**', redirectTo:'home'}
