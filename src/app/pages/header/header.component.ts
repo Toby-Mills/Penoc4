@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { OEvent } from 'src/app/models/oevent.model';
-
+import { PenocApiService } from 'src/app/services/penoc-api.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,7 +11,7 @@ export class HeaderComponent implements OnInit {
   public nextEventClicked(oeventId:number) {
     this.router.navigate([`event-notice`,oeventId]);
   }
-  constructor(private router:Router) { }
+  constructor(private router:Router, public api:PenocApiService) { }
 
   ngOnInit(): void {
   }

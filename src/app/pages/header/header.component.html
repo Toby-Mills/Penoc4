@@ -19,6 +19,8 @@
                 <li><a routerLink="home" routerLinkActive="router-link-active">HOME</a></li>
                 <li><a routerLink="results" routerLinkActive="router-link-active">RESULTS</a></li>
                 <li><a routerLink="contact-us" routerLinkActive="router-link-active">CONTACT US</a></li>
+                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/events" routerLinkActive="router-link-active">EVENTS</a></li>
+                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/competitors" routerLinkActive="router-link-active">COMPETITORS</a></li>
             </ul>
         </nav>
     </div>
