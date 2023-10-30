@@ -17,8 +17,8 @@
         <th>Pos.</th>
         <th>Competitor</th>
         <th>Club</th>
-        <th>Time</th>
-        <th>Points</th>
+        <th colspan="2">Time</th>
+        <th colspan="2">Points</th>
         <th>DSQ</th>
         <th>Comments</th>
       </tr>
@@ -37,8 +37,19 @@
               <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
             </select></td>
           <td><app-input-time [time]="courseResults.results[i].time"
-              (timeChange)="onTimeChange(i, $event)"></app-input-time></td>
-          <td><input type="text" class="narrow" [(ngModel)]="courseResults.results[i].points" /></td>
+              (timeChange)="onTimeChange(i, $event)"></app-input-time>
+          </td>
+          <td>
+            <img id="icon-validation-error" [style.display]="this.timeValidationErrors[i]? 'inline':'none'"
+              src="../../../../assets/icon-warning.png" class="icon-small" title="Warning: less time than position {{i}}">
+          </td>
+          <td><input type="text" class="narrow" (ngModelChange)="validatePointSequence()"
+              [(ngModel)]="courseResults.results[i].points" />
+            </td>
+            <td>
+              <img id="icon-validation-error" [style.display]="this.pointValidationErrors[i]? 'inline':'none'"
+                src="../../../../assets/icon-warning.png" class="icon-small" title="Warning: points invalid or more than position {{i}}">
+            </td>
           <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
           <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
           <td><input type="image" class="icon-delete icon-small" src="../../../../assets/icon-delete.png"

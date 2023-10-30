@@ -44,3 +44,10 @@ tr:hover .drag-handle {
 tr:hover td .icon-delete {
     display: inline;
 }
+
+#icon-validation-error{
+    position: relative;
+    left: -2.3em;
+    top: 0.3em;
+    margin-right: -2.3em;
+}

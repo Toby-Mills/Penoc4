@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, } from '@angular/router';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Club } from 'src/app/models/club';
@@ -20,6 +20,8 @@ export class CourseResultsEditComponent {
   public clubs: Club[] = [];
   public editResult: number | undefined;
   public saving: boolean = false;
+  public timeValidationErrors: boolean[] = [];
+  public pointValidationErrors: boolean[] = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -38,7 +40,9 @@ export class CourseResultsEditComponent {
   private loadCourseResults(courseId: number) {
     this.courseId = courseId;
     this.api.getCourseResults(courseId).subscribe(data => {
-      this.courseResults = data
+      this.courseResults = data;
+      this.validateTimeSequence();
+      this.validatePointSequence();
     });
   }
 
@@ -79,7 +83,7 @@ export class CourseResultsEditComponent {
     let result = this.courseResults!.results[index];
     result.time = event;
     this.courseResults!.results[index] = result;
-
+    this.validateTimeSequence();
   }
 
   onResultDrop(event: CdkDragDrop<Result[]>) {
@@ -89,6 +93,8 @@ export class CourseResultsEditComponent {
       results[index].position = index + 1;
     }
     this.courseResults!.results = results;
+    this.validateTimeSequence();
+    this.validatePointSequence();
   }
 
   onCompetitorIdChange(index: number, competitorId: number | undefined) {
@@ -105,7 +111,50 @@ export class CourseResultsEditComponent {
     this.courseResults!.results.splice(index, 1);
   }
 
-  onCancelClick(){
+  onCancelClick() {
     this.loadCourseResults(this.courseId);
+  }
+
+  validateTimeSequence() {
+    setTimeout(() => {
+
+      this.timeValidationErrors = [false];
+
+      let previousTime = new Date(this.courseResults!.results[0].time);
+
+      for (let index = 1; index < this.courseResults!.results.length; index++) {
+        let nextTime = this.courseResults!.results[index].time;
+        if (nextTime < previousTime) {
+          this.timeValidationErrors.push(true);
+        } else {
+          this.timeValidationErrors.push(false);
+        }
+        previousTime = nextTime;
+      }
+    })
+  }
+
+  validatePointSequence() {
+    setTimeout(() => {
+      this.pointValidationErrors = [false];
+
+      let previousPoints = Number(this.courseResults!.results[0].points);
+
+      for (let index = 1; index < this.courseResults!.results.length; index++) {
+        let nextPointsString: string = this.courseResults!.results[index].points?.toString();
+        let nextPoints = Number(nextPointsString);
+        if (isNaN(nextPoints)) {
+          this.pointValidationErrors.push(true)
+        } else {
+          if (nextPoints > previousPoints) {
+            this.pointValidationErrors.push(true);
+          } else {
+            this.pointValidationErrors.push(false);
+          }
+          previousPoints = nextPoints;
+        }
+      }
+    })
+
   }
 }
