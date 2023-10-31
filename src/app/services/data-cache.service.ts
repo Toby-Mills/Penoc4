@@ -23,6 +23,7 @@ export class DataCacheService {
 
   private oEventResults: OEventResults[] = [];
   private competitors: Competitor[] = [];
+  private allCompetitorsLoaded: boolean = false;
   private venues: Venue[] = [];
   private clubs: Club[] = [];
   private difficulties: Difficulty[] = [];
@@ -48,19 +49,19 @@ export class DataCacheService {
     } else {
       //otherwise fetch from the api
       return this.api.getOEventResultSummary(oEventId)
-      .pipe(
-        map((data) => {
-          for(let courseResults of data.courseResults){
-            for(let result of courseResults.results){
-              result.time = new Date(result.time + 'Z');
+        .pipe(
+          map((data) => {
+            for (let courseResults of data.courseResults) {
+              for (let result of courseResults.results) {
+                result.time = new Date(result.time + 'Z');
+              }
             }
-          }
-          return data;
-        })
-      )
-      .pipe(
-        tap(data => this.oEventResults.push(data))
-      );
+            return data;
+          })
+        )
+        .pipe(
+          tap(data => this.oEventResults.push(data))
+        );
     }
   }
 
@@ -112,9 +113,23 @@ export class DataCacheService {
     }
   }
 
+  public getAllCompetitors(): Observable<Array<Competitor>> {
+    if (!this.allCompetitorsLoaded) {
+      console.log('load all competitors');
+      return this.api.searchCompetitors('').pipe(
+        tap(data => {
+          this.competitors = data;
+          this.allCompetitorsLoaded = true;
+        })
+      )
+    } else {
+      return of(this.competitors)
+    }
+  }
+
   public getVenues(): Observable<Venue[]> {
     //look in the cache and return from there if found
-    if (this.venues.length > 0) {return of(this.venues) }
+    if (this.venues.length > 0) { return of(this.venues) }
     else {
       //otherwise fetch from the api
       return this.api.getVenues().pipe(
@@ -125,7 +140,7 @@ export class DataCacheService {
 
   public getClubs(): Observable<Club[]> {
     //look in the cache and return from there if found
-    if (this.clubs.length > 0) {return of(this.clubs) }
+    if (this.clubs.length > 0) { return of(this.clubs) }
     else {
       //otherwise fetch from the api
       return this.api.getClubs().pipe(
@@ -134,9 +149,9 @@ export class DataCacheService {
     }
   }
 
-  public getDifficulties(): Observable<Difficulty[]>{
+  public getDifficulties(): Observable<Difficulty[]> {
     //look in the cache and return from there if found
-    if (this.difficulties.length > 0) {return of(this.difficulties) }
+    if (this.difficulties.length > 0) { return of(this.difficulties) }
     else {
       //otherwise fetch from the api
       return this.api.getDifficulties().pipe(
