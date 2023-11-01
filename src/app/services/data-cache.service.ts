@@ -7,6 +7,7 @@ import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
 import { Club } from '../models/club';
 import { Difficulty } from '../models/difficulty';
+import { Result } from '../models/result';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,16 +51,6 @@ export class DataCacheService {
     } else {
       //otherwise fetch from the api
       return this.api.getOEventResultSummary(oEventId)
-        .pipe(
-          map((data) => {
-            for (let courseResults of data.courseResults) {
-              for (let result of courseResults.results) {
-                result.time = new Date(result.time + 'Z');
-              }
-            }
-            return data;
-          })
-        )
         .pipe(
           tap(data => this.oEventResults.push(data))
         );
@@ -168,6 +159,10 @@ export class DataCacheService {
         tap(data => this.difficulties = data)
       );
     }
+  }
+
+  public getCompetitorResults(competitorId:number): Observable<Result[]>{
+    return this.api.getCompetitorResults(competitorId);
   }
 
 }

@@ -150,7 +150,16 @@ export class PenocApiService {
     let url = '/resultSummaries/' + oeventId;
     if (maximumResults != null) { url += '?maximumResults=' + maximumResults; }
     const firstItem = map((events: Array<OEventResults>) => { if (events.length > 0) { return events[0] } else { return new OEventResults } })
-    let theEvent = firstItem(this.get<[OEventResults]>(url));
+    let theEvent = firstItem(this.get<[OEventResults]>(url)).pipe(
+      map(oEventResults => {
+        for (let courseResults of oEventResults.courseResults) {
+          for (let result of courseResults.results) {
+            result.time = this.dateStringToDate(result.time);
+          }
+        }
+        return oEventResults;
+      })
+    );
     return theEvent;
   }
 
@@ -165,7 +174,7 @@ export class PenocApiService {
       for (let event of data) {
         for (let course of event.courseResults) {
           for (let result of course.results) {
-            result.time = new Date(result.time + 'Z');
+            result.time = this.dateStringToDate(result.time);
           }
         }
       }
@@ -175,7 +184,12 @@ export class PenocApiService {
 
   public getCompetitorResults(competitorId: number): Observable<Result[]> {
     let url = `/competitors/${competitorId}/results`;
-    return this.get<Result[]>(url, {});
+    return this.get<Result[]>(url, {}).pipe(map((results) => {
+      for (let result of results) {
+        result.time = this.dateStringToDate(result.time);
+      }
+      return results;
+    }));
   }
 
   //------- Competitors -------
@@ -240,7 +254,7 @@ export class PenocApiService {
     const results = this.get<Result[]>(urlResults, {}).pipe(
       map(data => {
         for (let result of data) {
-          result.time = new Date(result.time + 'Z');
+          result.time = this.dateStringToDate(result.time);
         }
         return data;
       })
@@ -251,6 +265,22 @@ export class PenocApiService {
   public saveCourseResults(courseId: number, results: Result[]): Observable<Result[]> {
     let url = `/courses/${courseId}/results`;
     return this.put(url, results, {})
+  }
+
+  private dateStringToDate(dateString: any): Date {
+    let returnDate = new Date();
+    if (dateString!= null && dateString.length > 0) {
+      if (dateString.charAt(dateString.length - 1) != 'Z') {
+        dateString += 'Z';
+      }
+      returnDate = new Date(dateString.toString());
+      if (isNaN(returnDate.getTime())) {
+        returnDate = new Date('1970-01-01T00:00:00Z');
+      }
+    } else {
+      returnDate = new Date('1970-01-01T00:00:00Z');
+    }
+    return returnDate;
   }
 
   private toJsonString(jsonObject: any): string {
