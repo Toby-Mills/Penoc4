@@ -1,22 +1,27 @@
 <div class="card">
-    <table class="table-striped">
+    <span *ngIf="this.competitors.length == 0">loading...</span>
+    <table *ngIf="this.competitors.length > 0" class="table-striped">
         <thead>
             <th></th>
             <th>Id</th>
             <th>Full Name</th>
             <th>Gender</th>
             <th></th>
+            <th></th>
         </thead>
         <tbody>
             <tr *ngFor="let competitor of this.competitors">
                 <td>
-                    <img *ngIf="competitor.genderId == 1 || competitor.genderId == 2" src="../../../../assets/individual.png" class="icon-small">
+                    <img *ngIf="competitor.genderId == 1 || competitor.genderId == 2"
+                        src="../../../../assets/individual.png" class="icon-small">
                     <img *ngIf="competitor.genderId == 3" src="../../../../assets/group.png" class="icon-small">
                 </td>
                 <td>{{competitor.id}}</td>
                 <td>{{competitor.fullName}}</td>
                 <td>{{competitor.gender}}</td>
-                <td><input type="image" src="../../../../assets/icon-delete.png" class="icon-small icon-delete" (click)="onDeleteClick(competitor.id)"> </td>
+                <td><a class="clickable" (click)="onResultsClick(competitor.id)">results</a></td>
+                <td><input type="image" src="../../../../assets/icon-delete.png" class="icon-small icon-delete"
+                        (click)="onDeleteClick(competitor.id)"> </td>
             </tr>
         </tbody>
     </table>

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { OEventResults } from 'src/app/models/oevent-results';
 import { Location } from '@angular/common';
 
@@ -14,11 +13,10 @@ export class OeventResultsComponent implements OnInit {
 
   public selectedCourse: number = 0;
   constructor(
-    private router: Router,
-    private location:Location,
-    ) { }
+    private location: Location,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['oEventResults'] != undefined) {
@@ -36,7 +34,7 @@ export class OeventResultsComponent implements OnInit {
     this.location.back();
   }
 
-  onCompetitorClick(competitorId:number){
+  onCompetitorClick(competitorId: number) {
     this.competitorClicked.emit(competitorId);
   }
 }
