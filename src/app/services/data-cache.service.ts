@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { OEvent } from '../models/oevent.model';
 import { PenocApiService } from './penoc-api.service';
 import { OEventResults } from '../models/oevent-results';
-import { Observable, of, tap, map } from 'rxjs';
+import { Observable, of, tap, map, BehaviorSubject } from 'rxjs';
 import { Competitor } from '../models/competitor';
 import { Venue } from '../models/venue';
 import { Club } from '../models/club';
@@ -22,6 +22,7 @@ export class DataCacheService {
   private loadingMoreOEventResults: Boolean = false;
 
   private oEventResults: OEventResults[] = [];
+  private allCompetitorsSubject: BehaviorSubject<Competitor[]> = new BehaviorSubject<Competitor[]>([])
   private competitors: Competitor[] = [];
   private allCompetitorsLoaded: boolean = false;
   private venues: Venue[] = [];
@@ -113,18 +114,27 @@ export class DataCacheService {
     }
   }
 
-  public getAllCompetitors(): Observable<Array<Competitor>> {
+  public getAllCompetitors(): BehaviorSubject<Array<Competitor>> {
+
     if (!this.allCompetitorsLoaded) {
-      console.log('load all competitors');
-      return this.api.searchCompetitors('').pipe(
-        tap(data => {
-          this.competitors = data;
+      this.api.searchCompetitors('').subscribe(
+        (allCompetitors) => {
+          this.competitors = allCompetitors;
           this.allCompetitorsLoaded = true;
+          this.allCompetitorsSubject.next(this.competitors);
         })
-      )
-    } else {
-      return of(this.competitors)
     }
+
+    return this.allCompetitorsSubject;
+  }
+
+  public deleteCompetitor(idCompetitor: number): Observable<any> {
+    return this.api.deleteCompetitor(idCompetitor).pipe(
+      map(data => {
+        this.competitors = this.competitors.filter(competitor => competitor.id != idCompetitor);
+        this.allCompetitorsSubject.next(this.competitors)
+      })
+    )
   }
 
   public getVenues(): Observable<Venue[]> {

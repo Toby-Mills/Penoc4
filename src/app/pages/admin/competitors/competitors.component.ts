@@ -19,4 +19,8 @@ export class CompetitorsComponent implements OnInit {
       this.competitors = competitors;
     })
   }
+
+  onDeleteClick(competitorId: number){
+    this.dataService.deleteCompetitor(competitorId).subscribe();
+  }
 }

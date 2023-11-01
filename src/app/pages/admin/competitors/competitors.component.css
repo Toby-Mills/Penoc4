@@ -1,0 +1,7 @@
+.icon-delete {
+    display: none;
+}
+
+tr:hover .icon-delete {
+    display: inline;
+}

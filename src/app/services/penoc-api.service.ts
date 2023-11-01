@@ -162,9 +162,9 @@ export class PenocApiService {
     if (dateTo != null) { url += '&dateTo=' + dateTo.getFullYear() + '-' + (dateTo.getMonth() + 1) + '-' + dateTo.getDate(); }
     if (maximumResults != null) { url += '&maximumResults=' + maximumResults; }
     return this.get<OEventResults[]>(url, {}).pipe(map((data) => {
-      for (let event of data){
-        for (let course of event.courseResults){
-          for (let result of course.results){
+      for (let event of data) {
+        for (let course of event.courseResults) {
+          for (let result of course.results) {
             result.time = new Date(result.time + 'Z');
           }
         }
@@ -203,6 +203,11 @@ export class PenocApiService {
     );
   }
 
+  public deleteCompetitor(competitorId: number): Observable<any> {
+    let url = `/competitors/${competitorId}`;
+    return this.delete<any>(url, {});
+  }
+
   //------- Courses -------
   getOEventCourses(oEventId: number): Observable<Course[]> {
     let url = `/oevents/${oEventId}/courses`;
@@ -228,19 +233,19 @@ export class PenocApiService {
   getCourseResults(courseId: number): Observable<any> {
     let urlCourse = `/courses/${courseId}`;
     let urlResults = `/courses/${courseId}/results`;
-    const courses = this.get<Course[]>(urlCourse,{}).pipe(
+    const courses = this.get<Course[]>(urlCourse, {}).pipe(
       map(data => data[0])
     );
 
     const results = this.get<Result[]>(urlResults, {}).pipe(
       map(data => {
-        for (let result of data){
+        for (let result of data) {
           result.time = new Date(result.time + 'Z');
         }
         return data;
       })
     );
-    return forkJoin({course:courses, results:results});
+    return forkJoin({ course: courses, results: results });
   }
 
   public saveCourseResults(courseId: number, results: Result[]): Observable<Result[]> {
