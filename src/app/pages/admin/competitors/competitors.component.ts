@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, debounceTime } from 'rxjs';
 import { ToastMessageType } from 'src/app/components/toaster/toaster.component';
 import { Competitor } from 'src/app/models/competitor';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -13,7 +14,9 @@ import { ToasterService } from 'src/app/services/toaster.service';
 export class CompetitorsComponent implements OnInit {
   public displayedCompetitors: Competitor[] = [];
   private notDisplayedCompetitors: Competitor[] = [];
-  private allCompetitorsDisplayed: boolean = false;
+  public allCompetitorsDisplayed: boolean = false;
+  public searchText: string = "";
+  private searchTextSubject: Subject<string> = new Subject<string>;
 
   public constructor(
     private router: Router,
@@ -22,10 +25,23 @@ export class CompetitorsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadAllCompetitors('');
+    this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
+      this.loadAllCompetitors(searchText);
+    })
+  }
+
+  loadAllCompetitors(searchText: string) {
+    this.displayedCompetitors = [];
     this.dataService.getAllCompetitors().subscribe((competitors) => {
-      this.notDisplayedCompetitors.push (...competitors);
-      this.displayMoreCompetitors(100);
+      let searchTextStandardised: string = this.standardSearchString(searchText);
+      if (searchTextStandardised != "") {
+        this.notDisplayedCompetitors = competitors.filter((competitor) => {
+          return this.standardSearchString(competitor.fullName).includes(searchTextStandardised)
+        })
+      } else { this.notDisplayedCompetitors.push(...competitors); }
       this.allCompetitorsDisplayed = false;
+      this.displayMoreCompetitors(100);
     })
   }
 
@@ -55,10 +71,31 @@ export class CompetitorsComponent implements OnInit {
   }
 
   public onLoadingCardVisible(event: any) {
-    console.log(this.allCompetitorsDisplayed);
     if (!this.allCompetitorsDisplayed) {
-      console.log('here');
       this.displayMoreCompetitors(100);
     }
+  }
+
+  public onSearchTextChanged() {
+    this.searchTextSubject.next(this.searchText)
+  }
+
+  private standardSearchString(searchString: string) {
+    let returnString: string = searchString;
+
+    returnString = returnString.toLowerCase();
+    returnString = returnString.trim();
+    returnString = returnString.replace(/the/g, '');
+    returnString = returnString.replace(/one/g, '1');
+    returnString = returnString.replace(/two/g, '2');
+    returnString = returnString.replace(/three/g, '3');
+    returnString = returnString.replace(/four/g, '4');
+    returnString = returnString.replace(/five/g, '5');
+    returnString = returnString.replace(/\\|\"|\'|\(|\)|\!|\_|\*/g, '');
+    returnString = returnString.replace(/group|grp|family|team/g, '*');
+    returnString = returnString.replace(/and|\&|\+/g, '');
+    returnString = returnString.replace(/ /g, '');
+
+    return returnString;
   }
 }
