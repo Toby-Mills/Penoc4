@@ -1,6 +1,6 @@
 <div class="card">
-    <span *ngIf="this.competitors.length == 0">loading...</span>
-    <table *ngIf="this.competitors.length > 0" class="table-striped">
+    <span *ngIf="this.displayedCompetitors.length == 0">loading...</span>
+    <table *ngIf="this.displayedCompetitors.length > 0" class="table-striped">
         <thead>
             <th></th>
             <th>Id</th>
@@ -10,7 +10,7 @@
             <th></th>
         </thead>
         <tbody>
-            <tr *ngFor="let competitor of this.competitors">
+            <tr *ngFor="let competitor of this.displayedCompetitors">
                 <td>
                     <img *ngIf="competitor.genderId == 1 || competitor.genderId == 2"
                         src="../../../../assets/individual.png" class="icon-small">
@@ -26,3 +26,4 @@
         </tbody>
     </table>
 </div>
+<div id="loading-card" class="card" isVisible (visible)="onLoadingCardVisible($event)">loading more competitors...</div>

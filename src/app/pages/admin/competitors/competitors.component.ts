@@ -11,7 +11,9 @@ import { ToasterService } from 'src/app/services/toaster.service';
   styleUrls: ['./competitors.component.css']
 })
 export class CompetitorsComponent implements OnInit {
-  public competitors: Competitor[] = [];
+  public displayedCompetitors: Competitor[] = [];
+  private notDisplayedCompetitors: Competitor[] = [];
+  private allCompetitorsDisplayed: boolean = false;
 
   public constructor(
     private router: Router,
@@ -21,8 +23,19 @@ export class CompetitorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAllCompetitors().subscribe((competitors) => {
-      this.competitors = competitors;
+      this.notDisplayedCompetitors.push (...competitors);
+      this.displayMoreCompetitors(100);
+      this.allCompetitorsDisplayed = false;
     })
+  }
+
+  displayMoreCompetitors(quantity: number) {
+    const itemsToMove = this.notDisplayedCompetitors.slice(0, quantity);
+    this.notDisplayedCompetitors.splice(0, quantity);
+    this.displayedCompetitors.push(...itemsToMove);
+    if (this.notDisplayedCompetitors.length == 0) {
+      this.allCompetitorsDisplayed = true;
+    }
   }
 
   onDeleteClick(competitorId: number) {
@@ -39,5 +52,13 @@ export class CompetitorsComponent implements OnInit {
 
   onResultsClick(competitorId: number) {
     this.router.navigate([`/individual-results/`, competitorId]);
+  }
+
+  public onLoadingCardVisible(event: any) {
+    console.log(this.allCompetitorsDisplayed);
+    if (!this.allCompetitorsDisplayed) {
+      console.log('here');
+      this.displayMoreCompetitors(100);
+    }
   }
 }
