@@ -1,5 +1,8 @@
 <div class="card">
-    <span *ngIf="this.displayedCompetitors.length == 0">loading...</span>
+    <h1>Competitors</h1>
+    <span>Search: </span><input type="text" [(ngModel)]="this.searchText" (ngModelChange)="onSearchTextChanged()">
+    <br>
+    <br>
     <table *ngIf="this.displayedCompetitors.length > 0" class="table-striped">
         <thead>
             <th></th>
@@ -25,5 +28,6 @@
             </tr>
         </tbody>
     </table>
+    <div id="loading-card" *ngIf="!this.allCompetitorsDisplayed" isVisible (visible)="onLoadingCardVisible($event)">loading more competitors...</div>
 </div>
-<div id="loading-card" class="card" isVisible (visible)="onLoadingCardVisible($event)">loading more competitors...</div>
+
