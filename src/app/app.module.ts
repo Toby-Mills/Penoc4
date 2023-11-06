@@ -38,10 +38,10 @@ import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/even
 import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
 import { InputTimeComponent } from './components/input-time/input-time.component';
 import { SortOeventsByDatePipe } from './pipes/sort-oevents-by-date.pipe';
-import { AddCompetitorComponent } from './components/add-competitor/add-competitor.component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { ToasterComponent } from './components/toaster/toaster.component';
 import { CompetitorsComponent } from './pages/admin/competitors/competitors.component';
+import { AddEditCompetitorComponent } from './components/add-edit-competitor/add-edit-competitor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,9 +76,9 @@ import { CompetitorsComponent } from './pages/admin/competitors/competitors.comp
     CourseResultsEditComponent,
     InputTimeComponent,
     SortOeventsByDatePipe,
-    AddCompetitorComponent,
     ToasterComponent,
     CompetitorsComponent,
+    AddEditCompetitorComponent,
   ],
   imports: [
     BrowserModule,

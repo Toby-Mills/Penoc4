@@ -5,11 +5,11 @@ import { Competitor } from 'src/app/models/competitor';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
 
 @Component({
-  selector: 'app-add-competitor',
-  templateUrl: './add-competitor.component.html',
-  styleUrls: ['./add-competitor.component.css']
+  selector: 'app-add-edit-competitor',
+  templateUrl: './add-edit-competitor.component.html',
+  styleUrls: ['./add-edit-competitor.component.css']
 })
-export class AddCompetitorComponent {
+export class AddEditCompetitorComponent {
   public competitor: Competitor = new Competitor();
   @Output() newCompetitor: EventEmitter<Competitor> = new EventEmitter();
   @Output() cancel: EventEmitter<void> = new EventEmitter();
@@ -30,6 +30,5 @@ export class AddCompetitorComponent {
     this.cancel.emit();
     this.dialogRef.close();
   }
+
 }
-
-

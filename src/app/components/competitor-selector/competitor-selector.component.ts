@@ -3,7 +3,7 @@ import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Dialog, DialogRef } from '@angular/cdk/dialog'
 import { Competitor } from 'src/app/models/competitor';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
-import { AddCompetitorComponent } from '../add-competitor/add-competitor.component';
+import { AddEditCompetitorComponent } from '../add-edit-competitor/add-edit-competitor.component';
 
 @Component({
   selector: 'app-competitor-selector',
@@ -238,7 +238,7 @@ export class CompetitorSelectorComponent {
   }
 
   onAddClick() {
-    const dialogRef = this.dialog.open(AddCompetitorComponent, {
+    const dialogRef = this.dialog.open(AddEditCompetitorComponent, {
       height: '400px',
       width: '600px'
     })
