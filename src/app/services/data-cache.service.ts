@@ -111,6 +111,7 @@ export class DataCacheService {
       this.api.searchCompetitors('').subscribe(
         (allCompetitors) => {
           this.competitors = allCompetitors;
+          this.sortAllCompetitors();
           this.allCompetitorsLoaded = true;
           this.allCompetitorsSubject.next(this.competitors);
         })
@@ -119,11 +120,39 @@ export class DataCacheService {
     return this.allCompetitorsSubject;
   }
 
+  private sortAllCompetitors(){
+    this.competitors = this.competitors.sort((competitorA, competitorB) => {
+      
+      let nameA = competitorA.fullName.toLocaleLowerCase();
+      let nameB = competitorB.fullName.toLocaleLowerCase();
+
+      if ( nameA > nameB) {
+        return 1;
+      } else if (nameA < nameB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    })
+  }
+
+  public addCompetitor(competitor: Competitor): Observable<Competitor> {
+    return this.api.addCompetitor(competitor).pipe(
+      map(data => {
+        this.competitors.push(data);
+        this.sortAllCompetitors();
+        this.allCompetitorsSubject.next(this.competitors);
+        return data;
+      })
+    )
+  }
+
   public deleteCompetitor(idCompetitor: number): Observable<any> {
     return this.api.deleteCompetitor(idCompetitor).pipe(
       map(data => {
         this.competitors = this.competitors.filter(competitor => competitor.id != idCompetitor);
         this.allCompetitorsSubject.next(this.competitors)
+        return data;
       })
     )
   }
@@ -161,7 +190,7 @@ export class DataCacheService {
     }
   }
 
-  public getCompetitorResults(competitorId:number): Observable<Result[]>{
+  public getCompetitorResults(competitorId: number): Observable<Result[]> {
     return this.api.getCompetitorResults(competitorId);
   }
 
