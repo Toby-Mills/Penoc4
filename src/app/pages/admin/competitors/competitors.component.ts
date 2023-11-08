@@ -1,6 +1,8 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, debounceTime } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime } from 'rxjs';
+import { AddEditCompetitorComponent } from 'src/app/components/add-edit-competitor/add-edit-competitor.component';
 import { ToastMessageType } from 'src/app/components/toaster/toaster.component';
 import { Competitor } from 'src/app/models/competitor';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -15,6 +17,7 @@ export class CompetitorsComponent implements OnInit {
   public displayedCompetitors: Competitor[] = [];
   private notDisplayedCompetitors: Competitor[] = [];
   public allCompetitorsDisplayed: boolean = false;
+  private allCompetitorsSubject: BehaviorSubject<Competitor[]> = new BehaviorSubject<Competitor[]>([]);
   public searchText: string = "";
   private searchTextSubject: Subject<string> = new Subject<string>;
 
@@ -22,27 +25,40 @@ export class CompetitorsComponent implements OnInit {
     private router: Router,
     private dataService: DataCacheService,
     private toasterService: ToasterService,
+    private dialog: Dialog,
   ) { }
 
   ngOnInit(): void {
-    this.loadAllCompetitors('');
+    this.loadAllCompetitors();
     this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
-      this.loadAllCompetitors(searchText);
+      this.filterAllCompetitors(searchText);
+      this.displayMoreCompetitors(100);
     })
   }
 
-  loadAllCompetitors(searchText: string) {
-    this.displayedCompetitors = [];
-    this.dataService.getAllCompetitors().subscribe((competitors) => {
-      let searchTextStandardised: string = this.standardSearchString(searchText);
-      if (searchTextStandardised != "") {
-        this.notDisplayedCompetitors = competitors.filter((competitor) => {
-          return this.standardSearchString(competitor.fullName).includes(searchTextStandardised)
-        })
-      } else { this.notDisplayedCompetitors.push(...competitors); }
+  loadAllCompetitors() {
+    this.allCompetitorsSubject = this.dataService.getAllCompetitors();
+    this.allCompetitorsSubject.subscribe((competitors) => {
+      this.displayedCompetitors = [];
+      this.notDisplayedCompetitors = [];
+      this.notDisplayedCompetitors.push(...competitors)
       this.allCompetitorsDisplayed = false;
       this.displayMoreCompetitors(100);
     })
+  }
+
+  filterAllCompetitors(searchText: string) {
+    this.displayedCompetitors = [];
+    this.notDisplayedCompetitors = [];
+    let competitors = this.allCompetitorsSubject.value;
+    let searchTextStandardised: string = this.standardSearchString(searchText);
+    if (searchTextStandardised != "") {
+      this.notDisplayedCompetitors = competitors.filter((competitor) => {
+        return this.standardSearchString(competitor.fullName).includes(searchTextStandardised)
+      })
+    } else {
+      this.notDisplayedCompetitors.push(...competitors);
+    }
   }
 
   displayMoreCompetitors(quantity: number) {
@@ -52,6 +68,11 @@ export class CompetitorsComponent implements OnInit {
     if (this.notDisplayedCompetitors.length == 0) {
       this.allCompetitorsDisplayed = true;
     }
+  }
+
+  hideAllCompetitors() {
+    this.notDisplayedCompetitors.push(...this.displayedCompetitors)
+    this.allCompetitorsDisplayed = false;
   }
 
   onDeleteClick(competitorId: number) {
@@ -65,6 +86,21 @@ export class CompetitorsComponent implements OnInit {
       }
     )
   }
+
+  onEditClick(competitorId: number) {
+    const dialogRef = this.dialog.open(AddEditCompetitorComponent, {
+      height: '400px',
+      width: '600px',
+      data: { competitorToEditId: competitorId }
+    })
+    dialogRef.componentInstance?.newCompetitor.subscribe((competitor) => {
+
+    });
+    dialogRef.componentInstance?.cancel.subscribe(() => {
+
+    })
+  }
+
 
   onResultsClick(competitorId: number) {
     this.router.navigate([`/individual-results/`, competitorId]);
