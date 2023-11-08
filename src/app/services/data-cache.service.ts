@@ -52,7 +52,9 @@ export class DataCacheService {
       //otherwise fetch from the api
       return this.api.getOEventResultSummary(oEventId)
         .pipe(
-          tap(data => this.oEventResults.push(data))
+          tap(data => {
+            this.oEventResults.push(data);
+          })
         );
     }
   }
@@ -120,13 +122,13 @@ export class DataCacheService {
     return this.allCompetitorsSubject;
   }
 
-  private sortAllCompetitors(){
+  private sortAllCompetitors() {
     this.competitors = this.competitors.sort((competitorA, competitorB) => {
-      
+
       let nameA = competitorA.fullName.toLocaleLowerCase();
       let nameB = competitorB.fullName.toLocaleLowerCase();
 
-      if ( nameA > nameB) {
+      if (nameA > nameB) {
         return 1;
       } else if (nameA < nameB) {
         return -1;
@@ -138,21 +140,36 @@ export class DataCacheService {
 
   public addCompetitor(competitor: Competitor): Observable<Competitor> {
     return this.api.addCompetitor(competitor).pipe(
-      map(data => {
+      tap(data => {
         this.competitors.push(data);
         this.sortAllCompetitors();
         this.allCompetitorsSubject.next(this.competitors);
-        return data;
       })
+    )
+  }
+
+  public updateCompetitor(competitor: Competitor): Observable<Competitor> {
+    return this.api.updateCompetitor(competitor).pipe(
+      tap(competitor => {
+        if (this.allCompetitorsLoaded) {
+          for (let index = 0; index < this.competitors.length; index++) {
+            if (this.competitors[index].id === competitor.id) {
+              this.competitors[index] = competitor;
+              this.allCompetitorsSubject.next(this.competitors)
+              break; // Stop searching once the object is replaced
+            }
+          }
+        }
+      }
+      )
     )
   }
 
   public deleteCompetitor(idCompetitor: number): Observable<any> {
     return this.api.deleteCompetitor(idCompetitor).pipe(
-      map(data => {
+      tap(competitor => {
         this.competitors = this.competitors.filter(competitor => competitor.id != idCompetitor);
         this.allCompetitorsSubject.next(this.competitors)
-        return data;
       })
     )
   }

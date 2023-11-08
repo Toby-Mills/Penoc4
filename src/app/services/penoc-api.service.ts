@@ -83,7 +83,7 @@ export class PenocApiService {
     return this.http.get<model>(fullUrl, { headers: options.headers });
   }
 
-  private put<model>(url: string, body: model, options?: any): Observable<model> {
+  private put<model>(url: string, body: any, options?: any): Observable<model> {
     options = this.addRequestHeaders(options);
     let fullUrl = this.baseUrl + url;
     let bodyString = this.toJsonString(body);
@@ -217,6 +217,15 @@ export class PenocApiService {
     );
   }
 
+  public updateCompetitor(competitor: Competitor): Observable<Competitor> {
+    let url = `/competitors`;
+    return this.put<Competitor[]>(url, competitor, {}).pipe(
+      map(competitors => {
+        return competitors[0];
+      })
+    );
+  }
+
   public deleteCompetitor(competitorId: number): Observable<any> {
     let url = `/competitors/${competitorId}`;
     return this.delete<any>(url, {});
@@ -269,7 +278,7 @@ export class PenocApiService {
 
   private dateStringToDate(dateString: any): Date {
     let returnDate = new Date();
-    if (dateString!= null && dateString.length > 0) {
+    if (dateString != null && dateString.length > 0) {
       if (dateString.charAt(dateString.length - 1) != 'Z') {
         dateString += 'Z';
       }
