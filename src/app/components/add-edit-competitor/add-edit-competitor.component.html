@@ -1,1 +1,23 @@
-<p>add-edit-competitor works!</p>
+<div>
+    <h1>Add New Competitor</h1>
+    <span>Category:</span><br>
+    <select [(ngModel)]="this.competitor.genderId">
+        <option value="1">Male</option>
+        <option value="2">Female</option>
+        <option value="3">Group</option>
+    </select><br>
+    <div *ngIf="this.competitor.genderId == 1 || this.competitor.genderId == 2">
+        <span class="field-label">First Name:</span><br>
+        <input type="text" [(ngModel)]="this.competitor.firstName"><br>
+        <span class="field-label">Surname:</span><br>
+        <input type="text" [(ngModel)]="this.competitor.surname">
+    </div>
+    <div *ngIf="this.competitor.genderId == 3">
+        <span class="field-label">Group Name:</span><br>
+        <input type="text" [(ngModel)]="this.competitor.surname">
+    </div>
+</div>
+<div id="buttons">
+    <input type="button" value="Save" class="primary" (click)="onSaveClick()">
+    <input type="button" value="Cancel" (click)="onCancelClick()">
+</div>
