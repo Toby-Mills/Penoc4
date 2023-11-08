@@ -13,14 +13,6 @@ div.column {
     padding-right: 0.5em;
 }
 
-.field-label {
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 0.4em;
-    margin-bottom: 0.1em;
-    margin-left: 0.5em;
-}
-
 input[type=text], input[type=date], select {
     width: 20em;
 }

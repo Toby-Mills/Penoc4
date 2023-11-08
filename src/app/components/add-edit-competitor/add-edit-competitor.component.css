@@ -1,11 +1,11 @@
 :host {
-    display: block;
-    background: #fff;
-    border-radius: 8px;
-    padding: 8px 16px 16px;
-    overflow: auto;
-  }
+  display: block;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 16px 16px;
+  overflow: auto;
+}
 
-div#buttons{
-    float: right;
+div#buttons {
+  float: right;
 }

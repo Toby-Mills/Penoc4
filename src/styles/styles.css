@@ -69,6 +69,7 @@ input[type="text"], textarea, input[type="date"], input[type="password"], select
     border-radius: 0.4em;
     padding: 0.3em;
     background-color: #ff672030;
+    margin: 0.3em;
 }
 
 input[type="checkbox"] {
@@ -103,6 +104,13 @@ input.wide, select.wide {
 
 .icon-small {
     height: 1.8rem;
+}
+
+.field-label {
+    display: inline-block;
+    margin-top: 0.4em;
+    margin-bottom: 0.1em;
+    margin-left: 0.5em;
 }
 
 @media screen and (max-width: 1200px) {
