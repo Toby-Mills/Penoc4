@@ -43,6 +43,7 @@ export class CompetitorsComponent implements OnInit {
       this.notDisplayedCompetitors = [];
       this.notDisplayedCompetitors.push(...competitors)
       this.allCompetitorsDisplayed = false;
+      this.filterAllCompetitors(this.searchText);
       this.displayMoreCompetitors(100);
     })
   }
