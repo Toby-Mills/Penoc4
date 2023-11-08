@@ -1,6 +1,7 @@
 <div>
-    <h1>Add New Competitor</h1>
-    <span>Category:</span><br>
+    <h1 *ngIf="this.addingNew">Add New Competitor</h1>
+    <h1 *ngIf="!this.addingNew">Edit Competitor</h1>
+    <span class="field-label">Category:</span><br>
     <select [(ngModel)]="this.competitor.genderId">
         <option value="1">Male</option>
         <option value="2">Female</option>

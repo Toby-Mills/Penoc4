@@ -6,6 +6,7 @@
     <table *ngIf="this.displayedCompetitors.length > 0" class="table-striped">
         <thead>
             <th></th>
+            <th></th>
             <th>Id</th>
             <th>Full Name</th>
             <th>Gender</th>
@@ -14,6 +15,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let competitor of this.displayedCompetitors">
+                <td><input type="image" src="../../../../assets/icon-edit.png" class="icon-small" (click)="onEditClick(competitor.id)"></td>
                 <td>
                     <img *ngIf="competitor.genderId == 1 || competitor.genderId == 2"
                         src="../../../../assets/individual.png" class="icon-small">
