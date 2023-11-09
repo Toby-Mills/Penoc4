@@ -8,12 +8,18 @@ import { Venue } from '../models/venue';
 import { Club } from '../models/club';
 import { Difficulty } from '../models/difficulty';
 import { Result } from '../models/result';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataCacheService {
 
-  constructor(private api: PenocApiService) { }
+  constructor(private api: PenocApiService) {
+    this.allCompetitorsSubject.subscribe((competitors) => {
+      console.log('update');
+      this.updateCompetitorsSearchable();
+    })
+  }
 
   public upcomingOEvents: OEvent[] | undefined;
   public nextOEvent: OEvent | undefined;
@@ -25,11 +31,13 @@ export class DataCacheService {
   private oEventResults: OEventResults[] = [];
   private allCompetitorsSubject: BehaviorSubject<Competitor[]> = new BehaviorSubject<Competitor[]>([])
   private competitors: Competitor[] = [];
+  private competitorsSearchable: CompetitorSearchable[] = [];
   private allCompetitorsLoaded: boolean = false;
   private venues: Venue[] = [];
   private clubs: Club[] = [];
   private difficulties: Difficulty[] = [];
 
+  //---OEvents---
   public loadUpcomingOEvents() {
     this.api.getOEvents(undefined, undefined, new Date).subscribe(result => { this.upcomingOEvents = result });
   }
@@ -42,6 +50,7 @@ export class DataCacheService {
     })
   }
 
+  //---OEventResults---
   getOEventResults(oEventId: number): Observable<OEventResults> {
     //look in the cache and return from there if found
     let oEventResults = this.oEventResults.filter(oEventResults => oEventResults.oEvent!.id == oEventId)
@@ -91,6 +100,12 @@ export class DataCacheService {
     }
   }
 
+  public getCompetitorResults(competitorId: number): Observable<Result[]> {
+    return this.api.getCompetitorResults(competitorId);
+  }
+
+  //---Competitors---
+
   public getCompetitor(competitorId: number): Observable<Competitor> {
     //look in the cache and return from there if found
     let competitors = this.competitors.filter(competitor => competitor.id == competitorId)
@@ -108,7 +123,6 @@ export class DataCacheService {
   }
 
   public getAllCompetitors(): BehaviorSubject<Array<Competitor>> {
-
     if (!this.allCompetitorsLoaded) {
       this.api.searchCompetitors('').subscribe(
         (allCompetitors) => {
@@ -118,24 +132,7 @@ export class DataCacheService {
           this.allCompetitorsSubject.next(this.competitors);
         })
     }
-
     return this.allCompetitorsSubject;
-  }
-
-  private sortAllCompetitors() {
-    this.competitors = this.competitors.sort((competitorA, competitorB) => {
-
-      let nameA = competitorA.fullName.toLocaleLowerCase();
-      let nameB = competitorB.fullName.toLocaleLowerCase();
-
-      if (nameA > nameB) {
-        return 1;
-      } else if (nameA < nameB) {
-        return -1;
-      } else {
-        return 0;
-      }
-    })
   }
 
   public addCompetitor(competitor: Competitor): Observable<Competitor> {
@@ -174,6 +171,49 @@ export class DataCacheService {
     )
   }
 
+  public searchAllCompetitors(searchText: string): Competitor[] {
+    let results: Competitor[] = [];
+
+    let searchTextStandardised: string = CompetitorSearchable.competitorSearchString(searchText);
+    if (searchTextStandardised != "") {
+      let resultsSearchable = this.competitorsSearchable.filter((competitorSearchable) => {
+        return competitorSearchable.searchString.includes(searchTextStandardised)
+      })
+      results = resultsSearchable.map(competitorSearchable => competitorSearchable.competitor)
+    } else {
+      results.push(...this.competitors);
+    }
+    return results;
+
+  }
+
+  private sortAllCompetitors() {
+    this.competitors = this.competitors.sort((competitorA, competitorB) => {
+
+      let nameA = competitorA.fullName.toLocaleLowerCase();
+      let nameB = competitorB.fullName.toLocaleLowerCase();
+
+      if (nameA > nameB) {
+        return 1;
+      } else if (nameA < nameB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    })
+  }
+
+  private updateCompetitorsSearchable() {
+    this.competitorsSearchable = [];
+
+    for (let competitor of this.competitors) {
+      const competitorSearchable: CompetitorSearchable = new CompetitorSearchable(competitor);
+      this.competitorsSearchable.push(competitorSearchable);
+    }
+  }
+
+  //---Venues---
+
   public getVenues(): Observable<Venue[]> {
     //look in the cache and return from there if found
     if (this.venues.length > 0) { return of(this.venues) }
@@ -184,6 +224,8 @@ export class DataCacheService {
       );
     }
   }
+
+  //---Clubs---
 
   public getClubs(): Observable<Club[]> {
     //look in the cache and return from there if found
@@ -196,6 +238,8 @@ export class DataCacheService {
     }
   }
 
+  //---Difficulties---
+
   public getDifficulties(): Observable<Difficulty[]> {
     //look in the cache and return from there if found
     if (this.difficulties.length > 0) { return of(this.difficulties) }
@@ -206,10 +250,32 @@ export class DataCacheService {
       );
     }
   }
-
-  public getCompetitorResults(competitorId: number): Observable<Result[]> {
-    return this.api.getCompetitorResults(competitorId);
-  }
-
 }
 
+class CompetitorSearchable {
+  public competitor: Competitor;
+  public searchString: string = "";
+  constructor(competitor: Competitor) {
+    this.competitor = competitor
+    this.searchString = CompetitorSearchable.competitorSearchString(this.competitor.fullName);
+  }
+
+  public static competitorSearchString(searchString: string) {
+    let returnString: string = searchString;
+
+    returnString = returnString.toLowerCase();
+    returnString = returnString.trim();
+    returnString = returnString.replace(/the/g, '');
+    returnString = returnString.replace(/one/g, '1');
+    returnString = returnString.replace(/two/g, '2');
+    returnString = returnString.replace(/three/g, '3');
+    returnString = returnString.replace(/four/g, '4');
+    returnString = returnString.replace(/five/g, '5');
+    returnString = returnString.replace(/\\|\"|\'|\(|\)|\!|\_|\*/g, '');
+    returnString = returnString.replace(/group|grp|family|team/g, '*');
+    returnString = returnString.replace(/and|\&|\+/g, '');
+    returnString = returnString.replace(/ /g, '');
+
+    return returnString;
+  }
+}

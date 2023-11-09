@@ -31,7 +31,8 @@ export class CompetitorsComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllCompetitors();
     this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
-      this.filterAllCompetitors(searchText);
+      this.displayedCompetitors = [];
+      this.notDisplayedCompetitors = this.dataService.searchAllCompetitors(searchText);
       this.displayMoreCompetitors(100);
     })
   }
@@ -43,23 +44,9 @@ export class CompetitorsComponent implements OnInit {
       this.notDisplayedCompetitors = [];
       this.notDisplayedCompetitors.push(...competitors)
       this.allCompetitorsDisplayed = false;
-      this.filterAllCompetitors(this.searchText);
+      this.notDisplayedCompetitors = this.dataService.searchAllCompetitors(this.searchText);
       this.displayMoreCompetitors(100);
     })
-  }
-
-  filterAllCompetitors(searchText: string) {
-    this.displayedCompetitors = [];
-    this.notDisplayedCompetitors = [];
-    let competitors = this.allCompetitorsSubject.value;
-    let searchTextStandardised: string = this.standardSearchString(searchText);
-    if (searchTextStandardised != "") {
-      this.notDisplayedCompetitors = competitors.filter((competitor) => {
-        return this.standardSearchString(competitor.fullName).includes(searchTextStandardised)
-      })
-    } else {
-      this.notDisplayedCompetitors.push(...competitors);
-    }
   }
 
   displayMoreCompetitors(quantity: number) {
@@ -117,22 +104,5 @@ export class CompetitorsComponent implements OnInit {
     this.searchTextSubject.next(this.searchText)
   }
 
-  private standardSearchString(searchString: string) {
-    let returnString: string = searchString;
 
-    returnString = returnString.toLowerCase();
-    returnString = returnString.trim();
-    returnString = returnString.replace(/the/g, '');
-    returnString = returnString.replace(/one/g, '1');
-    returnString = returnString.replace(/two/g, '2');
-    returnString = returnString.replace(/three/g, '3');
-    returnString = returnString.replace(/four/g, '4');
-    returnString = returnString.replace(/five/g, '5');
-    returnString = returnString.replace(/\\|\"|\'|\(|\)|\!|\_|\*/g, '');
-    returnString = returnString.replace(/group|grp|family|team/g, '*');
-    returnString = returnString.replace(/and|\&|\+/g, '');
-    returnString = returnString.replace(/ /g, '');
-
-    return returnString;
-  }
 }
