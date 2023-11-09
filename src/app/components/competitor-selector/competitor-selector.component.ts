@@ -1,8 +1,8 @@
 import { Component, ElementRef, QueryList, Renderer2, ViewChild, ViewChildren, Input, Output, EventEmitter } from '@angular/core';
-import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { Dialog, DialogRef } from '@angular/cdk/dialog'
+import { Observable, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { Dialog } from '@angular/cdk/dialog'
 import { Competitor } from 'src/app/models/competitor';
-import { PenocApiService } from 'src/app/services/penoc-api.service';
+import { DataCacheService } from 'src/app/services/data-cache.service';
 import { AddEditCompetitorComponent } from '../add-edit-competitor/add-edit-competitor.component';
 
 @Component({
@@ -30,7 +30,7 @@ export class CompetitorSelectorComponent {
   public searchInputBox!: HTMLElement;
 
   constructor(
-    private api: PenocApiService,
+    private dataService: DataCacheService,
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private dialog: Dialog,
@@ -44,8 +44,8 @@ export class CompetitorSelectorComponent {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap((inputText) => {
-        if (this.individualsOnly) { return this.api.searchIndividuals(inputText) }
-        else { return this.api.searchCompetitors(inputText) }
+        if (this.individualsOnly) { return this.dataService.searchAllCompetitors(inputText, true) }
+        else { return this.dataService.searchAllCompetitors(inputText) }
       })
     ).subscribe(
       {
@@ -107,12 +107,13 @@ export class CompetitorSelectorComponent {
       })
       if (selectedCompetitor) { this.competitorName = selectedCompetitor.fullName; }
       else {
-        this.api.getCompetitor(competitorId).subscribe({
+        this.dataService.getCompetitor(competitorId).subscribe({
           'next': (data) => { this.matches.push(data); this.loadCompetitor(competitorId); },
           'error': (error) => { console.log('error', error) }
         })
       }
     } else {
+      console.log('clear');
       this.competitorId = undefined;
       this.selectedMatchId = undefined;
       this.highlightedMatchId = undefined;
@@ -159,14 +160,18 @@ export class CompetitorSelectorComponent {
         }
         break;
       default:
-        if (this.inputText.length > 2) {
-          this.searching = true;
-          this.searchSubject.next(this.inputText);
-        } else {
-          this.matches = [];
-        }
-
+       
     };
+  }
+
+  onSearchInput(event:any){
+    if (this.inputText.length > 2) {
+      this.searching = true;
+      this.searchSubject.next(this.inputText);
+    } else {
+      this.matches = [];
+    }
+
   }
 
   onSearchBlur() {

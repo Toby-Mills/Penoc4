@@ -101,7 +101,6 @@ export class EventCoursesEditComponent {
   focusOnName() {
     setTimeout(() => {
       const elementToFocus = this.elementRef.nativeElement.querySelector('#name');
-      console.log(elementToFocus);
       if (elementToFocus) {
         this.renderer.selectRootElement(elementToFocus).focus();
       }
@@ -111,7 +110,6 @@ export class EventCoursesEditComponent {
   focusOnNew() {
     setTimeout(() => {
       const elementToFocus = this.elementRef.nativeElement.querySelector('#new');
-      console.log('new', elementToFocus);
       if (elementToFocus) {
         this.renderer.selectRootElement(elementToFocus).focus();
       }
