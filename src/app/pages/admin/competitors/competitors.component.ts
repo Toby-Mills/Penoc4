@@ -31,9 +31,12 @@ export class CompetitorsComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllCompetitors();
     this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
-      this.displayedCompetitors = [];
-      this.notDisplayedCompetitors = this.dataService.searchAllCompetitors(searchText);
-      this.displayMoreCompetitors(100);
+      this.dataService.searchAllCompetitors(searchText).subscribe(results => {
+        this.displayedCompetitors = [];
+        this.notDisplayedCompetitors = results;
+        this.displayMoreCompetitors(100);
+      });
+
     })
   }
 
@@ -44,8 +47,10 @@ export class CompetitorsComponent implements OnInit {
       this.notDisplayedCompetitors = [];
       this.notDisplayedCompetitors.push(...competitors)
       this.allCompetitorsDisplayed = false;
-      this.notDisplayedCompetitors = this.dataService.searchAllCompetitors(this.searchText);
-      this.displayMoreCompetitors(100);
+      this.dataService.searchAllCompetitors(this.searchText).subscribe(results =>{
+        this.notDisplayedCompetitors = results;
+        this.displayMoreCompetitors(100);
+      });
     })
   }
 

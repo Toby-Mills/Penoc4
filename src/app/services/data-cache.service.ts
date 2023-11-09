@@ -16,7 +16,6 @@ export class DataCacheService {
 
   constructor(private api: PenocApiService) {
     this.allCompetitorsSubject.subscribe((competitors) => {
-      console.log('update');
       this.updateCompetitorsSearchable();
     })
   }
@@ -171,20 +170,23 @@ export class DataCacheService {
     )
   }
 
-  public searchAllCompetitors(searchText: string): Competitor[] {
-    let results: Competitor[] = [];
-
-    let searchTextStandardised: string = CompetitorSearchable.competitorSearchString(searchText);
-    if (searchTextStandardised != "") {
-      let resultsSearchable = this.competitorsSearchable.filter((competitorSearchable) => {
-        return competitorSearchable.searchString.includes(searchTextStandardised)
+  public searchAllCompetitors(searchText: string, individualsOnly: boolean = false): Observable<Competitor[]> {
+    return this.getAllCompetitors().pipe(
+      map(allCompetitors => {
+        let results: Competitor[] = [];
+        let searchTextStandardised: string = CompetitorSearchable.competitorSearchString(searchText);
+        if (searchTextStandardised !== "") {
+          let resultsSearchable = this.competitorsSearchable.filter((competitorSearchable) => {
+            return competitorSearchable.searchString.includes(searchTextStandardised)
+          })
+          results = resultsSearchable.map(competitorSearchable => competitorSearchable.competitor)
+        } else {
+          results = [...this.competitors];
+        }
+        if (individualsOnly) { results = results.filter(competitor => { return competitor.genderId != 3 }) }
+        return results;
       })
-      results = resultsSearchable.map(competitorSearchable => competitorSearchable.competitor)
-    } else {
-      results.push(...this.competitors);
-    }
-    return results;
-
+    );
   }
 
   private sortAllCompetitors() {
