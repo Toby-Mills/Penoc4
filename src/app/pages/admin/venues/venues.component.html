@@ -1,0 +1,34 @@
+<div class="card">
+    <h1>Venues</h1>
+    <input type="image" src="../../../../assets/icon-add.png" title="add venue" (click)="this.onNewClick()">
+    <table *ngIf="this.venues.length > 0" class="table-striped">
+        <thead>
+            <th></th>
+            <th>Id</th>
+            <th>Name</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let venue of this.venues">
+                <td><input type="image" src="../../../../assets/icon-edit.png" class="icon-small" (click)="onEditClick(venue.id)"></td>
+                <td>{{venue.id}}</td>
+                <td>{{venue.name}}</td>
+                <td><input type="image" src="../../../../assets/icon-delete.png" class="icon-small icon-delete"
+                        (click)="onDeleteClick(venue.id)"> </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="loading-card" *ngIf="this.venues.length == 0" >loading...</div>
+</div>
+<ng-template #dialogContent let-dialogRef="dialogRef">
+    <div *ngIf="this.editingVenue" id="edit-dialog" class="card">
+        <h1 *ngIf="this.editingVenue.id > 0"> Edit Venue</h1>
+        <h1 *ngIf="this.editingVenue.id == 0"> Add Venue</h1>
+        <span class="field-label">Name</span><br>
+        <input type="text" [(ngModel)]="this.editingVenue.name" class="wide"><br>
+        <br>
+        <div id="buttons">
+            <input type="button" value="Save" class="primary" (click)="onSaveClick(dialogRef)">
+            <input type="button" value="Cancel" (click)="onCancelClick(dialogRef)">
+        </div>
+    </div>
+</ng-template>

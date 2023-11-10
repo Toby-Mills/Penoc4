@@ -115,6 +115,21 @@ export class PenocApiService {
     return this.get<Venue[]>(url);
   }
 
+  updateVenue(venue:Venue):Observable<Venue>{
+    let url = `/venues`;
+    return this.put<Venue>(url, venue, {});
+  }
+
+  addVenue(venue:Venue): Observable<Venue>{
+    let url =   `/venues`;
+    return this.post<Venue>(url, venue, {});
+  }
+
+  deleteVenue (venueId: number):Observable<any>{
+    let url = `/venues/${venueId}`;
+    return this.delete<any>(url, {});
+  }
+
   getClubs(): Observable<Club[]> {
     let url = '/clubs';
     return this.get<Club[]>(url);

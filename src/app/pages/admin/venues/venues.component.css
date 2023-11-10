@@ -1,0 +1,20 @@
+#edit-dialog {
+    display: block;
+    width: 400px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 16px 16px;
+    overflow: auto;
+  }
+
+div#buttons {
+    float: right;
+  }
+
+.icon-delete {
+    display: none;
+}
+
+tr:hover .icon-delete {
+    display:inline;
+}

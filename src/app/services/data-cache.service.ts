@@ -33,6 +33,7 @@ export class DataCacheService {
   private competitorsSearchable: CompetitorSearchable[] = [];
   private allCompetitorsLoaded: boolean = false;
   private venues: Venue[] = [];
+  private venuesSubject: BehaviorSubject<Venue[]> = new BehaviorSubject<Venue[]>([])
   private clubs: Club[] = [];
   private difficulties: Difficulty[] = [];
 
@@ -219,15 +220,47 @@ export class DataCacheService {
 
   //---Venues---
 
-  public getVenues(): Observable<Venue[]> {
+  public getVenues(): BehaviorSubject<Venue[]> {
     //look in the cache and return from there if found
-    if (this.venues.length > 0) { return of(this.venues) }
-    else {
-      //otherwise fetch from the api
-      return this.api.getVenues().pipe(
-        tap(data => this.venues = data)
+    if (this.venues.length == 0) {
+      this.api.getVenues().subscribe(
+        data => {
+          this.venues = data;
+          this.venuesSubject.next(this.venues);
+        }
       );
     }
+    return this.venuesSubject;
+  }
+
+  public updateVenue(venue: Venue): Observable<Venue> {
+    return this.api.updateVenue(venue).pipe(
+      tap(updatedVenue => {
+        let index = this.venues.findIndex(venueA => venueA.id === venue.id);
+        if (index > -1) {
+          this.venues[index] = updatedVenue;
+        }
+        this.venuesSubject.next(this.venues);
+      })
+    );
+  }
+
+  public addVenue(venue:Venue): Observable<Venue>{
+    return this.api.addVenue(venue).pipe(
+      tap(addedVenue => {
+        this.venues.push(addedVenue);
+        this.venuesSubject.next(this.venues);
+      }
+    ))
+  }
+
+  public deleteVenue(venueId: number):Observable<Venue> {
+    return this.api.deleteVenue(venueId).pipe(
+      tap(deletedVenue => {
+        this.venues = this.venues.filter(venueA => venueA.id != venueId);
+        this.venuesSubject.next(this.venues);
+      })
+    )
   }
 
   //---Clubs---

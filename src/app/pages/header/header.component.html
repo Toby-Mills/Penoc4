@@ -21,6 +21,7 @@
                 <li><a routerLink="contact-us" routerLinkActive="router-link-active">CONTACT US</a></li>
                 <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/events" routerLinkActive="router-link-active">EVENTS</a></li>
                 <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/competitors" routerLinkActive="router-link-active">COMPETITORS</a></li>
+                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/venues" routerLinkActive="router-link-active">VENUES</a></li>
             </ul>
         </nav>
     </div>

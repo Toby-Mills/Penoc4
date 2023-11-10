@@ -14,6 +14,7 @@ import { EventEditComponent } from './pages/admin/event-edit/event-edit.componen
 import { EventCoursesEditComponent } from './pages/admin/event-courses-edit/event-courses-edit.component';
 import { CourseResultsEditComponent } from './pages/admin/course-results-edit/course-results-edit.component';
 import { CompetitorsComponent } from './pages/admin/competitors/competitors.component';
+import { VenuesComponent } from './pages/admin/venues/venues.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'course-results-edit/:courseId', component: CourseResultsEditComponent  },
       { path: 'events', component: EventsComponent  },
       { path: 'competitors', component: CompetitorsComponent  },
+      { path: 'venues', component: VenuesComponent },
     ]
   },
   { path: '**', redirectTo:'home'}
