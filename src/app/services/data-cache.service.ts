@@ -226,6 +226,7 @@ export class DataCacheService {
       this.api.getVenues().subscribe(
         data => {
           this.venues = data;
+          this.sortVenues();
           this.venuesSubject.next(this.venues);
         }
       );
@@ -240,6 +241,7 @@ export class DataCacheService {
         if (index > -1) {
           this.venues[index] = updatedVenue;
         }
+        this.sortVenues();
         this.venuesSubject.next(this.venues);
       })
     );
@@ -249,6 +251,7 @@ export class DataCacheService {
     return this.api.addVenue(venue).pipe(
       tap(addedVenue => {
         this.venues.push(addedVenue);
+        this.sortVenues();
         this.venuesSubject.next(this.venues);
       }
     ))
@@ -261,6 +264,14 @@ export class DataCacheService {
         this.venuesSubject.next(this.venues);
       })
     )
+  }
+
+  private sortVenues():void{
+    this.venues = this.venues.sort((venueA, venueB)=>{
+      if(venueA.name > venueB.name){return 1}
+      else if (venueB.name > venueA.name){return -1}
+      else {return 0}
+    })
   }
 
   //---Clubs---

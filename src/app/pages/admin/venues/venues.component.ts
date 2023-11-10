@@ -25,22 +25,15 @@ export class VenuesComponent {
     this.loadVenues();
   }
 
-
   private loadVenues() {
     this.dataService.getVenues().subscribe(venues => {
-      let sortedVenues = venues.sort((venueA, venueB) => {
-        if (venueA.name > venueB.name) { return 1 }
-        else if (venueB.name > venueA.name) { return -1 }
-        else { return 0 }
-      })
-      this.venues = sortedVenues;
+      this.venues = venues;
     });
   }
 
   onEditClick(venueId: number) {
     this.editingVenue = { ...this.venues.find(venue => venue.id === venueId)! };
-
-    const dialogRef = this.dialog.open(this.dialogTemplate);
+    this.dialog.open(this.dialogTemplate);
   }
 
   onSaveClick(dialogRef: DialogRef) {
