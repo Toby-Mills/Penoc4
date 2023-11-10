@@ -52,7 +52,10 @@ export class DataCacheService {
   //---OEventResults---
   getOEventResults(oEventId: number): Observable<OEventResults> {
     //look in the cache and return from there if found
-    let oEventResults = this.oEventResults.filter(oEventResults => oEventResults.oEvent!.id == oEventId)
+    let oEventResults = this.oEventResults.filter(oEventResults => {
+      if (oEventResults.oEvent) { return oEventResults.oEvent.id == oEventId }
+      else { return false }
+    })
     if (oEventResults.length == 1) {
       let theEvent = oEventResults[0]
       return of(theEvent)

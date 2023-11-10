@@ -1,5 +1,5 @@
 import { Component, ElementRef, QueryList, Renderer2, ViewChild, ViewChildren, Input, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Dialog } from '@angular/cdk/dialog'
 import { Competitor } from 'src/app/models/competitor';
 import { DataCacheService } from 'src/app/services/data-cache.service';
@@ -113,7 +113,6 @@ export class CompetitorSelectorComponent {
         })
       }
     } else {
-      console.log('clear');
       this.competitorId = undefined;
       this.selectedMatchId = undefined;
       this.highlightedMatchId = undefined;
