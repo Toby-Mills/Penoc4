@@ -24,37 +24,37 @@
       </tr>
     </thead>
     <tbody cdkDropList (cdkDropListDropped)="onResultDrop($event)">
-      <tr *ngFor="let result of this.courseResults.results; let i = index;" cdkDrag>
+      <tr *ngFor="let result of this.courseResults.results;let index = index" cdkDrag>
         <ng-container>
           <td>
             <img src="../../../../assets/drag-handle.svg" class="drag-handle" cdkDragHandle />
           </td>
           <td><span>{{result.position}}</span></td>
-          <td><app-competitor-selector [(competitorId)]="courseResults.results[i].competitorId"
-              (competitorIdChange)="onCompetitorIdChange(i,$event)"></app-competitor-selector>
+          <td><app-competitor-selector [(competitorId)]="courseResults.results[index].competitorId"
+              (competitorIdChange)="onCompetitorIdChange(index,$event)"></app-competitor-selector>
           </td>
-          <td><select class="narrow" [(ngModel)]="courseResults.results[i].clubId">
+          <td><select class="narrow" [(ngModel)]="courseResults.results[index].clubId">
               <option *ngFor="let club of this.clubs" [value]="club.id">{{club.shortName}}</option>
             </select></td>
-          <td><app-input-time [time]="courseResults.results[i].time"
-              (timeChange)="onTimeChange(i, $event)"></app-input-time>
+          <td><app-input-time [time]="courseResults.results[index].time"
+              (timeChange)="onTimeChange(index, $event)"></app-input-time>
           </td>
           <td>
-            <img id="icon-validation-error" [style.display]="this.timeValidationErrors[i]? 'inline':'none'"
-              src="../../../../assets/icon-warning.png" class="icon-small" title="Warning: less time than position {{i}}">
+            <img id="icon-validation-error" [style.display]="this.timeValidationErrors[index]? 'inline':'none'"
+              src="../../../../assets/icon-warning.png" class="icon-small" title="Warning: less time than position {{index}}">
           </td>
           <td><input type="text" class="narrow" (ngModelChange)="validatePointSequence()"
-              [(ngModel)]="courseResults.results[i].points" />
+              [(ngModel)]="courseResults.results[index].points" />
             </td>
             <td>
-              <img id="icon-validation-error" [style.display]="this.pointValidationErrors[i]? 'inline':'none'"
-                src="../../../../assets/icon-warning.png" class="icon-small" title="Warning: points invalid or more than position {{i}}">
+              <img id="icon-validation-error" [style.display]="this.pointValidationErrors[index]? 'inline':'none'"
+                src="../../../../assets/icon-warning.png" class="icon-small" title="Warning: points invalid or more than position {{index}}">
             </td>
-          <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[i].disqualified" />
-          <td><input type="text" [(ngModel)]="courseResults.results[i].comment"></td>
+          <td><input type="checkbox" class="narrow" [(ngModel)]="courseResults.results[index].disqualified" />
+          <td><input type="text" [(ngModel)]="courseResults.results[index].comment"></td>
           <td><input type="image" class="icon-delete icon-small" src="../../../../assets/icon-delete.png"
-              (click)="onDeleteClick(i)"></td>
-          <div *cdkDragPreview class="drag-preview">{{courseResults.results[i].competitor}}</div>
+              (click)="onDeleteClick(index)"  tabindex="-1"></td>
+          <div *cdkDragPreview class="drag-preview">{{courseResults.results[index].competitor}}</div>
       <tr *cdkDragPlaceholder class="drag-placeholder">
         <td colspan="10"></td>
       </tr>
