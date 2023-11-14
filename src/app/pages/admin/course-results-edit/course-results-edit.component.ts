@@ -120,16 +120,18 @@ export class CourseResultsEditComponent {
 
       this.timeValidationErrors = [false];
 
-      let previousTime = new Date(this.courseResults!.results[0].time);
+      if (this.courseResults!.results.length > 0) {
+        let previousTime = new Date(this.courseResults!.results[0].time);
 
-      for (let index = 1; index < this.courseResults!.results.length; index++) {
-        let nextTime = this.courseResults!.results[index].time;
-        if (nextTime < previousTime) {
-          this.timeValidationErrors.push(true);
-        } else {
-          this.timeValidationErrors.push(false);
+        for (let index = 1; index < this.courseResults!.results.length; index++) {
+          let nextTime = this.courseResults!.results[index].time;
+          if (nextTime < previousTime) {
+            this.timeValidationErrors.push(true);
+          } else {
+            this.timeValidationErrors.push(false);
+          }
+          previousTime = nextTime;
         }
-        previousTime = nextTime;
       }
     })
   }
@@ -137,24 +139,25 @@ export class CourseResultsEditComponent {
   validatePointSequence() {
     setTimeout(() => {
       this.pointValidationErrors = [false];
+      if (this.courseResults!.results.length > 0) {
 
-      let previousPoints = Number(this.courseResults!.results[0].points);
+        let previousPoints = Number(this.courseResults!.results[0].points);
 
-      for (let index = 1; index < this.courseResults!.results.length; index++) {
-        let nextPointsString: string = this.courseResults!.results[index].points?.toString();
-        let nextPoints = Number(nextPointsString);
-        if (isNaN(nextPoints)) {
-          this.pointValidationErrors.push(true)
-        } else {
-          if (nextPoints > previousPoints) {
-            this.pointValidationErrors.push(true);
+        for (let index = 1; index < this.courseResults!.results.length; index++) {
+          let nextPointsString: string = this.courseResults!.results[index].points?.toString();
+          let nextPoints = Number(nextPointsString);
+          if (isNaN(nextPoints)) {
+            this.pointValidationErrors.push(true)
           } else {
-            this.pointValidationErrors.push(false);
+            if (nextPoints > previousPoints) {
+              this.pointValidationErrors.push(true);
+            } else {
+              this.pointValidationErrors.push(false);
+            }
+            previousPoints = nextPoints;
           }
-          previousPoints = nextPoints;
         }
       }
     })
-
   }
 }

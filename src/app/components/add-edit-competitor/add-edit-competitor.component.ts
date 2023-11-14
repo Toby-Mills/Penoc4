@@ -23,7 +23,7 @@ export class AddEditCompetitorComponent {
   ) { }
 
   ngOnInit() {
-    if (this.data.competitorToEditId) {
+    if (this.data?.competitorToEditId) {
       this.competitorToEditId = this.data.competitorToEditId
     }
     if (this.competitorToEditId) {
