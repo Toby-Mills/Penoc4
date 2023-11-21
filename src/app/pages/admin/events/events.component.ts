@@ -29,11 +29,6 @@ export class EventsComponent implements OnInit {
     this.api.getOEvents(undefined, undefined,sixMonthsAgo,today).subscribe(data => this.recentOEvents = data);
   }
 
-  public onSignOutClick() {
-    this.api.signOut();
-    this.router.navigate(['/home']);
-  }
-
   public onUpcomingEventClick(oEventId: number) {
     this.router.navigate(['/admin/event-edit', oEventId]);
   }

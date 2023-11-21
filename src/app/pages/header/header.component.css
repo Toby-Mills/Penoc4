@@ -79,7 +79,7 @@
 
 }
 
-#menu div {
+#menu-main, #menu-admin {
     box-sizing: border-box;
     width: 1200px;
     margin: auto;
@@ -98,6 +98,7 @@
     margin: 0;
     padding: 0;
 }
+
 @media screen and (max-width: 800px) {
     #menu nav ul {
         font-size: 1em;
@@ -128,4 +129,26 @@ li a:hover {
 
 li a.router-link-active:hover {
     color: white;
+}
+
+#menu-admin {
+    background-color: rgb(97, 99, 101);
+    color: white;
+    overflow-y: auto;
+}
+
+#menu-admin a {
+    color: white;
+}
+
+#admin-left {
+    float: left;
+}
+
+#admin-right {
+    float: right;
+}
+
+#sign-out {
+    margin: 0px;
 }

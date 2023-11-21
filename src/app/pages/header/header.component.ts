@@ -16,4 +16,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
+  public onSignOutClick() {
+    this.api.signOut();
+    this.router.navigate(['/home']);
+  }
+
 }

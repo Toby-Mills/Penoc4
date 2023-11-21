@@ -13,17 +13,29 @@
     </div>
 </div>
 <div id="menu">
-    <div id="content">
+    <div id="menu-main">
         <nav>
             <ul routerLinkActive="active">
                 <li><a routerLink="home" routerLinkActive="router-link-active">HOME</a></li>
                 <li><a routerLink="results" routerLinkActive="router-link-active">RESULTS</a></li>
                 <li><a routerLink="contact-us" routerLinkActive="router-link-active">CONTACT US</a></li>
-                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/events" routerLinkActive="router-link-active">EVENTS</a></li>
-                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/competitors" routerLinkActive="router-link-active">COMPETITORS</a></li>
-                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/venues" routerLinkActive="router-link-active">VENUES</a></li>
-                <li><a *ngIf="this.api.isAuthenticated()" routerLink="admin/clubs" routerLinkActive="router-link-active">CLUBS</a></li>
             </ul>
         </nav>
+    </div>
+    <div id="menu-admin" *ngIf="this.api.isAuthenticated()">
+        <div id="admin-left">
+            <nav>
+                <ul routerLinkActive="active">
+                    <li><a routerLink="admin/events" routerLinkActive="router-link-active">EVENTS</a></li>
+                    <li><a routerLink="admin/competitors" routerLinkActive="router-link-active">COMPETITORS</a></li>
+                    <li><a routerLink="admin/venues" routerLinkActive="router-link-active">VENUES</a></li>
+                    <li><a routerLink="admin/clubs" routerLinkActive="router-link-active">CLUBS</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="admin-right">
+            <input id="sign-out" type="button" class="primary clickable" (click)="onSignOutClick()" value="Sign Out" />
+        </div>
+        <div style="clear: both;"></div>
     </div>
 </div>

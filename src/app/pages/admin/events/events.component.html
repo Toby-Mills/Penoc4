@@ -1,6 +1,5 @@
 <div id="content" class="card">
-    <input id="sign-out" type="button" class="secondary" (click)="onSignOutClick()" value="Sign Out" />
-    <h1>Admin</h1>
+    <h1>Events</h1>
     <div class="column">
         <h1>Upcoming Events</h1>
         <app-oevent-list [oevents]="this.upcomingOEvents|sortOeventsByDate" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
