@@ -35,6 +35,7 @@ export class DataCacheService {
   private venues: Venue[] = [];
   private venuesSubject: BehaviorSubject<Venue[]> = new BehaviorSubject<Venue[]>([])
   private clubs: Club[] = [];
+  private clubsSubject: BehaviorSubject<Club[]> = new BehaviorSubject<Club[]>([])
   private difficulties: Difficulty[] = [];
 
   //---OEvents---
@@ -268,8 +269,10 @@ export class DataCacheService {
 
   private sortVenues():void{
     this.venues = this.venues.sort((venueA, venueB)=>{
-      if(venueA.name > venueB.name){return 1}
-      else if (venueB.name > venueA.name){return -1}
+      let nameA = venueA.name.toLocaleLowerCase();
+      let nameB = venueB.name.toLocaleLowerCase();
+      if(nameA > nameB){return 1}
+      else if (nameB > nameA){return -1}
       else {return 0}
     })
   }
@@ -277,14 +280,58 @@ export class DataCacheService {
   //---Clubs---
 
   public getClubs(): Observable<Club[]> {
-    //look in the cache and return from there if found
-    if (this.clubs.length > 0) { return of(this.clubs) }
-    else {
-      //otherwise fetch from the api
-      return this.api.getClubs().pipe(
-        tap(data => this.clubs = data)
+    if (this.clubs.length == 0) {
+      this.api.getClubs().subscribe(
+        data => {
+          this.clubs = data;
+          this.sortClubs();
+          this.clubsSubject.next(this.clubs);
+        }
       );
     }
+    return this.clubsSubject;
+  }
+
+  public updateClub(club: Club): Observable<Club> {
+    return this.api.updateClub(club).pipe(
+      tap(updatedClub => {
+        let index = this.clubs.findIndex(clubA => clubA.id === club.id);
+        if (index > -1) {
+          this.clubs[index] = updatedClub;
+        }
+        this.sortClubs();
+        this.clubsSubject.next(this.clubs);
+      })
+    );
+  }
+
+  public addClub(club:Club): Observable<Club>{
+    return this.api.addClub(club).pipe(
+      tap(addedClub => {
+        this.clubs.push(addedClub);
+        this.sortClubs();
+        this.clubsSubject.next(this.clubs);
+      }
+    ))
+  }
+
+  public deleteClub(clubId: number):Observable<Club> {
+    return this.api.deleteClub(clubId).pipe(
+      tap(deletedClub => {
+        this.clubs = this.clubs.filter(clubA => clubA.id != clubId);
+        this.clubsSubject.next(this.clubs);
+      })
+    )
+  }
+
+  private sortClubs():void{
+    this.clubs = this.clubs.sort((clubA, clubB)=>{
+      let nameA = clubA.shortName.toLocaleLowerCase();
+      let nameB = clubB.shortName.toLocaleLowerCase();
+      if(nameA > nameB){return 1}
+      else if (nameB > nameA){return -1}
+      else {return 0}
+    })
   }
 
   //---Difficulties---

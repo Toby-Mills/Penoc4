@@ -43,6 +43,7 @@ import { ToasterComponent } from './components/toaster/toaster.component';
 import { CompetitorsComponent } from './pages/admin/competitors/competitors.component';
 import { AddEditCompetitorComponent } from './components/add-edit-competitor/add-edit-competitor.component';
 import { VenuesComponent } from './pages/admin/venues/venues.component';
+import { ClubsComponent } from './pages/admin/clubs/clubs.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,7 @@ import { VenuesComponent } from './pages/admin/venues/venues.component';
     CompetitorsComponent,
     AddEditCompetitorComponent,
     VenuesComponent,
+    ClubsComponent,
   ],
   imports: [
     BrowserModule,

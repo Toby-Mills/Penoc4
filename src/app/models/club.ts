@@ -1,5 +1,5 @@
 export class Club {
-    id?: number;
-    fullName?: string;
-    shortName?: string;
+    id: number = 0;
+    fullName: string = '';
+    shortName: string = '';
 }

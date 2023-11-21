@@ -1,0 +1,38 @@
+<div class="card">
+    <h1>Clubs</h1>
+    <input type="image" src="../../../../assets/icon-add.png" title="add venue" (click)="this.onNewClick()">
+    <table *ngIf="this.clubs.length > 0" class="table-striped">
+        <thead>
+            <th></th>
+            <th>Id</th>
+            <th>Short Name</th>
+            <th>Full Name</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let club of this.clubs">
+                <td><input type="image" src="../../../../assets/icon-edit.png" class="icon-small" (click)="onEditClick(club.id)"></td>
+                <td>{{club.id}}</td>
+                <td>{{club.shortName}}</td>
+                <td>{{club.fullName}}</td>
+                <td><input type="image" src="../../../../assets/icon-delete.png" class="icon-small icon-delete"
+                        (click)="onDeleteClick(club.id)"> </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="loading-card" *ngIf="this.clubs.length == 0" >loading...</div>
+</div>
+<ng-template #dialogContent let-dialogRef="dialogRef">
+    <div *ngIf="this.editingClub" id="edit-dialog" class="card">
+        <h1 *ngIf="this.editingClub.id > 0"> Edit Venue</h1>
+        <h1 *ngIf="this.editingClub.id == 0"> Add Venue</h1>
+        <span class="field-label">Short Name</span><br>
+        <input type="text" [(ngModel)]="this.editingClub.shortName" class="wide"><br>
+        <span class="field-label">Full Name</span><br>
+        <input type="text" [(ngModel)]="this.editingClub.fullName" class="wide"><br>
+        <br>
+        <div id="buttons">
+            <input type="button" value="Save" class="primary" (click)="onSaveClick(dialogRef)">
+            <input type="button" value="Cancel" (click)="onCancelClick(dialogRef)">
+        </div>
+    </div>
+</ng-template>

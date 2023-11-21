@@ -135,6 +135,21 @@ export class PenocApiService {
     return this.get<Club[]>(url);
   }
 
+  updateClub(club:Club):Observable<Club>{
+    let url = `/clubs`;
+    return this.put<Club>(url, club, {});
+  }
+
+  addClub(club:Club): Observable<Club>{
+    let url =   `/clubs`;
+    return this.post<Club>(url, club, {});
+  }
+
+  deleteClub (clubId: number):Observable<any>{
+    let url = `/clubs/${clubId}`;
+    return this.delete<any>(url, {});
+  }
+  
   getDifficulties(): Observable<Difficulty[]> {
     let url = '/technicalDifficulties';
     return this.get<Difficulty[]>(url);
