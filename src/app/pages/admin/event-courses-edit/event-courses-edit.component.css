@@ -1,3 +1,12 @@
+
+#header-left {
+    float:left;
+}
+
+#header-right {
+    float: right;
+}
+
 .icon-delete {
     visibility: hidden;
 }

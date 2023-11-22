@@ -2,7 +2,11 @@
     overflow-y: auto;
 }
 
-#sign-out {
+#header-left {
+    float:left;
+}
+
+#header-right {
     float: right;
 }
 

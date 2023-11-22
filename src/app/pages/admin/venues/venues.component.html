@@ -1,6 +1,11 @@
 <div class="card">
-    <h1>Venues</h1>
-    <input type="image" src="../../../../assets/icon-add.png" title="add venue" (click)="this.onNewClick()">
+    <div id="header-left">
+        <h1>Venues</h1>
+    </div>
+    <div id="header-right">
+        <input type="image" src="../../../../assets/icon-add.png" title="add new venue" (click)="this.onNewClick()">
+    </div>
+    <div class="clear-fix"></div>
     <table *ngIf="this.venues.length > 0" class="table-striped">
         <thead>
             <th></th>

@@ -1,6 +1,12 @@
 <div class="card">
-    <h1>Event Courses</h1>
+    <div id="header-left">
+        <h1>Event Courses</h1>
     <h2>{{this.oEvent?.name}} - {{this.oEvent?.date|date}}</h2>
+    </div>
+    <div id="header-right">
+        <input type="image" src="../../../../assets/icon-add.png" title="add new course" (click)="this.onNewClick()">
+    </div>
+    <div class="clear-fix"></div>
     <table id="courses">
         <thead>
             <tr>
@@ -55,8 +61,6 @@
             </tr>
         </tbody>
     </table>
-    <input id="new" *ngIf="!editCourse" type="image" src="../../../../assets/icon-add.png" title="add course"
-        (click)="onNewClick()">
     <ng-template #editingCourse>
         <td></td>
         <td></td>

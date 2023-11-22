@@ -1,6 +1,11 @@
 <div class="card">
-    <h1>Clubs</h1>
-    <input type="image" src="../../../../assets/icon-add.png" title="add venue" (click)="this.onNewClick()">
+    <div id="header-left">
+        <h1>Clubs</h1>
+    </div>
+    <div id="header-right">
+        <input type="image" src="../../../../assets/icon-add.png" title="add new club" (click)="this.onNewClick()">
+    </div>
+    <div class="clear-fix"></div>
     <table *ngIf="this.clubs.length > 0" class="table-striped">
         <thead>
             <th></th>
@@ -23,8 +28,8 @@
 </div>
 <ng-template #dialogContent let-dialogRef="dialogRef">
     <div *ngIf="this.editingClub" id="edit-dialog" class="card">
-        <h1 *ngIf="this.editingClub.id > 0"> Edit Venue</h1>
-        <h1 *ngIf="this.editingClub.id == 0"> Add Venue</h1>
+        <h1 *ngIf="this.editingClub.id > 0"> Edit Club</h1>
+        <h1 *ngIf="this.editingClub.id == 0"> Add Club</h1>
         <span class="field-label">Short Name</span><br>
         <input type="text" [(ngModel)]="this.editingClub.shortName" class="wide"><br>
         <span class="field-label">Full Name</span><br>

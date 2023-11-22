@@ -1,9 +1,14 @@
 <div id="content" class="card">
-    <h1>Events</h1>
+    <div id="header-left">
+        <h1>Events</h1>
+    </div>
+    <div id="header-right">
+        <input type="image" src="../../../../assets/icon-add.png" title="add new event" (click)="this.onNewEventClick()">
+    </div>
+    <div class="clear-fix"></div>
     <div class="column">
         <h1>Upcoming Events</h1>
         <app-oevent-list [oevents]="this.upcomingOEvents|sortOeventsByDate" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
-        <input type="image" src="../../../../assets/icon-add.png" title="add event" (click)="this.onNewEventClick()">
     </div>
     <div class="column">
         <h1>Recent Events</h1>
