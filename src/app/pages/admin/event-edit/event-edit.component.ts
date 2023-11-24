@@ -6,6 +6,7 @@ import { OEvent } from 'src/app/models/oevent.model';
 import { Venue } from 'src/app/models/venue';
 import { DataCacheService } from 'src/app/services/data-cache.service';
 import { PenocApiService } from 'src/app/services/penoc-api.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-event-edit',
@@ -16,6 +17,8 @@ export class EventEditComponent implements OnInit {
   public oEvent: OEvent | undefined;
   public venues: Venue[] = [];
   public clubs: Club[] = [];
+  public tinyMCEKey: string = environment.tinyMCEKey;
+  public tinyMCEInit = {menubar: false, plugins: 'table quickbars lists link code', toolbar: 'styles bold italic link bullist numlist quicktable indent outdent undo redo code'}
   @ViewChild('oEventForm') oEventForm: any;
 
   constructor(

@@ -1,12 +1,17 @@
 <form *ngIf="this.oEvent" #oEventForm="ngForm">
     <div class="card">
-        <div style="float:left;">        <h1>Event Details</h1>
-        <h2>{{this.oEvent.name}} - {{this.oEvent.date|date}}</h2></div>
+        <div style="float:left;">
+            <h1>Event Details</h1>
+            <h2>{{this.oEvent.name}} - {{this.oEvent.date|date}}</h2>
+        </div>
         <div id="buttons">
-            <input [disabled]="!oEventForm.form.dirty" type="button" class="secondary clickable" value="Cancel" (click)="this.onCancelClick()" />
-            <input [disabled]="!oEventForm.form.dirty" type="button" class="primary clickable" value="Save" (click)="this.onSaveClick()" />
+            <input [disabled]="!oEventForm.form.dirty" type="button" class="secondary clickable" value="Cancel"
+                (click)="this.onCancelClick()" />
+            <input [disabled]="!oEventForm.form.dirty" type="button" class="primary clickable" value="Save"
+                (click)="this.onSaveClick()" />
             <br>
-            <a id="link-results" [class.link-disabled]="oEventForm.form.dirty" class="clickable" (click)="onCoursesClick()">Courses & Results</a>
+            <a id="link-results" [class.link-disabled]="oEventForm.form.dirty" class="clickable"
+                (click)="onCoursesClick()">Courses & Results</a>
         </div>
         <div class="clear-fix"></div>
         <div class="column">
@@ -42,98 +47,38 @@
             </select> <br>
             <span for="planner" class="field-label">Planner: </span><br>
             <app-competitor-selector [individualsOnly]="true" [(competitorId)]="this.oEvent.plannerId"
-                (competitorIdChange)="this.onPlannerIdChange($event)"></app-competitor-selector><br>
+                (competitorIdChange)="this.onPlannerIdChange($event)"></app-competitor-selector>
             <span for="controller" class="field-label">Controller: </span><br>
             <app-competitor-selector [individualsOnly]="true" [(competitorId)]="this.oEvent.controllerId"
                 (competitorIdChange)="this.onControllerIdChange($event)"></app-competitor-selector><br>
         </div>
         <div class="clear-fix"></div>
-        <hr>
-        <span class="field-label">Directions:</span><br>
-        <div class="html-editor">
-            <span class="html-label">html:</span><br>
-            <textarea [(ngModel)]="this.oEvent.directions" name="directions"></textarea>
-        </div>
-        <div class="preview">
-            <span class="preview-label">preview:</span>
-            <div class="card">
-                <span [innerHTML]="this.oEvent.directions | safeHtml"></span>
-            </div>
-        </div>
-        <div class="clear-fix"></div>
+        <h4 class="field-label">Directions (html):</h4><br>
+        <editor name="directions-html" [(ngModel)]="this.oEvent.directions" [init]="this.tinyMCEInit"
+            [apiKey]="this.tinyMCEKey"></editor>
         <span for="latitude" class="field-label">Latitude: </span><br>
         <input type="text" [(ngModel)]="this.oEvent.coordinateLatitude" name="latitude" /><br>
         <span for="longitude" class="field-label">Longitude: </span><br>
         <input type="text" [(ngModel)]="this.oEvent.coordinateLongitude" name="longitude" /><br>
-
-        <hr>
-        <span class="field-label">Courses:</span><br>
-        <div class="html-editor">
-            <span class="html-label">html:</span>
-            <textarea [(ngModel)]="this.oEvent.courses" name="courses"></textarea><br>
-        </div>
-        <div class="preview">
-            <span class="preview-label">preview:</span>
-            <div class="card">
-                <span [innerHTML]="this.oEvent.courses | safeHtml"></span>
-            </div>
-        </div>
-        <div class="clear-fix"></div>
-
-        <hr>
-        <span class="field-label">Cost:</span><br>
-        <div class="html-editor">
-            <span class="html-label">html:</span><br>
-            <textarea [(ngModel)]="this.oEvent.cost" name="cost"></textarea>
-        </div>
-        <div class="preview">
-            <span class="preview-label">preview:</span>
-            <div class="card">
-                <span [innerHTML]="this.oEvent.cost | safeHtml"></span>
-            </div>
-        </div>
-        <div class="clear-fix"></div>
-
-        <hr>
-        <span class="field-label">Special Note:</span><br>
-        <div class="html-editor">
-            <span class="html-label">html:</span><br>
-            <textarea [(ngModel)]="this.oEvent.specialNote" name="special-note"></textarea>
-        </div>
-        <div class="preview">
-            <span class="preview-label">preview:</span>
-            <div class="card">
-                <span [innerHTML]="this.oEvent.specialNote | safeHtml"></span>
-            </div>
-        </div>
-        <div class="clear-fix"></div>
-
-        <hr>
-        <span class="field-label">Planner's Report:</span><br>
-        <div class="html-editor">
-            <span class="html-label">html:</span><br>
-            <textarea [(ngModel)]="this.oEvent.plannerReport" name="planner-report"></textarea>
-        </div>
-        <div class="preview">
-            <span class="preview-label">preview:</span>
-            <div class="card">
-                <span [innerHTML]="this.oEvent.plannerReport | safeHtml"></span>
-            </div>
-        </div>
-        <div class="clear-fix"></div>
-
-        <hr>
-        <span class="field-label">Controller's Report:</span><br>
-        <div class="html-editor">
-            <span class="html-label">html:</span><br>
-            <textarea [(ngModel)]="this.oEvent.controllerReport" name="controller-report"></textarea>
-        </div>
-        <div class="preview">
-            <span class="preview-label">preview:</span>
-            <div class="card">
-                <span [innerHTML]="this.oEvent.controllerReport | safeHtml"></span>
-            </div>
-        </div>
-        <div class="clear-fix"></div>
+        <br>
+        <h4 class="field-label">Courses (html):</h4><br>
+        <editor name="courses-html" [(ngModel)]="this.oEvent.courses" [init]="this.tinyMCEInit"
+            [apiKey]="this.tinyMCEKey"></editor>
+        <br>
+        <h4 class="field-label">Cost (html):</h4><br>
+        <editor name="cost-html" [(ngModel)]="this.oEvent.cost" [init]="this.tinyMCEInit" [apiKey]="this.tinyMCEKey">
+        </editor>
+        <br>
+        <h4 class="field-label">Special Note (html):</h4><br>
+        <editor name="special-note-html" [(ngModel)]="this.oEvent.specialNote" [init]="this.tinyMCEInit"
+            [apiKey]="this.tinyMCEKey"></editor>
+        <br>
+        <h4 class="field-label">Planner's Report (html):</h4><br>
+        <editor name="planner-report-html" [(ngModel)]="this.oEvent.plannerReport" [init]="this.tinyMCEInit"
+            [apiKey]="this.tinyMCEKey"></editor>
+        <br>
+        <h4 class="field-label">Controller's Report (html):</h4><br>
+        <editor name="controller-report-html" [(ngModel)]="this.oEvent.controllerReport" [init]="this.tinyMCEInit"
+            [apiKey]="this.tinyMCEKey"></editor>
     </div>
 </form>

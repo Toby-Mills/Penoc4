@@ -44,6 +44,7 @@ import { CompetitorsComponent } from './pages/admin/competitors/competitors.comp
 import { AddEditCompetitorComponent } from './components/add-edit-competitor/add-edit-competitor.component';
 import { VenuesComponent } from './pages/admin/venues/venues.component';
 import { ClubsComponent } from './pages/admin/clubs/clubs.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +92,7 @@ import { ClubsComponent } from './pages/admin/clubs/clubs.component';
     FormsModule,
     DragDropModule,
     DialogModule,
+    EditorModule,
   ],
   providers: [
     PenocApiService,
