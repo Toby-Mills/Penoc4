@@ -12,6 +12,6 @@
     </div>
     <div class="column">
         <h1>Recent Events</h1>
-        <app-oevent-list [oevents]="this.recentOEvents|sortOeventsByDate" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
+        <app-oevent-list [oevents]="this.recentOEvents|sortOeventsByDate:'desc'" (oeventClicked)="onUpcomingEventClick($event)"></app-oevent-list>
     </div>
 </div>

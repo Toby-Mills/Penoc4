@@ -6,20 +6,23 @@ import { OEvent } from '../models/oevent.model';
 })
 export class SortOeventsByDatePipe implements PipeTransform {
 
-  transform(value:OEvent[]): OEvent[] {
+  transform(value:OEvent[], order: 'asc' | 'desc' = 'asc'): OEvent[] {
     if (value && value.length > 0) {
       return value.sort(function (a, b) {
-        if (a.date &&b.date) {
+        let result = 0;
+        if (a.date && b.date) {
           let dateA = new Date(a.date);
           let dateB = new Date(b.date);
           if (dateA > dateB) {
-            return -1;
-          } else if(dateA == dateB){
-            return 0
-          } else {
-            return 1;
+            result = 1;
+          } else if(dateA < dateB){
+            result = -1;
           }
-        } else return 0;
+        } else result = 0;
+        if (order == 'desc'){
+          result *= -1;
+        }
+        return result;
       })
     }
     return value;
