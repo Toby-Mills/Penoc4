@@ -47,10 +47,7 @@ export class CompetitorsComponent implements OnInit {
       this.notDisplayedCompetitors = [];
       this.notDisplayedCompetitors.push(...competitors)
       this.allCompetitorsDisplayed = false;
-      this.dataService.searchAllCompetitors(this.searchText).subscribe(results =>{
-        this.notDisplayedCompetitors = results;
-        this.displayMoreCompetitors(100);
-      });
+      this.displayMoreCompetitors(100);
     })
   }
 
@@ -58,9 +55,7 @@ export class CompetitorsComponent implements OnInit {
     const itemsToMove = this.notDisplayedCompetitors.slice(0, quantity);
     this.notDisplayedCompetitors.splice(0, quantity);
     this.displayedCompetitors.push(...itemsToMove);
-    if (this.notDisplayedCompetitors.length == 0) {
-      this.allCompetitorsDisplayed = true;
-    }
+    this.allCompetitorsDisplayed = (this.notDisplayedCompetitors.length == 0);
   }
 
   hideAllCompetitors() {
