@@ -170,7 +170,16 @@ export class DataCacheService {
     return this.api.deleteCompetitor(idCompetitor).pipe(
       tap(competitor => {
         this.competitors = this.competitors.filter(competitor => competitor.id != idCompetitor);
-        this.allCompetitorsSubject.next(this.competitors)
+        this.allCompetitorsSubject.next(this.competitors);
+      })
+    )
+  }
+
+  public mergeCompetitors(idPrimaryCompetitor: number, idSecondarCompetitor: number): Observable<any>{
+    return this.api.mergeCompetitors(idPrimaryCompetitor, idSecondarCompetitor).pipe(
+      tap(result => {
+        this.competitors = this.competitors.filter(competitor => competitor.id != idSecondarCompetitor);
+        this.allCompetitorsSubject.next(this.competitors);
       })
     )
   }

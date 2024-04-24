@@ -1,7 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject, debounceTime } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, debounceTime } from 'rxjs';
 import { AddEditCompetitorComponent } from 'src/app/components/add-edit-competitor/add-edit-competitor.component';
 import { ToastMessageType } from 'src/app/components/toaster/toaster.component';
 import { Competitor } from 'src/app/models/competitor';
@@ -13,13 +13,21 @@ import { ToasterService } from 'src/app/services/toaster.service';
   templateUrl: './competitors.component.html',
   styleUrls: ['./competitors.component.css']
 })
-export class CompetitorsComponent implements OnInit {
+export class CompetitorsComponent implements OnInit, OnDestroy {
   public displayedCompetitors: Competitor[] = [];
   private notDisplayedCompetitors: Competitor[] = [];
   public allCompetitorsDisplayed: boolean = false;
   private allCompetitorsSubject: BehaviorSubject<Competitor[]> = new BehaviorSubject<Competitor[]>([]);
   public searchText: string = "";
   private searchTextSubject: Subject<string> = new Subject<string>;
+
+  //subscription variables
+  private allCompetitorsSubscription: Subscription | undefined;
+  private searchTextSubscription: Subscription | undefined;
+
+  public mergeSource: Competitor | undefined;
+  public mergeTarget: Competitor | undefined;
+  public displayMergeDialog: boolean = false;
 
   public constructor(
     private router: Router,
@@ -29,25 +37,25 @@ export class CompetitorsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadAllCompetitors();
-    this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
-      this.dataService.searchAllCompetitors(searchText).subscribe(results => {
-        this.displayedCompetitors = [];
-        this.notDisplayedCompetitors = results;
-        this.displayMoreCompetitors(100);
-      });
-
-    })
+    this.allCompetitorsSubject = this.dataService.getAllCompetitors();
+    this.subscribeAllCompetitorsChanges();
+    this.subscribeSearchTextChanges();
   }
 
-  loadAllCompetitors() {
-    this.allCompetitorsSubject = this.dataService.getAllCompetitors();
-    this.allCompetitorsSubject.subscribe((competitors) => {
+  ngOnDestroy(): void {
+    if (this.allCompetitorsSubscription) { this.allCompetitorsSubscription.unsubscribe() };
+    if (this.searchTextSubscription) { this.searchTextSubscription.unsubscribe() };
+  }
+
+  subscribeAllCompetitorsChanges() {
+    this.allCompetitorsSubscription = this.allCompetitorsSubject.subscribe((competitors) => {
+      let displayCount = this.displayedCompetitors.length;
       this.displayedCompetitors = [];
       this.notDisplayedCompetitors = [];
       this.notDisplayedCompetitors.push(...competitors)
       this.allCompetitorsDisplayed = false;
-      this.displayMoreCompetitors(100);
+      if (displayCount == 0) { displayCount = 100 };
+      this.displayMoreCompetitors(displayCount);
     })
   }
 
@@ -56,6 +64,17 @@ export class CompetitorsComponent implements OnInit {
     this.notDisplayedCompetitors.splice(0, quantity);
     this.displayedCompetitors.push(...itemsToMove);
     this.allCompetitorsDisplayed = (this.notDisplayedCompetitors.length == 0);
+  }
+
+  subscribeSearchTextChanges() {
+    this.searchTextSubscription = this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
+      this.dataService.searchAllCompetitors(searchText).subscribe(results => {
+        this.displayedCompetitors = [];
+        this.notDisplayedCompetitors = results;
+        this.displayMoreCompetitors(100);
+      });
+
+    })
   }
 
   hideAllCompetitors() {
@@ -69,9 +88,13 @@ export class CompetitorsComponent implements OnInit {
         if (results.length > 0) {
           this.toasterService.showToast('Unable to delete competitor as they have one or more Results', ToastMessageType.Failure, 0);
         } else {
-          this.dataService.deleteCompetitor(competitorId).subscribe();
+          this.dataService.deleteCompetitor(competitorId).subscribe(
+            result => { this.toasterService.showToast('Competitor Deleted', ToastMessageType.Success, 2000) },
+            error => { this.toasterService.showToast('An error occurred while deleting competitor', ToastMessageType.Failure, 0) }
+          );
         }
-      }
+      },
+      error => { this.toasterService.showToast('An error occurred while fetching competitor details', ToastMessageType.Failure, 0) }
     )
   }
 
@@ -105,4 +128,28 @@ export class CompetitorsComponent implements OnInit {
   }
 
 
+  public onCompetitorDrop(event: any, context: string) {
+    this.mergeSource = this.displayedCompetitors.find(competitor => competitor.id === event.item.data);
+    this.mergeTarget = this.displayedCompetitors.find(comptetitor => comptetitor.id == event.event.target.parentElement.id);
+    this.displayMergeDialog = true;
+  }
+
+  public onMergeClick() {
+    if (this.mergeSource && this.mergeTarget) {
+      this.dataService.mergeCompetitors(this.mergeTarget.id, this.mergeSource.id).subscribe(
+        result => this.toasterService.showToast('Competitors merged', ToastMessageType.Success, 1000),
+        error => this.toasterService.showToast('Failed to merge competitors', ToastMessageType.Failure, 0)
+      )
+    }
+
+    this.mergeSource = undefined;
+    this.mergeTarget = undefined;
+    this.displayMergeDialog = false;
+  }
+
+  public onCancelMergeClick() {
+    this.mergeSource = undefined;
+    this.mergeTarget = undefined;
+    this.displayMergeDialog = false;
+  }
 }

@@ -1,10 +1,9 @@
-{{this.allCompetitorsDisplayed|json}}
 <div class="card">
     <h1>Competitors</h1>
     <span>Search: </span><input type="text" [(ngModel)]="this.searchText" (ngModelChange)="onSearchTextChanged()">
     <br>
     <br>
-    <table *ngIf="this.displayedCompetitors.length > 0" class="table-striped">
+    <table *ngIf="this.displayedCompetitors.length > 0" class="table-striped" cdkDropList>
         <thead>
             <th></th>
             <th></th>
@@ -14,23 +13,46 @@
             <th></th>
             <th></th>
         </thead>
-        <tbody>
-            <tr *ngFor="let competitor of this.displayedCompetitors">
-                <td><input type="image" src="../../../../assets/icon-edit.png" class="icon-small" (click)="onEditClick(competitor.id)"></td>
-                <td>
-                    <img *ngIf="competitor.genderId == 1 || competitor.genderId == 2"
-                        src="../../../../assets/individual.png" class="icon-small">
-                    <img *ngIf="competitor.genderId == 3" src="../../../../assets/group.png" class="icon-small">
-                </td>
-                <td>{{competitor.id}}</td>
-                <td>{{competitor.fullName}}</td>
-                <td>{{competitor.gender}}</td>
-                <td><a class="clickable" (click)="onResultsClick(competitor.id)">results</a></td>
-                <td><input type="image" src="../../../../assets/icon-delete.png" class="icon-small icon-delete"
-                        (click)="onDeleteClick(competitor.id)"> </td>
+        <tbody cdkDropList (cdkDropListDropped)="onCompetitorDrop($event, 'tbody')" cdkDropListSortingDisabled>
+            <tr *ngFor="let competitor of this.displayedCompetitors" [id]="competitor.id.toString()" cdkDrag
+                [cdkDragData]="competitor.id">
+                <ng-container>
+                    <td>
+                        <img src="../../../../assets/drag-handle.svg" class="drag-handle" cdkDragHandle />
+                    </td>
+                    <td><input type="image" src="../../../../assets/icon-edit.png" class="icon-small"
+                            (click)="onEditClick(competitor.id)"></td>
+                    <td>
+                        <img *ngIf="competitor.genderId == 1 || competitor.genderId == 2"
+                            src="../../../../assets/individual.png" class="icon-small">
+                        <img *ngIf="competitor.genderId == 3" src="../../../../assets/group.png" class="icon-small">
+                    </td>
+                    <td>{{competitor.id}}</td>
+                    <td>{{competitor.fullName}}</td>
+                    <td>{{competitor.gender}}</td>
+                    <td><a class="clickable" (click)="onResultsClick(competitor.id)">results</a></td>
+                    <td><input type="image" src="../../../../assets/icon-delete.png" class="icon-small icon-delete"
+                            (click)="onDeleteClick(competitor.id)"> </td>
+                    <div *cdkDragPreview class="drag-preview">{{competitor.fullName}}</div>
+
+            <tr *cdkDragPlaceholder class="drag-placeholder">
+                <td colspan="10"></td>
+            </tr> </ng-container>
             </tr>
         </tbody>
     </table>
-    <div id="loading-card" *ngIf="!this.allCompetitorsDisplayed" isVisible (visible)="onLoadingCardVisible($event)">loading more competitors...</div>
-</div>
 
+    <div id="loading-card" *ngIf="!this.allCompetitorsDisplayed" isVisible (visible)="onLoadingCardVisible($event)">
+        loading more competitors...</div>
+</div>
+<div id="merge-competitors" class="modal" *ngIf="this.displayMergeDialog">
+    <h1>Merge Competitors</h1>
+    <span>Are you sure you would like to merge <b><i>{{this.mergeSource?.fullName}}</i></b> into
+        <b><i>{{this.mergeTarget?.fullName}}</i></b>?<br>
+        <br>
+        This action cannot be undone.</span>
+    <div class="modal-buttons">
+        <button class="primary" (click)="onCancelMergeClick()">Cancel</button>
+        <button class="secondary" (click)="onMergeClick()">Merge</button>
+    </div>
+</div>

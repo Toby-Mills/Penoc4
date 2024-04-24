@@ -261,6 +261,11 @@ export class PenocApiService {
     return this.delete<any>(url, {});
   }
 
+  public mergeCompetitors(primaryCompetitorId: number, secondaryCompetitorId: number):Observable<any> {
+    let url = `/competitors/${primaryCompetitorId}/merge/${secondaryCompetitorId}`;
+    return this.put<any>(url, {});
+  }
+
   //------- Courses -------
   getOEventCourses(oEventId: number): Observable<Course[]> {
     let url = `/oevents/${oEventId}/courses`;
