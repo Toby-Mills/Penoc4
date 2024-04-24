@@ -2,6 +2,8 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { Competitor } from 'src/app/models/competitor';
 import { DataCacheService } from 'src/app/services/data-cache.service';
+import { ToasterService } from 'src/app/services/toaster.service';
+import { ToastMessageType } from '../toaster/toaster.component';
 
 @Component({
   selector: 'app-add-edit-competitor',
@@ -20,6 +22,7 @@ export class AddEditCompetitorComponent {
     @Inject(DIALOG_DATA) public data: { competitorToEditId: number | undefined },
     public dataService: DataCacheService,
     public dialogRef: DialogRef,
+    public toasterService: ToasterService
   ) { }
 
   ngOnInit() {
@@ -39,14 +42,20 @@ export class AddEditCompetitorComponent {
 
   onSaveClick() {
     if(this.addingNew){
-    this.dataService.addCompetitor(this.competitor).subscribe(newCompetitor => {
+    this.dataService.addCompetitor(this.competitor).subscribe(
+      newCompetitor => {
       this.newCompetitor.emit(newCompetitor);
       this.dialogRef.close();
-    })} else {
-      this.dataService.updateCompetitor(this.competitor).subscribe(updatedCompetitor => {
+    },
+    error => this.toasterService.showToast('Failed to Add Competitor', ToastMessageType.Failure, 0)
+  )} else {
+      this.dataService.updateCompetitor(this.competitor).subscribe(
+        updatedCompetitor => {
         this.updatedCompetitor.emit(updatedCompetitor);
         this.dialogRef.close();
-      })
+      },
+      error => this.toasterService.showToast('Failed to Save Competitor', ToastMessageType.Failure, 0)
+    )
     }
   }
 
