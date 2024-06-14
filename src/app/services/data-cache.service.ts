@@ -126,7 +126,7 @@ export class DataCacheService {
     }
   }
 
-  public getAllCompetitors(): BehaviorSubject<Array<Competitor>> {
+  private allCompetitors(): BehaviorSubject<Array<Competitor>> {
     if (!this.allCompetitorsLoaded) {
       this.api.searchCompetitors('').subscribe(
         (allCompetitors) => {
@@ -185,7 +185,7 @@ export class DataCacheService {
   }
 
   public searchAllCompetitors(searchText: string, individualsOnly: boolean = false): Observable<Competitor[]> {
-    return this.getAllCompetitors().pipe(
+    return this.allCompetitors().pipe(
       map(allCompetitors => {
         let results: Competitor[] = [];
         let searchTextStandardised: string = CompetitorSearchable.competitorSearchString(searchText);

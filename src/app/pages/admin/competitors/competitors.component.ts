@@ -23,6 +23,7 @@ export class CompetitorsComponent implements OnInit, OnDestroy {
 
   //subscription variables
   private allCompetitorsSubscription: Subscription | undefined;
+  private searchCompetitorsSubscription: Subscription | undefined;
   private searchTextSubscription: Subscription | undefined;
 
   public mergeSource: Competitor | undefined;
@@ -37,26 +38,16 @@ export class CompetitorsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.allCompetitorsSubject = this.dataService.getAllCompetitors();
-    this.subscribeAllCompetitorsChanges();
+    //this.allCompetitorsSubject = this.dataService.getAllCompetitors();
+    //this.subscribeAllCompetitorsChanges();
     this.subscribeSearchTextChanges();
+    this.subscribeCompetitorChanges('');
   }
 
   ngOnDestroy(): void {
     if (this.allCompetitorsSubscription) { this.allCompetitorsSubscription.unsubscribe() };
     if (this.searchTextSubscription) { this.searchTextSubscription.unsubscribe() };
-  }
-
-  subscribeAllCompetitorsChanges() {
-    this.allCompetitorsSubscription = this.allCompetitorsSubject.subscribe((competitors) => {
-      let displayCount = this.displayedCompetitors.length;
-      this.displayedCompetitors = [];
-      this.notDisplayedCompetitors = [];
-      this.notDisplayedCompetitors.push(...competitors)
-      this.allCompetitorsDisplayed = false;
-      if (displayCount == 0) { displayCount = 100 };
-      this.displayMoreCompetitors(displayCount);
-    })
+    if (this.searchCompetitorsSubscription) { this.searchCompetitorsSubscription.unsubscribe() };
   }
 
   displayMoreCompetitors(quantity: number) {
@@ -66,14 +57,22 @@ export class CompetitorsComponent implements OnInit, OnDestroy {
     this.allCompetitorsDisplayed = (this.notDisplayedCompetitors.length == 0);
   }
 
+  subscribeCompetitorChanges(searchText: string) {
+    if (this.searchCompetitorsSubscription) { this.searchCompetitorsSubscription.unsubscribe(); }
+    this.searchCompetitorsSubscription = this.dataService.searchAllCompetitors(searchText).subscribe(results => {
+      let displayCount = this.displayedCompetitors.length;
+      if (displayCount === 0) {displayCount = 100};
+      this.displayedCompetitors = [];
+      this.notDisplayedCompetitors = results;
+      this.allCompetitorsDisplayed = false;
+      this.displayMoreCompetitors(displayCount);
+    });
+  }
+
+
   subscribeSearchTextChanges() {
     this.searchTextSubscription = this.searchTextSubject.pipe(debounceTime(500)).subscribe((searchText) => {
-      this.dataService.searchAllCompetitors(searchText).subscribe(results => {
-        this.displayedCompetitors = [];
-        this.notDisplayedCompetitors = results;
-        this.displayMoreCompetitors(100);
-      });
-
+      this.subscribeCompetitorChanges(searchText);
     })
   }
 
